@@ -42,7 +42,7 @@ Built with Go and the whatsmeow library, this server provides a complete gaming 
 ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
 │                 │     │                 │     │                 │
 │  WhatsApp API   │◄────┤  Game Server    │◄────┤  Game Engine    │
-│  (whatsmeow)    │     │  (HTTP/WebSocket)│     │  (Core Logic)   │
+│  (whatsmeow)    │     │ (HTTP/WebSocket)│     │  (Core Logic)   │
 │                 │     │                 │     │                 │
 └─────────────────┘     └─────────────────┘     └─────────────────┘
         │                       │                       │
