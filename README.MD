@@ -22,6 +22,12 @@ VIDA LOKA STRATEGIA is a WhatsApp-based RPG game server that simulates urban Bra
 
 Built with Go and the whatsmeow library, this server provides a complete gaming experience through WhatsApp, allowing players to create characters, perform actions, and participate in events entirely through messaging.
 
+## Development
+
+This project was created using [Manus.im](https://manus.im/), an AI-powered development platform. The initial prompt used to generate the codebase can be found in [prompt_v0.md](prompt_v0.md).
+
+The project was downloaded and further developed using [Cursor.com](https://cursor.com/), a modern IDE with AI-powered development features.
+
 ## Features
 
 - **Complete WhatsApp Integration**: Seamless gameplay through WhatsApp messaging using the whatsmeow library
