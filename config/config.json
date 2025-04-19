@@ -1,7 +1,7 @@
 {
   "whatsapp": {
     "store_dir": "./whatsapp-store",
-    "client_name": "VIDA LOKA STRATEGY",
+    "client_name": "VIDA LOKA STRATEGIA",
     "auto_reply_timeout": 300
   },
   "database": {
@@ -12,7 +12,7 @@
     "default_xp": 0,
     "default_money": 100,
     "default_influence": 0,
-    "event_interval": 60,
+    "event_interval": 1,
     "random_event_probability": 20
   },
   "server": {

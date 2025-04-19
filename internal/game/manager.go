@@ -765,9 +765,16 @@ func (gm *GameManager) TriggerRandomEvent(playerID string) (*types.Event, error)
 	gm.stateLock.Lock()
 	defer gm.stateLock.Unlock()
 
-	// Get player
-	player, exists := gm.state.Players[playerID]
-	if !exists {
+	// Get player by ID
+	var player *types.Player
+	for _, p := range gm.state.Players {
+		if p.ID == playerID {
+			player = p
+			break
+		}
+	}
+
+	if player == nil {
 		return nil, errors.New("player not found")
 	}
 
@@ -808,9 +815,21 @@ func (gm *GameManager) SendMessage(playerID string, message string) error {
 		return fmt.Errorf("message sender not set")
 	}
 
-	// Get player
-	player, exists := gm.state.Players[playerID]
-	if !exists {
+	// Get player by ID first
+	var player *types.Player
+	for _, p := range gm.state.Players {
+		if p.ID == playerID {
+			player = p
+			break
+		}
+	}
+
+	// If not found by ID, try phone number
+	if player == nil {
+		player, _ = gm.state.Players[playerID]
+	}
+
+	if player == nil {
 		return fmt.Errorf("player not found: %s", playerID)
 	}
 

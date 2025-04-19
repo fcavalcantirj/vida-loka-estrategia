@@ -729,28 +729,28 @@ func (cm *ClientManager) handleActionCommand(sender, command string) string {
 	}
 
 	// Build response
-	response := fmt.Sprintf("🎯 *%s*\n\n", outcome.Description)
+	response := fmt.Sprintf("🎯 *%s*", outcome.Description)
 
 	if outcome.XPChange != 0 {
-		response += fmt.Sprintf("⭐ XP: %+d\n", outcome.XPChange)
+		response += fmt.Sprintf("\n⭐ XP: %+d", outcome.XPChange)
 	}
 
 	if outcome.MoneyChange != 0 {
-		response += fmt.Sprintf("💰 Dinheiro: R$ %+d,00\n", outcome.MoneyChange)
+		response += fmt.Sprintf("\n💰 Dinheiro: R$ %+d,00", outcome.MoneyChange)
 	}
 
 	if outcome.InfluenceChange != 0 {
-		response += fmt.Sprintf("🎭 Influência: %+d\n", outcome.InfluenceChange)
+		response += fmt.Sprintf("\n🎭 Influência: %+d", outcome.InfluenceChange)
 	}
 
 	if outcome.StressChange != 0 {
-		response += fmt.Sprintf("💥 Estresse: %+d\n", outcome.StressChange)
+		response += fmt.Sprintf("\n💥 Estresse: %+d", outcome.StressChange)
 	}
 
 	// Check if there's a follow-up event
 	if outcome.NextEventID != "" {
-		response += "\nAlgo interessante aconteceu! 🎭\n"
-		response += "Responda com */a*, */b*, */c* ou */d* para ver o que acontece! 🎲"
+		response += "\n\nAlgo interessante aconteceu! 🎭\n"
+		response += "Responda com /a, /b, /c ou /d para ver o que acontece! 🎲"
 	}
 
 	return response

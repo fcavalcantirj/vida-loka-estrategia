@@ -153,28 +153,53 @@ func (es *EventSystem) Stop() {
 
 // triggerEvents generates events for eligible players
 func (es *EventSystem) triggerEvents() {
+	es.gameManager.Logger.Info("Starting event check cycle")
+
 	// Get all active players
 	players := es.gameManager.GetAllPlayers()
+	es.gameManager.Logger.Info("Checking events for players",
+		zap.Int("total_players", len(players)))
 
 	for _, player := range players {
 		// Skip if player is not active
 		if player.Status != "active" {
+			es.gameManager.Logger.Debug("Skipping inactive player",
+				zap.String("player_id", player.ID),
+				zap.String("name", player.Name),
+				zap.String("status", player.Status),
+				zap.String("location", fmt.Sprintf("%s, %s", player.CurrentZone, player.CurrentSubZone)))
 			continue
 		}
 
-		// Check if enough time has passed since last event
-		if time.Since(player.LastEventAt) < time.Duration(es.gameManager.config.Game.EventInterval)*time.Minute {
-			continue
-		}
+		es.gameManager.Logger.Info("Checking event for player",
+			zap.String("player_id", player.ID),
+			zap.String("name", player.Name),
+			zap.String("location", fmt.Sprintf("%s, %s", player.CurrentZone, player.CurrentSubZone)),
+			zap.Int("xp", player.XP),
+			zap.Int("money", player.Money),
+			zap.Int("influence", player.Influence),
+			zap.Int("stress", player.Stress))
 
 		// Roll for random event
 		roll := es.gameManager.diceRoller.Roll(100)
+		es.gameManager.Logger.Info("Event roll result",
+			zap.String("player_id", player.ID),
+			zap.String("name", player.Name),
+			zap.Int("roll", roll),
+			zap.Int("required", es.gameManager.config.Game.RandomEventProbability),
+			zap.Bool("event_triggered", roll <= es.gameManager.config.Game.RandomEventProbability))
+
 		if roll <= es.gameManager.config.Game.RandomEventProbability {
+			es.gameManager.Logger.Info("Event triggered for player",
+				zap.String("player_id", player.ID),
+				zap.String("name", player.Name))
+
 			// Trigger a random event
 			event, err := es.gameManager.TriggerRandomEvent(player.ID)
 			if err != nil {
 				es.gameManager.Logger.Error("Failed to trigger event",
 					zap.String("player_id", player.ID),
+					zap.String("name", player.Name),
 					zap.Error(err))
 				continue
 			}
@@ -194,12 +219,28 @@ func (es *EventSystem) triggerEvents() {
 				message += "\nResponda com */a*, */b*, */c* ou */d* para escolher sua ação! 🎲"
 			}
 
+			es.gameManager.Logger.Info("Sending event message to player",
+				zap.String("player_id", player.ID),
+				zap.String("name", player.Name),
+				zap.String("event_id", event.ID),
+				zap.String("event_description", event.Description),
+				zap.Int("options_count", len(event.Options)))
+
 			// Send message to player
 			if err := es.gameManager.SendMessage(player.ID, message); err != nil {
 				es.gameManager.Logger.Error("Failed to send event message",
 					zap.String("player_id", player.ID),
+					zap.String("name", player.Name),
 					zap.Error(err))
 			}
+		} else {
+			es.gameManager.Logger.Info("No event triggered for player",
+				zap.String("player_id", player.ID),
+				zap.String("name", player.Name),
+				zap.Int("roll", roll),
+				zap.Int("required", es.gameManager.config.Game.RandomEventProbability))
 		}
 	}
+
+	es.gameManager.Logger.Info("Completed event check cycle")
 }

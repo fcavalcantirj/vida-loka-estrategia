@@ -59,4 +59,8 @@ build/
 # Temporary files
 *.tmp
 *.temp
-*.bak 
+*.bak
+
+# Config files
+config.json
+!config/config.json 
