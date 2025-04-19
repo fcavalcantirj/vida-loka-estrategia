@@ -1,0 +1,15 @@
+{
+  "whatsapp": {
+    "session_file": "whatsapp_session.gob",
+    "qr_code_file": "qr_code.png"
+  },
+  "game": {
+    "event_interval": 2,
+    "random_event_probability": 50,
+    "max_players": 100,
+    "max_characters": 50,
+    "max_events": 100,
+    "max_actions": 50,
+    "max_zones": 10
+  }
+} 

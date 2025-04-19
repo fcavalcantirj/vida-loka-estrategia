@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vida Loka Strategy - QR Code Generator</title>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #qr-result {
+            margin-top: 20px;
+            text-align: center;
+        }
+        #qr-container {
+            margin: 20px auto;
+            max-width: 300px;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Vida Loka Strategy - QR Code Generator</h1>
+        <form id="qr-form">
+            <div class="form-group">
+                <label for="phone-number">Phone Number:</label>
+                <input type="text" id="phone-number" name="phone_number" required 
+                       placeholder="Enter your phone number with country code (e.g., +5511999999999)">
+            </div>
+            <button type="submit">Generate QR Code</button>
+        </form>
+        <div id="qr-result">
+            <div id="qr-container"></div>
+            <div id="error-message" class="error" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('qr-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const phoneNumber = document.getElementById('phone-number').value;
+            const qrContainer = document.getElementById('qr-container');
+            const errorMessage = document.getElementById('error-message');
+            
+            try {
+                const response = await fetch('/qr', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ phone_number: phoneNumber })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to generate QR code');
+                }
+
+                const data = await response.json();
+                
+                // Clear previous QR code
+                qrContainer.innerHTML = '';
+                
+                // Generate new QR code
+                new QRCode(qrContainer, {
+                    text: data.qr_code,
+                    width: 256,
+                    height: 256,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+                
+                qrContainer.style.display = 'block';
+                errorMessage.style.display = 'none';
+            } catch (error) {
+                errorMessage.textContent = error.message;
+                errorMessage.style.display = 'block';
+                qrContainer.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html> 

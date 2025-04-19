@@ -1,0 +1,1790 @@
+{
+  "players": {
+    "557791401494": {
+      "id": "cfdc5bf4-ed06-4784-a1fa-3dd38993e671",
+      "phone_number": "",
+      "name": "rone",
+      "created_at": "0001-01-01T00:00:00Z",
+      "last_active_at": "2025-04-19T00:58:27.592184-03:00",
+      "xp": 18,
+      "money": 167,
+      "influence": 8,
+      "status": "active",
+      "stress": 0,
+      "current_character": {
+        "id": "hacker",
+        "name": "Nerd Hacker",
+        "type": "Digital",
+        "description": "Programador autodidata que transita entre o mundo legal e ilegal da tecnologia. Prefere o anonimato e trabalha remotamente.",
+        "created_at": "2025-04-18T00:00:00Z",
+        "updated_at": "2025-04-18T00:00:00Z",
+        "carisma": 1,
+        "proficiencia": 5,
+        "rede": 3,
+        "moralidade": 3,
+        "resiliencia": 4,
+        "favorite_actions": [
+          "estudar",
+          "trabalhar",
+          "relaxar"
+        ],
+        "natural_predators": [
+          "policial_federal",
+          "empresario"
+        ],
+        "evolution_paths": [
+          "cibercriminoso",
+          "empreendedor_tech",
+          "ativista"
+        ]
+      },
+      "current_zone": "centro",
+      "current_sub_zone": "lapa",
+      "last_event_at": "0001-01-01T00:00:00Z",
+      "decision_history": [
+        {
+          "id": "047f579e-9999-4f1a-bc36-698e9db51bca",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T00:56:49.185399-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 12,
+          "money_change": 130,
+          "influence_change": 2,
+          "stress_change": 10
+        },
+        {
+          "id": "ee62c6d4-9682-498c-8644-97ff827d8efe",
+          "event_id": "action_curtir",
+          "choice": "curtir",
+          "timestamp": "2025-04-19T00:58:23.784439-03:00",
+          "outcome": "curtir",
+          "xp_change": 6,
+          "money_change": -63,
+          "influence_change": 6,
+          "stress_change": -10
+        },
+        {
+          "id": "cf7d30ce-3c7e-4d91-b131-53aadd1b45e8",
+          "event_id": "action_dormir",
+          "choice": "dormir",
+          "timestamp": "2025-04-19T00:58:27.592191-03:00",
+          "outcome": "dormir",
+          "xp_change": 0,
+          "money_change": 0,
+          "influence_change": 0,
+          "stress_change": -30
+        }
+      ]
+    }
+  },
+  "characters": {
+    "coach": {
+      "id": "coach",
+      "name": "Coach Motivacional",
+      "type": "Empreendedor",
+      "description": "Ex-vendedor que descobriu o mercado de autoajuda. Vende cursos online e palestras sobre como 'despertar o gigante interior'.",
+      "created_at": "2025-04-18T00:00:00Z",
+      "updated_at": "2025-04-18T00:00:00Z",
+      "carisma": 5,
+      "proficiencia": 2,
+      "rede": 4,
+      "moralidade": 2,
+      "resiliencia": 3,
+      "favorite_actions": [
+        "trabalhar",
+        "curtir",
+        "estudar"
+      ],
+      "natural_predators": [
+        "jornalista",
+        "professor"
+      ],
+      "evolution_paths": [
+        "guru",
+        "empresario",
+        "politico"
+      ]
+    },
+    "dono_boca": {
+      "id": "dono_boca",
+      "name": "Dono da Boca",
+      "type": "Criminoso",
+      "description": "Cresceu na comunidade e subiu na hierarquia. Controla o tráfico local com mão de ferro, mas tem código de honra com os moradores.",
+      "created_at": "2025-04-18T00:00:00Z",
+      "updated_at": "2025-04-18T00:00:00Z",
+      "carisma": 4,
+      "proficiencia": 3,
+      "rede": 5,
+      "moralidade": 1,
+      "resiliencia": 5,
+      "favorite_actions": [
+        "trabalhar",
+        "relaxar"
+      ],
+      "natural_predators": [
+        "policial_militar",
+        "miliciano"
+      ],
+      "evolution_paths": [
+        "empresario",
+        "politico",
+        "presidiario"
+      ]
+    },
+    "engenheiro": {
+      "id": "engenheiro",
+      "name": "Engenheiro Público",
+      "type": "Funcionário Público",
+      "description": "Concursado que trabalha em órgão estadual. Conhece os meandros da burocracia e tem acesso a informações privilegiadas.",
+      "created_at": "2025-04-18T00:00:00Z",
+      "updated_at": "2025-04-18T00:00:00Z",
+      "carisma": 2,
+      "proficiencia": 5,
+      "rede": 3,
+      "moralidade": 4,
+      "resiliencia": 3,
+      "favorite_actions": [
+        "trabalhar",
+        "estudar",
+        "relaxar"
+      ],
+      "natural_predators": [
+        "politico",
+        "jornalista"
+      ],
+      "evolution_paths": [
+        "diretor",
+        "consultor",
+        "empreendedor"
+      ]
+    },
+    "estudante_uerj": {
+      "id": "estudante_uerj",
+      "name": "Estudante da UERJ",
+      "type": "Acadêmico",
+      "description": "Jovem universitário da zona norte que enfrenta 2h de BRT todo dia para estudar no Maracanã. Forte em conhecimento, fraco em grana.",
+      "created_at": "2025-04-18T00:00:00Z",
+      "updated_at": "2025-04-18T00:00:00Z",
+      "carisma": 3,
+      "proficiencia": 5,
+      "rede": 2,
+      "moralidade": 4,
+      "resiliencia": 4,
+      "favorite_actions": [
+        "estudar",
+        "curtir",
+        "relaxar"
+      ],
+      "natural_predators": [
+        "policial_militar",
+        "dono_boca"
+      ],
+      "evolution_paths": [
+        "professor",
+        "ativista",
+        "hacker"
+      ]
+    },
+    "filhinho_papai": {
+      "id": "filhinho_papai",
+      "name": "Filhinho de Papai",
+      "type": "Zona Sul",
+      "description": "Herdeiro de família tradicional que nunca precisou trabalhar. Estuda em faculdade particular e tem contatos de alto escalão.",
+      "created_at": "2025-04-18T00:00:00Z",
+      "updated_at": "2025-04-18T00:00:00Z",
+      "carisma": 3,
+      "proficiencia": 2,
+      "rede": 5,
+      "moralidade": 2,
+      "resiliencia": 1,
+      "favorite_actions": [
+        "curtir",
+        "estudar",
+        "relaxar"
+      ],
+      "natural_predators": [
+        "jornalista",
+        "hacker"
+      ],
+      "evolution_paths": [
+        "empresario",
+        "politico",
+        "playboy"
+      ]
+    },
+    "fogueteiro": {
+      "id": "fogueteiro",
+      "name": "Fogueteiro",
+      "type": "Olheiro",
+      "description": "Jovem da comunidade que trabalha como sentinela, avisando sobre movimentações suspeitas. Conhece cada beco e cada morador.",
+      "created_at": "2025-04-18T00:00:00Z",
+      "updated_at": "2025-04-18T00:00:00Z",
+      "carisma": 2,
+      "proficiencia": 3,
+      "rede": 4,
+      "moralidade": 2,
+      "resiliencia": 5,
+      "favorite_actions": [
+        "trabalhar",
+        "relaxar"
+      ],
+      "natural_predators": [
+        "policial_militar",
+        "miliciano"
+      ],
+      "evolution_paths": [
+        "vapor",
+        "soldado",
+        "x9"
+      ]
+    },
+    "hacker": {
+      "id": "hacker",
+      "name": "Nerd Hacker",
+      "type": "Digital",
+      "description": "Programador autodidata que transita entre o mundo legal e ilegal da tecnologia. Prefere o anonimato e trabalha remotamente.",
+      "created_at": "2025-04-18T00:00:00Z",
+      "updated_at": "2025-04-18T00:00:00Z",
+      "carisma": 1,
+      "proficiencia": 5,
+      "rede": 3,
+      "moralidade": 3,
+      "resiliencia": 4,
+      "favorite_actions": [
+        "estudar",
+        "trabalhar",
+        "relaxar"
+      ],
+      "natural_predators": [
+        "policial_federal",
+        "empresario"
+      ],
+      "evolution_paths": [
+        "cibercriminoso",
+        "empreendedor_tech",
+        "ativista"
+      ]
+    },
+    "influencer": {
+      "id": "influencer",
+      "name": "Influencer de Nicho",
+      "type": "Digital",
+      "description": "Cria conteúdo para internet e sonha em viralizar. Conhece todas as tendências e tem rede de contatos diversificada.",
+      "created_at": "2025-04-18T00:00:00Z",
+      "updated_at": "2025-04-18T00:00:00Z",
+      "carisma": 5,
+      "proficiencia": 3,
+      "rede": 4,
+      "moralidade": 3,
+      "resiliencia": 2,
+      "favorite_actions": [
+        "trabalhar",
+        "curtir",
+        "estudar"
+      ],
+      "natural_predators": [
+        "hacker",
+        "jornalista"
+      ],
+      "evolution_paths": [
+        "celebridade",
+        "empresario",
+        "marketeiro"
+      ]
+    },
+    "motoboy": {
+      "id": "motoboy",
+      "name": "Motoboy",
+      "type": "Trabalhador",
+      "description": "Piloto das ruas que conhece cada esquina da cidade. Trabalha para aplicativos e tem contato com pessoas de todas as classes.",
+      "created_at": "2025-04-18T00:00:00Z",
+      "updated_at": "2025-04-18T00:00:00Z",
+      "carisma": 3,
+      "proficiencia": 4,
+      "rede": 3,
+      "moralidade": 3,
+      "resiliencia": 5,
+      "favorite_actions": [
+        "trabalhar",
+        "relaxar"
+      ],
+      "natural_predators": [
+        "policial_transito",
+        "empresario"
+      ],
+      "evolution_paths": [
+        "empreendedor",
+        "entregador_elite",
+        "motorista"
+      ]
+    },
+    "musico": {
+      "id": "musico",
+      "name": "Músico Independente",
+      "type": "Artista",
+      "description": "Artista que toca em bares da Lapa e tenta emplacar nas plataformas digitais. Conhece a cena cultural e tem rede diversificada.",
+      "created_at": "2025-04-18T00:00:00Z",
+      "updated_at": "2025-04-18T00:00:00Z",
+      "carisma": 4,
+      "proficiencia": 4,
+      "rede": 3,
+      "moralidade": 3,
+      "resiliencia": 3,
+      "favorite_actions": [
+        "trabalhar",
+        "curtir",
+        "relaxar"
+      ],
+      "natural_predators": [
+        "empresario",
+        "policial_militar"
+      ],
+      "evolution_paths": [
+        "artista_famoso",
+        "produtor",
+        "professor"
+      ]
+    },
+    "policial_militar": {
+      "id": "policial_militar",
+      "name": "Policial Militar",
+      "type": "Autoridade",
+      "description": "Trabalha no batalhão da área e conhece bem as ruas. Oscila entre fazer o certo e aceitar a realidade do sistema.",
+      "created_at": "2025-04-18T00:00:00Z",
+      "updated_at": "2025-04-18T00:00:00Z",
+      "carisma": 2,
+      "proficiencia": 4,
+      "rede": 3,
+      "moralidade": 3,
+      "resiliencia": 5,
+      "favorite_actions": [
+        "trabalhar",
+        "relaxar"
+      ],
+      "natural_predators": [
+        "dono_boca",
+        "jornalista"
+      ],
+      "evolution_paths": [
+        "delegado",
+        "miliciano",
+        "seguranca_privado"
+      ]
+    },
+    "surfista": {
+      "id": "surfista",
+      "name": "Surfista Carioca",
+      "type": "Zona Sul",
+      "description": "Nascido e criado em Ipanema, vive do mar e para o mar. Conhece todos os points da zona sul e tem conexões com gringos.",
+      "created_at": "2025-04-18T00:00:00Z",
+      "updated_at": "2025-04-18T00:00:00Z",
+      "carisma": 4,
+      "proficiencia": 3,
+      "rede": 3,
+      "moralidade": 4,
+      "resiliencia": 3,
+      "favorite_actions": [
+        "relaxar",
+        "curtir",
+        "trabalhar"
+      ],
+      "natural_predators": [
+        "policial_militar",
+        "empresario"
+      ],
+      "evolution_paths": [
+        "atleta_profissional",
+        "instrutor",
+        "empresario"
+      ]
+    }
+  },
+  "events": {
+    "evento_001": {
+      "id": "evento_001",
+      "name": "",
+      "description": "Você acorda em Copacabana com R$ 100,00 e 0 XP. Um conhecido te oferece uma chance de fazer R$ 300 hoje.",
+      "min_xp": 0,
+      "min_money": 0,
+      "min_influence": 0,
+      "required_zone": [
+        "zona_sul"
+      ],
+      "options": [
+        {
+          "id": "opt_001_a",
+          "description": "Recusar e ir estudar",
+          "required_attribute": "moralidade",
+          "difficulty_level": 5,
+          "success_outcome": {
+            "description": "Você decide focar nos estudos. Embora tenha perdido a oportunidade de ganhar dinheiro rápido, você adquire conhecimentos valiosos.",
+            "xp_change": 15,
+            "money_change": -10,
+            "influence_change": 0,
+            "stress_change": 5
+          },
+          "failure_outcome": {
+            "description": "Você tenta estudar, mas fica distraído pensando na oportunidade perdida. Seu estudo rende pouco.",
+            "xp_change": 5,
+            "money_change": -10,
+            "influence_change": 0,
+            "stress_change": 10
+          }
+        },
+        {
+          "id": "opt_001_b",
+          "description": "Aceitar e ver no que dá",
+          "required_attribute": "resiliencia",
+          "difficulty_level": 8,
+          "success_outcome": {
+            "description": "A oportunidade era legítima! Você ajuda a organizar um evento e recebe o pagamento prometido.",
+            "xp_change": 10,
+            "money_change": 300,
+            "influence_change": 5,
+            "stress_change": 10
+          },
+          "failure_outcome": {
+            "description": "Era uma furada. Você passa o dia todo trabalhando, mas no final o pagamento não vem conforme prometido.",
+            "xp_change": 5,
+            "money_change": 50,
+            "influence_change": -2,
+            "stress_change": 20
+          }
+        },
+        {
+          "id": "opt_001_c",
+          "description": "Perguntar se é treta",
+          "required_attribute": "rede",
+          "difficulty_level": 7,
+          "success_outcome": {
+            "description": "Seu contato explica que é um trabalho legítimo. Com essa informação, você aceita e consegue o dinheiro sem problemas.",
+            "xp_change": 8,
+            "money_change": 300,
+            "influence_change": 3,
+            "stress_change": 5
+          },
+          "failure_outcome": {
+            "description": "Seu contato fica na defensiva com sua desconfiança e retira a oferta. Você perde a oportunidade.",
+            "xp_change": 3,
+            "money_change": 0,
+            "influence_change": -3,
+            "stress_change": 15
+          }
+        },
+        {
+          "id": "opt_001_d",
+          "description": "Ir tomar café na padaria e fingir demência",
+          "required_attribute": "carisma",
+          "difficulty_level": 6,
+          "success_outcome": {
+            "description": "Na padaria você encontra outro contato que te oferece um trabalho ainda melhor e mais seguro.",
+            "xp_change": 5,
+            "money_change": 350,
+            "influence_change": 5,
+            "stress_change": 5
+          },
+          "failure_outcome": {
+            "description": "Você gasta dinheiro no café e perde a oportunidade original. O dia começa mal.",
+            "xp_change": 2,
+            "money_change": -20,
+            "influence_change": 0,
+            "stress_change": 15
+          }
+        }
+      ]
+    },
+    "evento_002": {
+      "id": "evento_002",
+      "name": "",
+      "description": "Você está voltando para casa quando se depara com uma blitz policial logo à frente.",
+      "min_xp": 10,
+      "min_money": 50,
+      "min_influence": 0,
+      "required_zone": [
+        "zona_norte",
+        "zona_oeste"
+      ],
+      "options": [
+        {
+          "id": "opt_002_a",
+          "description": "Seguir normalmente, você não tem nada a esconder",
+          "required_attribute": "moralidade",
+          "difficulty_level": 5,
+          "success_outcome": {
+            "description": "Os policiais apenas verificam seus documentos e te liberam rapidamente. Sua honestidade compensa.",
+            "xp_change": 5,
+            "money_change": 0,
+            "influence_change": 0,
+            "stress_change": -5
+          },
+          "failure_outcome": {
+            "description": "Os policiais implicam com você mesmo sem motivo. Você perde tempo e paciência na abordagem.",
+            "xp_change": 3,
+            "money_change": 0,
+            "influence_change": 0,
+            "stress_change": 20
+          }
+        },
+        {
+          "id": "opt_002_b",
+          "description": "Dar meia volta e pegar outro caminho",
+          "required_attribute": "proficiencia",
+          "difficulty_level": 8,
+          "success_outcome": {
+            "description": "Você conhece bem as ruas alternativas e consegue chegar em casa sem passar pela blitz.",
+            "xp_change": 8,
+            "money_change": -10,
+            "influence_change": 0,
+            "stress_change": 5
+          },
+          "failure_outcome": {
+            "description": "Sua manobra suspeita chama atenção e uma viatura te segue. Você é parado mesmo assim e os policiais estão irritados.",
+            "xp_change": 3,
+            "money_change": -50,
+            "influence_change": -2,
+            "stress_change": 25
+          }
+        },
+        {
+          "id": "opt_002_c",
+          "description": "Tentar conversar com os policiais",
+          "required_attribute": "carisma",
+          "difficulty_level": 9,
+          "success_outcome": {
+            "description": "Você conversa tranquilamente com os policiais e descobre que um deles conhece seu primo. A abordagem é rápida e cordial.",
+            "xp_change": 10,
+            "money_change": 0,
+            "influence_change": 3,
+            "stress_change": -5
+          },
+          "failure_outcome": {
+            "description": "Sua tentativa de ser simpático é interpretada como deboche. A abordagem é mais rigorosa que o normal.",
+            "xp_change": 5,
+            "money_change": -30,
+            "influence_change": -1,
+            "stress_change": 20
+          }
+        },
+        {
+          "id": "opt_002_d",
+          "description": "Parar antes e esperar a blitz acabar",
+          "required_attribute": "resiliencia",
+          "difficulty_level": 7,
+          "success_outcome": {
+            "description": "Você para em um bar e espera pacientemente. Depois de uma hora a blitz termina e você segue seu caminho tranquilamente.",
+            "xp_change": 5,
+            "money_change": -15,
+            "influence_change": 0,
+            "stress_change": 5
+          },
+          "failure_outcome": {
+            "description": "A blitz demora muito mais que o esperado. Você perde a paciência, tenta passar e acaba sendo parado mesmo assim.",
+            "xp_change": 3,
+            "money_change": -15,
+            "influence_change": 0,
+            "stress_change": 25
+          }
+        }
+      ]
+    },
+    "evento_003": {
+      "id": "evento_003",
+      "name": "",
+      "description": "Um amigo te procura com uma ideia de negócio que parece promissora, mas exige um investimento inicial.",
+      "min_xp": 30,
+      "min_money": 200,
+      "min_influence": 5,
+      "required_zone": [
+        "centro",
+        "zona_sul"
+      ],
+      "options": [
+        {
+          "id": "opt_003_a",
+          "description": "Investir todo o valor solicitado",
+          "required_attribute": "rede",
+          "difficulty_level": 10,
+          "success_outcome": {
+            "description": "O negócio dá certo! Em poucos meses, você recupera o investimento e começa a lucrar.",
+            "xp_change": 20,
+            "money_change": 500,
+            "influence_change": 10,
+            "stress_change": -10
+          },
+          "failure_outcome": {
+            "description": "O negócio fracassa e você perde todo o investimento. Seu amigo desaparece.",
+            "xp_change": 10,
+            "money_change": -200,
+            "influence_change": -5,
+            "stress_change": 30
+          }
+        },
+        {
+          "id": "opt_003_b",
+          "description": "Pedir mais detalhes sobre o plano de negócios",
+          "required_attribute": "proficiencia",
+          "difficulty_level": 8,
+          "success_outcome": {
+            "description": "Sua análise detalhada revela falhas no plano. Você sugere melhorias, investe um valor menor e o negócio prospera.",
+            "xp_change": 25,
+            "money_change": 300,
+            "influence_change": 15,
+            "stress_change": 5
+          },
+          "failure_outcome": {
+            "description": "Você se perde nos detalhes e não consegue avaliar o negócio. Seu amigo busca outro investidor e tem sucesso sem você.",
+            "xp_change": 10,
+            "money_change": 0,
+            "influence_change": -3,
+            "stress_change": 15
+          }
+        },
+        {
+          "id": "opt_003_c",
+          "description": "Propor uma parceria com investimento menor",
+          "required_attribute": "carisma",
+          "difficulty_level": 9,
+          "success_outcome": {
+            "description": "Você negocia uma participação menor com menos investimento. O negócio cresce e você lucra proporcionalmente.",
+            "xp_change": 15,
+            "money_change": 150,
+            "influence_change": 8,
+            "stress_change": 0
+          },
+          "failure_outcome": {
+            "description": "Seu amigo se ofende com a proposta e busca outro investidor. Vocês se afastam.",
+            "xp_change": 5,
+            "money_change": 0,
+            "influence_change": -5,
+            "stress_change": 10
+          }
+        },
+        {
+          "id": "opt_003_d",
+          "description": "Recusar educadamente",
+          "required_attribute": "moralidade",
+          "difficulty_level": 6,
+          "success_outcome": {
+            "description": "Você explica que não pode investir no momento. Seu amigo entende e mantém a amizade.",
+            "xp_change": 5,
+            "money_change": 0,
+            "influence_change": 0,
+            "stress_change": -5
+          },
+          "failure_outcome": {
+            "description": "Seu amigo interpreta mal sua recusa. O negócio acaba sendo um sucesso e ele não esquece que você não acreditou nele.",
+            "xp_change": 5,
+            "money_change": 0,
+            "influence_change": -10,
+            "stress_change": 15
+          }
+        }
+      ]
+    },
+    "evento_004": {
+      "id": "evento_004",
+      "name": "",
+      "description": "Está rolando um baile funk na comunidade próxima. A música está alta e o ambiente parece animado, mas potencialmente arriscado.",
+      "min_xp": 20,
+      "min_money": 50,
+      "min_influence": 0,
+      "required_zone": [
+        "zona_norte",
+        "zona_oeste"
+      ],
+      "options": [
+        {
+          "id": "opt_004_a",
+          "description": "Ir à festa e curtir a noite toda",
+          "required_attribute": "resiliencia",
+          "difficulty_level": 8,
+          "success_outcome": {
+            "description": "A festa é incrível! Você dança, conhece pessoas interessantes e tem uma experiência cultural autêntica.",
+            "xp_change": 15,
+            "money_change": -50,
+            "influence_change": 8,
+            "stress_change": -20
+          },
+          "failure_outcome": {
+            "description": "A festa fica tensa quando dois grupos rivais começam a se provocar. Você sai rapidamente antes que a situação piore.",
+            "xp_change": 8,
+            "money_change": -50,
+            "influence_change": 0,
+            "stress_change": 25
+          }
+        },
+        {
+          "id": "opt_004_b",
+          "description": "Ir com amigos que conhecem o local",
+          "required_attribute": "rede",
+          "difficulty_level": 7,
+          "success_outcome": {
+            "description": "Seus amigos conhecem os organizadores. Vocês entram VIP, curtem a festa e saem em segurança.",
+            "xp_change": 12,
+            "money_change": -30,
+            "influence_change": 10,
+            "stress_change": -15
+          },
+          "failure_outcome": {
+            "description": "Seus amigos exageram na bebida e causam problemas. Você precisa tirá-los de lá antes que a situação piore.",
+            "xp_change": 5,
+            "money_change": -60,
+            "influence_change": -3,
+            "stress_change": 20
+          }
+        },
+        {
+          "id": "opt_004_c",
+          "description": "Passar rapidamente só para ver como é",
+          "required_attribute": "proficiencia",
+          "difficulty_level": 6,
+          "success_outcome": {
+            "description": "Você circula pela festa discretamente, observa a cultura local e sai antes que fique tarde demais.",
+            "xp_change": 10,
+            "money_change": -20,
+            "influence_change": 3,
+            "stress_change": 0
+          },
+          "failure_outcome": {
+            "description": "Você se destaca como alguém de fora e recebe olhares desconfiados. É melhor sair logo.",
+            "xp_change": 5,
+            "money_change": -20,
+            "influence_change": -2,
+            "stress_change": 15
+          }
+        },
+        {
+          "id": "opt_004_d",
+          "description": "Ficar em casa e ignorar a festa",
+          "required_attribute": "moralidade",
+          "difficulty_level": 5,
+          "success_outcome": {
+            "description": "Você aproveita a noite tranquila em casa para descansar e se preparar para o dia seguinte.",
+            "xp_change": 3,
+            "money_change": 0,
+            "influence_change": 0,
+            "stress_change": -10
+          },
+          "failure_outcome": {
+            "description": "O som alto da festa te incomoda a noite toda. Você não consegue dormir direito e acorda cansado.",
+            "xp_change": 0,
+            "money_change": 0,
+            "influence_change": 0,
+            "stress_change": 15
+          }
+        }
+      ]
+    },
+    "evento_005": {
+      "id": "evento_005",
+      "name": "",
+      "description": "Você descobre um curso gratuito que pode melhorar suas habilidades profissionais, mas exigirá tempo e dedicação.",
+      "min_xp": 15,
+      "min_money": 0,
+      "min_influence": 0,
+      "required_zone": [
+        "centro",
+        "zona_sul",
+        "zona_norte"
+      ],
+      "options": [
+        {
+          "id": "opt_005_a",
+          "description": "Matricular-se e dedicar-se integralmente",
+          "required_attribute": "proficiencia",
+          "difficulty_level": 7,
+          "success_outcome": {
+            "description": "Você completa o curso com excelência e adquire habilidades valiosas que abrem novas oportunidades.",
+            "xp_change": 30,
+            "money_change": -20,
+            "influence_change": 5,
+            "stress_change": 10,
+            "next_event_id": "evento_006"
+          },
+          "failure_outcome": {
+            "description": "O curso é mais difícil do que esperava. Você se esforça, mas não consegue acompanhar o ritmo e abandona.",
+            "xp_change": 8,
+            "money_change": -20,
+            "influence_change": 0,
+            "stress_change": 20
+          }
+        },
+        {
+          "id": "opt_005_b",
+          "description": "Fazer o curso parcialmente, conciliando com outras atividades",
+          "required_attribute": "resiliencia",
+          "difficulty_level": 8,
+          "success_outcome": {
+            "description": "Com disciplina, você consegue equilibrar o curso com suas outras responsabilidades e aprende o essencial.",
+            "xp_change": 20,
+            "money_change": -10,
+            "influence_change": 3,
+            "stress_change": 15
+          },
+          "failure_outcome": {
+            "description": "A sobrecarga de atividades te esgota. Você acaba não aproveitando bem o curso e prejudicando outras áreas da vida.",
+            "xp_change": 5,
+            "money_change": -10,
+            "influence_change": 0,
+            "stress_change": 25
+          }
+        },
+        {
+          "id": "opt_005_c",
+          "description": "Convidar amigos para fazerem o curso juntos",
+          "required_attribute": "rede",
+          "difficulty_level": 6,
+          "success_outcome": {
+            "description": "Seus amigos topam a ideia. Juntos, vocês se motivam mutuamente e formam um grupo de estudos produtivo.",
+            "xp_change": 25,
+            "money_change": -15,
+            "influence_change": 8,
+            "stress_change": 5
+          },
+          "failure_outcome": {
+            "description": "Seus amigos começam animados, mas logo desistem. Você acaba se desmotivando também e abandona o curso.",
+            "xp_change": 3,
+            "money_change": -15,
+            "influence_change": -2,
+            "stress_change": 10
+          }
+        },
+        {
+          "id": "opt_005_d",
+          "description": "Ignorar a oportunidade e focar em ganhar dinheiro",
+          "required_attribute": "carisma",
+          "difficulty_level": 7,
+          "success_outcome": {
+            "description": "Você consegue um trabalho temporário que paga bem e compensa a falta do curso.",
+            "xp_change": 5,
+            "money_change": 150,
+            "influence_change": 2,
+            "stress_change": 15
+          },
+          "failure_outcome": {
+            "description": "Você não consegue o trabalho esperado e ainda perde a oportunidade do curso gratuito.",
+            "xp_change": 0,
+            "money_change": 20,
+            "influence_change": -1,
+            "stress_change": 20
+          }
+        }
+      ]
+    },
+    "evento_006": {
+      "id": "evento_006",
+      "name": "",
+      "description": "Você completou o curso com sucesso e agora há uma cerimônia de formatura com potenciais empregadores presentes.",
+      "min_xp": 50,
+      "min_money": 50,
+      "min_influence": 5,
+      "required_zone": [
+        "centro"
+      ],
+      "options": [
+        {
+          "id": "opt_006_a",
+          "description": "Preparar uma apresentação especial do seu projeto final",
+          "required_attribute": "proficiencia",
+          "difficulty_level": 9,
+          "success_outcome": {
+            "description": "Sua apresentação impressiona a todos! Um representante de empresa importante te oferece uma oportunidade de trabalho.",
+            "xp_change": 30,
+            "money_change": -30,
+            "influence_change": 15,
+            "stress_change": -10,
+            "next_event_id": "evento_007"
+          },
+          "failure_outcome": {
+            "description": "Você se atrapalha na apresentação e não consegue mostrar todo seu potencial. A oportunidade passa.",
+            "xp_change": 10,
+            "money_change": -30,
+            "influence_change": 3,
+            "stress_change": 20
+          }
+        },
+        {
+          "id": "opt_006_b",
+          "description": "Focar em networking durante o evento",
+          "required_attribute": "carisma",
+          "difficulty_level": 8,
+          "success_outcome": {
+            "description": "Você circula com desenvoltura, troca contatos importantes e deixa uma ótima impressão nos potenciais empregadores.",
+            "xp_change": 20,
+            "money_change": -20,
+            "influence_change": 20,
+            "stress_change": 5
+          },
+          "failure_outcome": {
+            "description": "Sua abordagem parece forçada e você não consegue estabelecer conexões significativas.",
+            "xp_change": 8,
+            "money_change": -20,
+            "influence_change": 5,
+            "stress_change": 15
+          }
+        },
+        {
+          "id": "opt_006_c",
+          "description": "Ir com amigos e celebrar a conquista",
+          "required_attribute": "rede",
+          "difficulty_level": 6,
+          "success_outcome": {
+            "description": "A celebração com amigos torna o evento mais divertido. Vocês chamam atenção positiva e fazem bons contatos juntos.",
+            "xp_change": 15,
+            "money_change": -50,
+            "influence_change": 10,
+            "stress_change": -15
+          },
+          "failure_outcome": {
+            "description": "Seus amigos exageram na comemoração e causam uma cena. Isso prejudica sua imagem profissional no evento.",
+            "xp_change": 5,
+            "money_change": -50,
+            "influence_change": -5,
+            "stress_change": 10
+          }
+        },
+        {
+          "id": "opt_006_d",
+          "description": "Pegar o certificado e sair discretamente",
+          "required_attribute": "moralidade",
+          "difficulty_level": 5,
+          "success_outcome": {
+            "description": "Você pega seu certificado e vai embora cedo para se preparar para uma entrevista no dia seguinte. A decisão compensa.",
+            "xp_change": 10,
+            "money_change": -10,
+            "influence_change": 5,
+            "stress_change": 0
+          },
+          "failure_outcome": {
+            "description": "Ao sair cedo, você perde importantes oportunidades de networking que aconteceram no final do evento.",
+            "xp_change": 5,
+            "money_change": -10,
+            "influence_change": 0,
+            "stress_change": 10
+          }
+        }
+      ]
+    },
+    "evento_007": {
+      "id": "evento_007",
+      "name": "",
+      "description": "Após sua apresentação impressionante, você foi chamado para uma entrevista formal na empresa.",
+      "min_xp": 80,
+      "min_money": 100,
+      "min_influence": 15,
+      "required_zone": [
+        "zona_sul"
+      ],
+      "options": [
+        {
+          "id": "opt_007_a",
+          "description": "Preparar-se intensamente estudando sobre a empresa",
+          "required_attribute": "proficiencia",
+          "difficulty_level": 8,
+          "success_outcome": {
+            "description": "Seu conhecimento sobre a empresa impressiona os entrevistadores. Você responde todas as perguntas com precisão e confiança.",
+            "xp_change": 25,
+            "money_change": -20,
+            "influence_change": 10,
+            "stress_change": 10,
+            "next_event_id": "evento_008"
+          },
+          "failure_outcome": {
+            "description": "Você se prepara demais e acaba soando robótico na entrevista. Os entrevistadores preferem alguém mais espontâneo.",
+            "xp_change": 10,
+            "money_change": -20,
+            "influence_change": 3,
+            "stress_change": 25
+          }
+        },
+        {
+          "id": "opt_007_b",
+          "description": "Focar em causar uma boa impressão pessoal",
+          "required_attribute": "carisma",
+          "difficulty_level": 9,
+          "success_outcome": {
+            "description": "Sua personalidade cativante conquista os entrevistadores. Eles veem em você alguém que se encaixará bem na cultura da empresa.",
+            "xp_change": 20,
+            "money_change": -30,
+            "influence_change": 15,
+            "stress_change": 5,
+            "next_event_id": "evento_008"
+          },
+          "failure_outcome": {
+            "description": "Você tenta ser carismático, mas parece artificial. Os entrevistadores questionam sua sinceridade.",
+            "xp_change": 8,
+            "money_change": -30,
+            "influence_change": 0,
+            "stress_change": 20
+          }
+        },
+        {
+          "id": "opt_007_c",
+          "description": "Pedir conselhos a um amigo que trabalha no setor",
+          "required_attribute": "rede",
+          "difficulty_level": 7,
+          "success_outcome": {
+            "description": "Seu amigo te dá dicas valiosas sobre o processo seletivo. Você chega preparado e se destaca entre os candidatos.",
+            "xp_change": 20,
+            "money_change": -15,
+            "influence_change": 12,
+            "stress_change": 8,
+            "next_event_id": "evento_008"
+          },
+          "failure_outcome": {
+            "description": "As dicas do seu amigo estão desatualizadas e te fazem parecer despreparado durante a entrevista.",
+            "xp_change": 5,
+            "money_change": -15,
+            "influence_change": -3,
+            "stress_change": 15
+          }
+        },
+        {
+          "id": "opt_007_d",
+          "description": "Ser completamente honesto sobre suas qualificações",
+          "required_attribute": "moralidade",
+          "difficulty_level": 6,
+          "success_outcome": {
+            "description": "Sua honestidade sobre pontos fortes e fracos é refrescante. Os entrevistadores valorizam sua integridade e autenticidade.",
+            "xp_change": 15,
+            "money_change": -10,
+            "influence_change": 8,
+            "stress_change": 0,
+            "next_event_id": "evento_008"
+          },
+          "failure_outcome": {
+            "description": "Sua honestidade excessiva sobre limitações acaba prejudicando suas chances. A empresa busca alguém mais confiante.",
+            "xp_change": 5,
+            "money_change": -10,
+            "influence_change": 2,
+            "stress_change": 15
+          }
+        }
+      ]
+    },
+    "evento_008": {
+      "id": "evento_008",
+      "name": "",
+      "description": "Você foi aprovado no processo seletivo e recebeu uma proposta formal de emprego.",
+      "min_xp": 100,
+      "min_money": 100,
+      "min_influence": 20,
+      "required_zone": [
+        "zona_sul",
+        "centro"
+      ],
+      "options": [
+        {
+          "id": "opt_008_a",
+          "description": "Aceitar a proposta imediatamente",
+          "required_attribute": "resiliencia",
+          "difficulty_level": 5,
+          "success_outcome": {
+            "description": "Você aceita a proposta e começa a trabalhar. A empresa é exatamente o que você esperava e você se adapta rapidamente.",
+            "xp_change": 30,
+            "money_change": 500,
+            "influence_change": 20,
+            "stress_change": 10
+          },
+          "failure_outcome": {
+            "description": "Você aceita a proposta, mas logo descobre que a realidade do trabalho é diferente do prometido. O ambiente é tóxico.",
+            "xp_change": 15,
+            "money_change": 500,
+            "influence_change": 5,
+            "stress_change": 30
+          }
+        },
+        {
+          "id": "opt_008_b",
+          "description": "Negociar melhores condições",
+          "required_attribute": "carisma",
+          "difficulty_level": 10,
+          "success_outcome": {
+            "description": "Sua negociação é bem-sucedida! Você consegue um salário maior e melhores benefícios antes de aceitar a proposta.",
+            "xp_change": 40,
+            "money_change": 700,
+            "influence_change": 25,
+            "stress_change": 5
+          },
+          "failure_outcome": {
+            "description": "Sua tentativa de negociação é mal recebida. A empresa mantém a oferta original, mas o relacionamento começa estremecido.",
+            "xp_change": 10,
+            "money_change": 500,
+            "influence_change": 10,
+            "stress_change": 20
+          }
+        },
+        {
+          "id": "opt_008_c",
+          "description": "Pedir tempo para considerar outras propostas",
+          "required_attribute": "proficiencia",
+          "difficulty_level": 8,
+          "success_outcome": {
+            "description": "Você consegue tempo para avaliar outras ofertas e acaba recebendo uma proposta ainda melhor de uma empresa concorrente.",
+            "xp_change": 35,
+            "money_change": 800,
+            "influence_change": 30,
+            "stress_change": 15
+          },
+          "failure_outcome": {
+            "description": "Enquanto você espera, a empresa contrata outro candidato. Você perde a oportunidade e precisa recomeçar a busca.",
+            "xp_change": 15,
+            "money_change": 0,
+            "influence_change": -5,
+            "stress_change": 25
+          }
+        },
+        {
+          "id": "opt_008_d",
+          "description": "Consultar amigos e família antes de decidir",
+          "required_attribute": "rede",
+          "difficulty_level": 7,
+          "success_outcome": {
+            "description": "Os conselhos que você recebe te ajudam a tomar uma decisão informada. Você aceita a proposta com confiança.",
+            "xp_change": 25,
+            "money_change": 500,
+            "influence_change": 15,
+            "stress_change": 0
+          },
+          "failure_outcome": {
+            "description": "Opiniões conflitantes te deixam confuso. Você aceita a proposta, mas com dúvidas que afetam seu desempenho inicial.",
+            "xp_change": 15,
+            "money_change": 500,
+            "influence_change": 10,
+            "stress_change": 15
+          }
+        }
+      ]
+    },
+    "evento_random_001": {
+      "id": "evento_random_001",
+      "name": "",
+      "description": "Uma tempestade repentina atinge a cidade, causando alagamentos e transtornos.",
+      "min_xp": 0,
+      "min_money": 0,
+      "min_influence": 0,
+      "required_zone": [],
+      "options": [
+        {
+          "id": "opt_random_001_a",
+          "description": "Esperar a chuva passar em um local seguro",
+          "required_attribute": "resiliencia",
+          "difficulty_level": 5,
+          "success_outcome": {
+            "description": "Você encontra um café aconchegante e aproveita o tempo para ler e relaxar enquanto a tempestade passa.",
+            "xp_change": 3,
+            "money_change": -15,
+            "influence_change": 0,
+            "stress_change": -10
+          },
+          "failure_outcome": {
+            "description": "O único abrigo que você encontra está lotado e desconfortável. Você passa horas em pé esperando a chuva diminuir.",
+            "xp_change": 1,
+            "money_change": -5,
+            "influence_change": 0,
+            "stress_change": 15
+          }
+        },
+        {
+          "id": "opt_random_001_b",
+          "description": "Enfrentar a chuva e seguir seu caminho",
+          "required_attribute": "resiliencia",
+          "difficulty_level": 8,
+          "success_outcome": {
+            "description": "Você se molha, mas consegue chegar ao seu destino a tempo para um compromisso importante.",
+            "xp_change": 5,
+            "money_change": 0,
+            "influence_change": 2,
+            "stress_change": 5
+          },
+          "failure_outcome": {
+            "description": "Você fica encharcado e acaba pegando um resfriado. Seus planos para os próximos dias são prejudicados.",
+            "xp_change": 2,
+            "money_change": -30,
+            "influence_change": -1,
+            "stress_change": 20
+          }
+        },
+        {
+          "id": "opt_random_001_c",
+          "description": "Pedir um transporte por aplicativo",
+          "required_attribute": "proficiencia",
+          "difficulty_level": 6,
+          "success_outcome": {
+            "description": "Você consegue um carro rapidamente por um preço razoável e chega seco ao seu destino.",
+            "xp_change": 2,
+            "money_change": -25,
+            "influence_change": 0,
+            "stress_change": -5
+          },
+          "failure_outcome": {
+            "description": "Os preços estão absurdamente altos devido à chuva. Você paga caro ou acaba desistindo e se molhando mesmo.",
+            "xp_change": 1,
+            "money_change": -50,
+            "influence_change": 0,
+            "stress_change": 10
+          }
+        },
+        {
+          "id": "opt_random_001_d",
+          "description": "Ligar para um amigo pedindo carona",
+          "required_attribute": "rede",
+          "difficulty_level": 7,
+          "success_outcome": {
+            "description": "Seu amigo está por perto e te busca. Vocês aproveitam o encontro inesperado para colocar o papo em dia.",
+            "xp_change": 4,
+            "money_change": 0,
+            "influence_change": 3,
+            "stress_change": -10
+          },
+          "failure_outcome": {
+            "description": "Nenhum dos seus amigos pode te ajudar no momento. Você precisa encontrar outra solução.",
+            "xp_change": 1,
+            "money_change": 0,
+            "influence_change": 0,
+            "stress_change": 5
+          }
+        }
+      ]
+    },
+    "evento_random_002": {
+      "id": "evento_random_002",
+      "name": "",
+      "description": "Você percebe que seu celular não está mais com você. Pode ter sido perdido ou roubado.",
+      "min_xp": 10,
+      "min_money": 50,
+      "min_influence": 0,
+      "required_zone": [],
+      "options": [
+        {
+          "id": "opt_random_002_a",
+          "description": "Refazer seus passos metodicamente",
+          "required_attribute": "proficiencia",
+          "difficulty_level": 8,
+          "success_outcome": {
+            "description": "Com calma e método, você retraça seu caminho e encontra o celular caído em um local discreto.",
+            "xp_change": 5,
+            "money_change": 0,
+            "influence_change": 0,
+            "stress_change": -10
+          },
+          "failure_outcome": {
+            "description": "Apesar da busca cuidadosa, você não encontra o celular. Terá que arcar com o prejuízo.",
+            "xp_change": 3,
+            "money_change": -300,
+            "influence_change": 0,
+            "stress_change": 25
+          }
+        },
+        {
+          "id": "opt_random_002_b",
+          "description": "Pedir ajuda às pessoas ao redor",
+          "required_attribute": "carisma",
+          "difficulty_level": 7,
+          "success_outcome": {
+            "description": "Sua simpatia conquista as pessoas, que se mobilizam para ajudar. Um segurança encontrou seu celular e o guardou.",
+            "xp_change": 8,
+            "money_change": -20,
+            "influence_change": 5,
+            "stress_change": -5
+          },
+          "failure_outcome": {
+            "description": "As pessoas parecem desconfiadas do seu pedido de ajuda. Ninguém se dispõe a colaborar de verdade.",
+            "xp_change": 2,
+            "money_change": -300,
+            "influence_change": -2,
+            "stress_change": 20
+          }
+        },
+        {
+          "id": "opt_random_002_c",
+          "description": "Usar aplicativos de rastreamento",
+          "required_attribute": "proficiencia",
+          "difficulty_level": 9,
+          "success_outcome": {
+            "description": "Você acessa o rastreador pelo computador e localiza seu celular. Consegue recuperá-lo rapidamente.",
+            "xp_change": 10,
+            "money_change": -10,
+            "influence_change": 2,
+            "stress_change": 0
+          },
+          "failure_outcome": {
+            "description": "O rastreador mostra que o celular está em movimento. Provavelmente foi roubado e já está longe.",
+            "xp_change": 5,
+            "money_change": -300,
+            "influence_change": 0,
+            "stress_change": 30
+          }
+        },
+        {
+          "id": "opt_random_002_d",
+          "description": "Aceitar a perda e comprar outro",
+          "required_attribute": "resiliencia",
+          "difficulty_level": 6,
+          "success_outcome": {
+            "description": "Você aceita o prejuízo com maturidade e encontra uma boa promoção para um celular novo e melhor.",
+            "xp_change": 3,
+            "money_change": -250,
+            "influence_change": 0,
+            "stress_change": 5
+          },
+          "failure_outcome": {
+            "description": "A perda do celular te afeta mais do que esperava. Além do prejuízo financeiro, você perde contatos importantes.",
+            "xp_change": 2,
+            "money_change": -350,
+            "influence_change": -5,
+            "stress_change": 25
+          }
+        }
+      ]
+    }
+  },
+  "actions": {
+    "ajudar": {
+      "id": "ajudar",
+      "name": "ajudar",
+      "description": "Realizar trabalho voluntário ou ajudar a comunidade",
+      "bonus_attribute": "moralidade",
+      "base_outcome": {
+        "description": "Você ajuda pessoas necessitadas e sente-se bem com isso.",
+        "xp_change": 5,
+        "money_change": -5,
+        "influence_change": 3,
+        "stress_change": -5
+      }
+    },
+    "curtir": {
+      "id": "curtir",
+      "name": "curtir",
+      "description": "Sair para se divertir, conhecer pessoas e expandir sua rede",
+      "bonus_attribute": "carisma",
+      "base_outcome": {
+        "description": "Você sai para curtir e conhece algumas pessoas interessantes.",
+        "xp_change": 3,
+        "money_change": -30,
+        "influence_change": 3,
+        "stress_change": -10
+      }
+    },
+    "dormir": {
+      "id": "dormir",
+      "name": "dormir",
+      "description": "Descansar para recuperar energias e reduzir estresse",
+      "bonus_attribute": "resiliencia",
+      "base_outcome": {
+        "description": "Você dorme por algumas horas e acorda revigorado.",
+        "xp_change": 0,
+        "money_change": 0,
+        "influence_change": 0,
+        "stress_change": -30
+      }
+    },
+    "empreender": {
+      "id": "empreender",
+      "name": "empreender",
+      "description": "Iniciar um pequeno negócio ou projeto pessoal",
+      "bonus_attribute": "proficiencia",
+      "base_outcome": {
+        "description": "Você dedica tempo ao seu empreendimento e faz algum progresso.",
+        "xp_change": 8,
+        "money_change": -20,
+        "influence_change": 2,
+        "stress_change": 15
+      }
+    },
+    "estudar": {
+      "id": "estudar",
+      "name": "estudar",
+      "description": "Dedicar tempo aos estudos para aumentar conhecimento e proficiência",
+      "bonus_attribute": "proficiencia",
+      "base_outcome": {
+        "description": "Você passa algumas horas estudando e absorvendo conhecimento.",
+        "xp_change": 10,
+        "money_change": -5,
+        "influence_change": 0,
+        "stress_change": 5
+      }
+    },
+    "meditar": {
+      "id": "meditar",
+      "name": "meditar",
+      "description": "Praticar meditação para reduzir estresse e aumentar foco",
+      "bonus_attribute": "resiliencia",
+      "base_outcome": {
+        "description": "Você medita por algum tempo e sente sua mente mais clara.",
+        "xp_change": 2,
+        "money_change": 0,
+        "influence_change": 0,
+        "stress_change": -25
+      }
+    },
+    "networking": {
+      "id": "networking",
+      "name": "networking",
+      "description": "Participar de eventos para expandir sua rede de contatos",
+      "bonus_attribute": "rede",
+      "base_outcome": {
+        "description": "Você participa de um evento de networking e conhece pessoas influentes.",
+        "xp_change": 5,
+        "money_change": -20,
+        "influence_change": 5,
+        "stress_change": 5
+      }
+    },
+    "relaxar": {
+      "id": "relaxar",
+      "name": "relaxar",
+      "description": "Tirar um tempo para si mesmo e reduzir o estresse",
+      "bonus_attribute": "resiliencia",
+      "base_outcome": {
+        "description": "Você tira um tempo para relaxar e recuperar as energias.",
+        "xp_change": 0,
+        "money_change": -10,
+        "influence_change": 0,
+        "stress_change": -20
+      }
+    },
+    "trabalhar": {
+      "id": "trabalhar",
+      "name": "trabalhar",
+      "description": "Realizar atividades remuneradas para ganhar dinheiro",
+      "bonus_attribute": "proficiencia",
+      "base_outcome": {
+        "description": "Você trabalha por algumas horas e recebe seu pagamento.",
+        "xp_change": 5,
+        "money_change": 50,
+        "influence_change": 1,
+        "stress_change": 10
+      }
+    },
+    "treinar": {
+      "id": "treinar",
+      "name": "treinar",
+      "description": "Praticar exercícios físicos para melhorar a saúde e resistência",
+      "bonus_attribute": "resiliencia",
+      "base_outcome": {
+        "description": "Você treina por algumas horas e sente seu corpo mais forte.",
+        "xp_change": 3,
+        "money_change": -5,
+        "influence_change": 1,
+        "stress_change": -15
+      }
+    }
+  },
+  "zones": {
+    "centro": {
+      "id": "centro",
+      "name": "Centro",
+      "description": "Coração histórico e comercial da cidade, com grande movimento durante o dia e esvaziamento à noite.",
+      "sub_zones": [
+        {
+          "id": "lapa",
+          "name": "Lapa",
+          "description": "Região boêmia com vida noturna intensa, bares e casas de show.",
+          "risk_level": 6,
+          "reward_multiplier": 110,
+          "available_actions": [
+            "trabalhar",
+            "curtir",
+            "dormir",
+            "networking",
+            "empreender"
+          ]
+        },
+        {
+          "id": "saara",
+          "name": "SAARA",
+          "description": "Polo de comércio popular com grande concentração de lojas e camelôs.",
+          "risk_level": 5,
+          "reward_multiplier": 100,
+          "available_actions": [
+            "trabalhar",
+            "relaxar",
+            "dormir",
+            "empreender"
+          ]
+        },
+        {
+          "id": "cinelandia",
+          "name": "Cinelândia",
+          "description": "Praça histórica cercada por teatros, cinemas e prédios públicos importantes.",
+          "risk_level": 5,
+          "reward_multiplier": 120,
+          "available_actions": [
+            "trabalhar",
+            "estudar",
+            "curtir",
+            "dormir",
+            "networking",
+            "ajudar"
+          ]
+        },
+        {
+          "id": "porto_maravilha",
+          "name": "Porto Maravilha",
+          "description": "Área portuária revitalizada com museus, aquário e espaços culturais.",
+          "risk_level": 4,
+          "reward_multiplier": 130,
+          "available_actions": [
+            "trabalhar",
+            "estudar",
+            "relaxar",
+            "curtir",
+            "dormir",
+            "networking",
+            "empreender"
+          ]
+        }
+      ],
+      "risk_level": 5,
+      "reward_multiplier": 110,
+      "common_characters": [
+        "musico",
+        "engenheiro",
+        "hacker",
+        "motoboy"
+      ]
+    },
+    "zona_norte": {
+      "id": "zona_norte",
+      "name": "Zona Norte",
+      "description": "Região mais populosa do Rio, com grande concentração de comunidades e comércio popular.",
+      "sub_zones": [
+        {
+          "id": "madureira",
+          "name": "Madureira",
+          "description": "Bairro com forte comércio popular e berço de escolas de samba tradicionais.",
+          "risk_level": 5,
+          "reward_multiplier": 90,
+          "available_actions": [
+            "trabalhar",
+            "estudar",
+            "relaxar",
+            "curtir",
+            "dormir",
+            "ajudar",
+            "treinar",
+            "empreender"
+          ]
+        },
+        {
+          "id": "meier",
+          "name": "Méier",
+          "description": "Bairro de classe média com bom comércio e infraestrutura urbana.",
+          "risk_level": 4,
+          "reward_multiplier": 100,
+          "available_actions": [
+            "trabalhar",
+            "estudar",
+            "relaxar",
+            "curtir",
+            "dormir",
+            "networking",
+            "treinar",
+            "empreender"
+          ]
+        },
+        {
+          "id": "complexo_alemao",
+          "name": "Complexo do Alemão",
+          "description": "Conjunto de comunidades com histórico de conflitos e projetos sociais importantes.",
+          "risk_level": 8,
+          "reward_multiplier": 70,
+          "available_actions": [
+            "trabalhar",
+            "estudar",
+            "relaxar",
+            "dormir",
+            "ajudar"
+          ]
+        },
+        {
+          "id": "tijuca",
+          "name": "Tijuca",
+          "description": "Bairro tradicional de classe média, próximo à floresta e com boa infraestrutura.",
+          "risk_level": 4,
+          "reward_multiplier": 110,
+          "available_actions": [
+            "trabalhar",
+            "estudar",
+            "relaxar",
+            "curtir",
+            "dormir",
+            "networking",
+            "treinar",
+            "meditar",
+            "empreender"
+          ]
+        }
+      ],
+      "risk_level": 5,
+      "reward_multiplier": 90,
+      "common_characters": [
+        "estudante_uerj",
+        "motoboy",
+        "fogueteiro",
+        "policial_militar"
+      ]
+    },
+    "zona_oeste": {
+      "id": "zona_oeste",
+      "name": "Zona Oeste",
+      "description": "Região mais extensa do Rio, com áreas de expansão urbana, praias menos turísticas e controle de milícias.",
+      "sub_zones": [
+        {
+          "id": "barra",
+          "name": "Barra da Tijuca",
+          "description": "Bairro planejado com condomínios fechados, shopping centers e praias extensas.",
+          "risk_level": 3,
+          "reward_multiplier": 140,
+          "available_actions": [
+            "trabalhar",
+            "estudar",
+            "relaxar",
+            "curtir",
+            "dormir",
+            "networking",
+            "treinar",
+            "meditar",
+            "empreender"
+          ]
+        },
+        {
+          "id": "jacarepagua",
+          "name": "Jacarepaguá",
+          "description": "Região com mistura de condomínios de classe média e comunidades.",
+          "risk_level": 5,
+          "reward_multiplier": 100,
+          "available_actions": [
+            "trabalhar",
+            "estudar",
+            "relaxar",
+            "dormir",
+            "ajudar",
+            "treinar",
+            "empreender"
+          ]
+        },
+        {
+          "id": "campo_grande",
+          "name": "Campo Grande",
+          "description": "Bairro populoso com forte comércio local e áreas residenciais.",
+          "risk_level": 6,
+          "reward_multiplier": 80,
+          "available_actions": [
+            "trabalhar",
+            "estudar",
+            "relaxar",
+            "dormir",
+            "ajudar",
+            "empreender"
+          ]
+        },
+        {
+          "id": "santa_cruz",
+          "name": "Santa Cruz",
+          "description": "Bairro periférico com forte presença de milícias e polo industrial.",
+          "risk_level": 7,
+          "reward_multiplier": 70,
+          "available_actions": [
+            "trabalhar",
+            "estudar",
+            "relaxar",
+            "dormir",
+            "ajudar"
+          ]
+        }
+      ],
+      "risk_level": 5,
+      "reward_multiplier": 90,
+      "common_characters": [
+        "policial_militar",
+        "coach",
+        "motoboy",
+        "dono_boca"
+      ]
+    },
+    "zona_sul": {
+      "id": "zona_sul",
+      "name": "Zona Sul",
+      "description": "Região mais turística e rica do Rio, com praias famosas e alto custo de vida.",
+      "sub_zones": [
+        {
+          "id": "copacabana",
+          "name": "Copacabana",
+          "description": "Bairro turístico com praia famosa, hotéis de luxo e grande concentração de idosos.",
+          "risk_level": 4,
+          "reward_multiplier": 120,
+          "available_actions": [
+            "trabalhar",
+            "relaxar",
+            "curtir",
+            "dormir",
+            "networking",
+            "treinar",
+            "meditar",
+            "empreender"
+          ]
+        },
+        {
+          "id": "ipanema",
+          "name": "Ipanema",
+          "description": "Bairro sofisticado com praia badalada, lojas de grife e vida noturna agitada.",
+          "risk_level": 3,
+          "reward_multiplier": 150,
+          "available_actions": [
+            "trabalhar",
+            "relaxar",
+            "curtir",
+            "dormir",
+            "networking",
+            "treinar",
+            "meditar",
+            "empreender"
+          ]
+        },
+        {
+          "id": "leblon",
+          "name": "Leblon",
+          "description": "Bairro mais exclusivo do Rio, com metro quadrado mais caro e frequentado pela elite.",
+          "risk_level": 2,
+          "reward_multiplier": 180,
+          "available_actions": [
+            "trabalhar",
+            "relaxar",
+            "curtir",
+            "dormir",
+            "networking",
+            "treinar",
+            "meditar",
+            "empreender"
+          ]
+        },
+        {
+          "id": "vidigal",
+          "name": "Vidigal",
+          "description": "Comunidade com vista privilegiada para o mar, que passou por processo de gentrificação.",
+          "risk_level": 6,
+          "reward_multiplier": 100,
+          "available_actions": [
+            "trabalhar",
+            "relaxar",
+            "curtir",
+            "dormir",
+            "ajudar",
+            "treinar"
+          ]
+        }
+      ],
+      "risk_level": 3,
+      "reward_multiplier": 140,
+      "common_characters": [
+        "surfista",
+        "filhinho_papai",
+        "influencer",
+        "coach"
+      ]
+    }
+  }
+}

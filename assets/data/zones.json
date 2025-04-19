@@ -1,0 +1,170 @@
+[
+  {
+    "id": "zona_sul",
+    "name": "Zona Sul",
+    "description": "Região mais turística e rica do Rio, com praias famosas e alto custo de vida.",
+    "sub_zones": [
+      {
+        "id": "copacabana",
+        "name": "Copacabana",
+        "description": "Bairro turístico com praia famosa, hotéis de luxo e grande concentração de idosos.",
+        "risk_level": 4,
+        "reward_multiplier": 120,
+        "available_actions": ["trabalhar", "relaxar", "curtir", "dormir", "networking", "treinar", "meditar", "empreender"]
+      },
+      {
+        "id": "ipanema",
+        "name": "Ipanema",
+        "description": "Bairro sofisticado com praia badalada, lojas de grife e vida noturna agitada.",
+        "risk_level": 3,
+        "reward_multiplier": 150,
+        "available_actions": ["trabalhar", "relaxar", "curtir", "dormir", "networking", "treinar", "meditar", "empreender"]
+      },
+      {
+        "id": "leblon",
+        "name": "Leblon",
+        "description": "Bairro mais exclusivo do Rio, com metro quadrado mais caro e frequentado pela elite.",
+        "risk_level": 2,
+        "reward_multiplier": 180,
+        "available_actions": ["trabalhar", "relaxar", "curtir", "dormir", "networking", "treinar", "meditar", "empreender"]
+      },
+      {
+        "id": "vidigal",
+        "name": "Vidigal",
+        "description": "Comunidade com vista privilegiada para o mar, que passou por processo de gentrificação.",
+        "risk_level": 6,
+        "reward_multiplier": 100,
+        "available_actions": ["trabalhar", "relaxar", "curtir", "dormir", "ajudar", "treinar"]
+      }
+    ],
+    "risk_level": 3,
+    "reward_multiplier": 140,
+    "common_characters": ["surfista", "filhinho_papai", "influencer", "coach"]
+  },
+  {
+    "id": "zona_norte",
+    "name": "Zona Norte",
+    "description": "Região mais populosa do Rio, com grande concentração de comunidades e comércio popular.",
+    "sub_zones": [
+      {
+        "id": "madureira",
+        "name": "Madureira",
+        "description": "Bairro com forte comércio popular e berço de escolas de samba tradicionais.",
+        "risk_level": 5,
+        "reward_multiplier": 90,
+        "available_actions": ["trabalhar", "estudar", "relaxar", "curtir", "dormir", "ajudar", "treinar", "empreender"]
+      },
+      {
+        "id": "meier",
+        "name": "Méier",
+        "description": "Bairro de classe média com bom comércio e infraestrutura urbana.",
+        "risk_level": 4,
+        "reward_multiplier": 100,
+        "available_actions": ["trabalhar", "estudar", "relaxar", "curtir", "dormir", "networking", "treinar", "empreender"]
+      },
+      {
+        "id": "complexo_alemao",
+        "name": "Complexo do Alemão",
+        "description": "Conjunto de comunidades com histórico de conflitos e projetos sociais importantes.",
+        "risk_level": 8,
+        "reward_multiplier": 70,
+        "available_actions": ["trabalhar", "estudar", "relaxar", "dormir", "ajudar"]
+      },
+      {
+        "id": "tijuca",
+        "name": "Tijuca",
+        "description": "Bairro tradicional de classe média, próximo à floresta e com boa infraestrutura.",
+        "risk_level": 4,
+        "reward_multiplier": 110,
+        "available_actions": ["trabalhar", "estudar", "relaxar", "curtir", "dormir", "networking", "treinar", "meditar", "empreender"]
+      }
+    ],
+    "risk_level": 5,
+    "reward_multiplier": 90,
+    "common_characters": ["estudante_uerj", "motoboy", "fogueteiro", "policial_militar"]
+  },
+  {
+    "id": "centro",
+    "name": "Centro",
+    "description": "Coração histórico e comercial da cidade, com grande movimento durante o dia e esvaziamento à noite.",
+    "sub_zones": [
+      {
+        "id": "lapa",
+        "name": "Lapa",
+        "description": "Região boêmia com vida noturna intensa, bares e casas de show.",
+        "risk_level": 6,
+        "reward_multiplier": 110,
+        "available_actions": ["trabalhar", "curtir", "dormir", "networking", "empreender"]
+      },
+      {
+        "id": "saara",
+        "name": "SAARA",
+        "description": "Polo de comércio popular com grande concentração de lojas e camelôs.",
+        "risk_level": 5,
+        "reward_multiplier": 100,
+        "available_actions": ["trabalhar", "relaxar", "dormir", "empreender"]
+      },
+      {
+        "id": "cinelandia",
+        "name": "Cinelândia",
+        "description": "Praça histórica cercada por teatros, cinemas e prédios públicos importantes.",
+        "risk_level": 5,
+        "reward_multiplier": 120,
+        "available_actions": ["trabalhar", "estudar", "curtir", "dormir", "networking", "ajudar"]
+      },
+      {
+        "id": "porto_maravilha",
+        "name": "Porto Maravilha",
+        "description": "Área portuária revitalizada com museus, aquário e espaços culturais.",
+        "risk_level": 4,
+        "reward_multiplier": 130,
+        "available_actions": ["trabalhar", "estudar", "relaxar", "curtir", "dormir", "networking", "empreender"]
+      }
+    ],
+    "risk_level": 5,
+    "reward_multiplier": 110,
+    "common_characters": ["musico", "engenheiro", "hacker", "motoboy"]
+  },
+  {
+    "id": "zona_oeste",
+    "name": "Zona Oeste",
+    "description": "Região mais extensa do Rio, com áreas de expansão urbana, praias menos turísticas e controle de milícias.",
+    "sub_zones": [
+      {
+        "id": "barra",
+        "name": "Barra da Tijuca",
+        "description": "Bairro planejado com condomínios fechados, shopping centers e praias extensas.",
+        "risk_level": 3,
+        "reward_multiplier": 140,
+        "available_actions": ["trabalhar", "estudar", "relaxar", "curtir", "dormir", "networking", "treinar", "meditar", "empreender"]
+      },
+      {
+        "id": "jacarepagua",
+        "name": "Jacarepaguá",
+        "description": "Região com mistura de condomínios de classe média e comunidades.",
+        "risk_level": 5,
+        "reward_multiplier": 100,
+        "available_actions": ["trabalhar", "estudar", "relaxar", "dormir", "ajudar", "treinar", "empreender"]
+      },
+      {
+        "id": "campo_grande",
+        "name": "Campo Grande",
+        "description": "Bairro populoso com forte comércio local e áreas residenciais.",
+        "risk_level": 6,
+        "reward_multiplier": 80,
+        "available_actions": ["trabalhar", "estudar", "relaxar", "dormir", "ajudar", "empreender"]
+      },
+      {
+        "id": "santa_cruz",
+        "name": "Santa Cruz",
+        "description": "Bairro periférico com forte presença de milícias e polo industrial.",
+        "risk_level": 7,
+        "reward_multiplier": 70,
+        "available_actions": ["trabalhar", "estudar", "relaxar", "dormir", "ajudar"]
+      }
+    ],
+    "risk_level": 5,
+    "reward_multiplier": 90,
+    "common_characters": ["policial_militar", "coach", "motoboy", "dono_boca"]
+  }
+]

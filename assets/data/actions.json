@@ -1,0 +1,142 @@
+[
+  {
+    "id": "estudar",
+    "name": "estudar",
+    "description": "Dedicar tempo aos estudos para aumentar conhecimento e proficiência",
+    "base_outcome": {
+      "description": "Você passa algumas horas estudando e absorvendo conhecimento.",
+      "xp_change": 10,
+      "money_change": -5,
+      "influence_change": 0,
+      "stress_change": 5
+    },
+    "bonus_attribute": "proficiencia",
+    "effective_zones": ["centro", "zona_sul", "zona_norte"]
+  },
+  {
+    "id": "trabalhar",
+    "name": "trabalhar",
+    "description": "Realizar atividades remuneradas para ganhar dinheiro",
+    "base_outcome": {
+      "description": "Você trabalha por algumas horas e recebe seu pagamento.",
+      "xp_change": 5,
+      "money_change": 50,
+      "influence_change": 1,
+      "stress_change": 10
+    },
+    "bonus_attribute": "proficiencia",
+    "effective_zones": ["centro", "zona_sul", "zona_norte", "zona_oeste"]
+  },
+  {
+    "id": "relaxar",
+    "name": "relaxar",
+    "description": "Tirar um tempo para si mesmo e reduzir o estresse",
+    "base_outcome": {
+      "description": "Você tira um tempo para relaxar e recuperar as energias.",
+      "xp_change": 0,
+      "money_change": -10,
+      "influence_change": 0,
+      "stress_change": -20
+    },
+    "bonus_attribute": "resiliencia",
+    "effective_zones": ["zona_sul", "zona_oeste"]
+  },
+  {
+    "id": "curtir",
+    "name": "curtir",
+    "description": "Sair para se divertir, conhecer pessoas e expandir sua rede",
+    "base_outcome": {
+      "description": "Você sai para curtir e conhece algumas pessoas interessantes.",
+      "xp_change": 3,
+      "money_change": -30,
+      "influence_change": 3,
+      "stress_change": -10
+    },
+    "bonus_attribute": "carisma",
+    "effective_zones": ["centro", "zona_sul"]
+  },
+  {
+    "id": "dormir",
+    "name": "dormir",
+    "description": "Descansar para recuperar energias e reduzir estresse",
+    "base_outcome": {
+      "description": "Você dorme por algumas horas e acorda revigorado.",
+      "xp_change": 0,
+      "money_change": 0,
+      "influence_change": 0,
+      "stress_change": -30
+    },
+    "bonus_attribute": "resiliencia",
+    "effective_zones": ["zona_sul", "zona_norte", "zona_oeste", "centro"]
+  },
+  {
+    "id": "networking",
+    "name": "networking",
+    "description": "Participar de eventos para expandir sua rede de contatos",
+    "base_outcome": {
+      "description": "Você participa de um evento de networking e conhece pessoas influentes.",
+      "xp_change": 5,
+      "money_change": -20,
+      "influence_change": 5,
+      "stress_change": 5
+    },
+    "bonus_attribute": "rede",
+    "effective_zones": ["zona_sul", "centro"]
+  },
+  {
+    "id": "treinar",
+    "name": "treinar",
+    "description": "Praticar exercícios físicos para melhorar a saúde e resistência",
+    "base_outcome": {
+      "description": "Você treina por algumas horas e sente seu corpo mais forte.",
+      "xp_change": 3,
+      "money_change": -5,
+      "influence_change": 1,
+      "stress_change": -15
+    },
+    "bonus_attribute": "resiliencia",
+    "effective_zones": ["zona_sul", "zona_norte", "zona_oeste"]
+  },
+  {
+    "id": "meditar",
+    "name": "meditar",
+    "description": "Praticar meditação para reduzir estresse e aumentar foco",
+    "base_outcome": {
+      "description": "Você medita por algum tempo e sente sua mente mais clara.",
+      "xp_change": 2,
+      "money_change": 0,
+      "influence_change": 0,
+      "stress_change": -25
+    },
+    "bonus_attribute": "resiliencia",
+    "effective_zones": ["zona_sul", "zona_oeste"]
+  },
+  {
+    "id": "empreender",
+    "name": "empreender",
+    "description": "Iniciar um pequeno negócio ou projeto pessoal",
+    "base_outcome": {
+      "description": "Você dedica tempo ao seu empreendimento e faz algum progresso.",
+      "xp_change": 8,
+      "money_change": -20,
+      "influence_change": 2,
+      "stress_change": 15
+    },
+    "bonus_attribute": "proficiencia",
+    "effective_zones": ["centro", "zona_sul"]
+  },
+  {
+    "id": "ajudar",
+    "name": "ajudar",
+    "description": "Realizar trabalho voluntário ou ajudar a comunidade",
+    "base_outcome": {
+      "description": "Você ajuda pessoas necessitadas e sente-se bem com isso.",
+      "xp_change": 5,
+      "money_change": -5,
+      "influence_change": 3,
+      "stress_change": -5
+    },
+    "bonus_attribute": "moralidade",
+    "effective_zones": ["zona_norte", "zona_oeste"]
+  }
+]
