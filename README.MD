@@ -1,10 +1,6 @@
 # VIDA LOKA STRATEGIA
 
 <p align="center">
-  <img src="docs/images/logo.png" alt="VIDA LOKA STRATEGIA Logo" width="300"/>
-</p>
-
-<p align="center">
   <img src="docs/images/pixel-graffiti-header.png" alt="VIDA LOKA STRATEGIA Graffiti Banner" width="600"/>
 </p>
 
