@@ -29,6 +29,8 @@ go.work
 whatsapp/sessions/
 whatsapp/store/
 whatsapp/qrcodes/
+whatsapp-store/
+whatsapp-store/*
 *.db
 *.db-shm
 *.db-wal
