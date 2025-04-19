@@ -296,5 +296,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 <p align="center">
-  Made with ❤️ in Rio de Janeiro
+  Made with ❤️ in Rio de Janeiro using <a href="https://manus.im/">Manus.im</a> and <a href="https://cursor.com/">Cursor.com</a>
 </p>
