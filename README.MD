@@ -5,6 +5,39 @@
 </p>
 
 <p align="center">
+  <img src="docs/images/pixel-graffiti-header.png" alt="VIDA LOKA STRATEGIA Graffiti Banner" width="600"/>
+</p>
+
+<p align="center">
+  <a href="#about">About</a> •
+  <a href="#features">Features</a> •
+  <a href="#architecture">Architecture</a> •
+  <a href="#installation">Installation</a> •
+  <a href="#configuration">Configuration</a> •
+  <a href="#deployment">Deployment</a> •
+  <a href="#api">API</a> •
+  <a href="#contributing">Contributing</a> •
+  <a href="#license">License</a>
+</p>
+
+## About
+
+**VIDA LOKA STRATEGIA** is a WhatsApp-based RPG game server that simulates urban Brazilian life with strategic elements and social commentary. Players navigate the complex social landscape of Rio de Janeiro through text-based interactions, making decisions that affect their character's development and story progression.
+
+Built with **Go** and the [whatsmeow](https://github.com/tulir/whatsmeow) library, this server provides a complete gaming experience through WhatsApp, allowing players to create characters, perform actions, and participate in events entirely through messaging.
+
+## 🎓 Fundamentação Sociológica
+
+The game design and narrative structure are grounded in contemporary and classical sociological thought, aiming to reflect and question real-life structures:
+
+- **Erving Goffman**: Concepts of social roles and performative identity are embedded in how players assume roles in different zones and interactions.
+- **Pierre Bourdieu**: The economy of symbolic, social, cultural, and economic capital is gamified as players accrue influence, XP, and money, each impacting social mobility and decision-making.
+- **Gilberto Velho**: Deeply influenced by his urban anthropology and analysis of Brazilian ambivalence, the game reflects contradictory norms, informality, and negotiation of values in peripheral settings.
+- **Intersectionality**: Race, class, geography, and opportunity are key systemic forces present in the game's moral dilemmas and character trajectories. These are not just themes, but embedded in game mechanics and missions.
+
+---
+
+<p align="center">
   <a href="#about">About</a> •
   <a href="#features">Features</a> •
   <a href="#architecture">Architecture</a> •

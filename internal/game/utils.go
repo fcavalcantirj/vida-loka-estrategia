@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/user/vida-loka-strategy/config"
 	"github.com/user/vida-loka-strategy/internal/types"
 	"go.uber.org/zap"
 )
@@ -120,14 +121,20 @@ type EventSystem struct {
 	gameManager *GameManager
 	ticker      *time.Ticker
 	stopChan    chan struct{}
+	logger      *zap.Logger
+	diceRoller  *DiceRoller
+	config      *config.Config
 }
 
 // NewEventSystem creates a new event system
-func NewEventSystem(gameManager *GameManager, eventInterval time.Duration) *EventSystem {
+func NewEventSystem(gameManager *GameManager, eventInterval time.Duration, logger *zap.Logger, diceRoller *DiceRoller, config *config.Config) *EventSystem {
 	return &EventSystem{
 		gameManager: gameManager,
 		ticker:      time.NewTicker(eventInterval),
 		stopChan:    make(chan struct{}),
+		logger:      logger,
+		diceRoller:  diceRoller,
+		config:      config,
 	}
 }
 
@@ -151,19 +158,34 @@ func (es *EventSystem) Stop() {
 	close(es.stopChan)
 }
 
-// triggerEvents generates events for eligible players
-func (es *EventSystem) triggerEvents() {
-	es.gameManager.Logger.Info("Starting event check cycle")
+// formatEventMessage formats an event into a WhatsApp message
+func formatEventMessage(event *types.Event) string {
+	message := fmt.Sprintf("🎭 *EVENTO ALEATÓRIO* 🎭\n\n")
+	message += fmt.Sprintf("%s\n\n", event.Description)
 
-	// Get all active players
+	if len(event.Options) > 0 {
+		message += "Escolha sua ação:\n"
+		for i, option := range event.Options {
+			message += fmt.Sprintf("%s. %s\n", string('A'+i), option.Description)
+		}
+		message += "\nResponda com */a*, */b*, */c* ou */d* para escolher sua ação! 🎲"
+	}
+
+	return message
+}
+
+// triggerEvents checks for and triggers events for all active players
+func (es *EventSystem) triggerEvents() {
+	es.logger.Info("Starting event check cycle")
+
+	// Get all players
 	players := es.gameManager.GetAllPlayers()
-	es.gameManager.Logger.Info("Checking events for players",
-		zap.Int("total_players", len(players)))
+	es.logger.Info("Checking events for players", zap.Int("total_players", len(players)))
 
 	for _, player := range players {
-		// Skip if player is not active
+		// Skip inactive players
 		if player.Status != "active" {
-			es.gameManager.Logger.Debug("Skipping inactive player",
+			es.logger.Info("Skipping inactive player",
 				zap.String("player_id", player.ID),
 				zap.String("name", player.Name),
 				zap.String("status", player.Status),
@@ -171,7 +193,7 @@ func (es *EventSystem) triggerEvents() {
 			continue
 		}
 
-		es.gameManager.Logger.Info("Checking event for player",
+		es.logger.Info("Checking event for player",
 			zap.String("player_id", player.ID),
 			zap.String("name", player.Name),
 			zap.String("location", fmt.Sprintf("%s, %s", player.CurrentZone, player.CurrentSubZone)),
@@ -180,67 +202,58 @@ func (es *EventSystem) triggerEvents() {
 			zap.Int("influence", player.Influence),
 			zap.Int("stress", player.Stress))
 
-		// Roll for random event
-		roll := es.gameManager.diceRoller.Roll(100)
-		es.gameManager.Logger.Info("Event roll result",
+		// Roll for event
+		roll := es.diceRoller.Roll(100)
+		required := es.config.Game.RandomEventProbability
+		eventTriggered := roll <= required
+
+		es.logger.Info("Event roll result",
 			zap.String("player_id", player.ID),
 			zap.String("name", player.Name),
 			zap.Int("roll", roll),
-			zap.Int("required", es.gameManager.config.Game.RandomEventProbability),
-			zap.Bool("event_triggered", roll <= es.gameManager.config.Game.RandomEventProbability))
+			zap.Int("required", required),
+			zap.Bool("event_triggered", eventTriggered))
 
-		if roll <= es.gameManager.config.Game.RandomEventProbability {
-			es.gameManager.Logger.Info("Event triggered for player",
+		if eventTriggered {
+			es.logger.Info("Event triggered for player",
 				zap.String("player_id", player.ID),
 				zap.String("name", player.Name))
 
-			// Trigger a random event
+			// Generate event
 			event, err := es.gameManager.TriggerRandomEvent(player.ID)
 			if err != nil {
-				es.gameManager.Logger.Error("Failed to trigger event",
+				es.logger.Error("Failed to trigger event",
 					zap.String("player_id", player.ID),
 					zap.String("name", player.Name),
 					zap.Error(err))
 				continue
 			}
 
-			// Update last event time
-			player.LastEventAt = time.Now()
-
-			// Format event message
-			message := fmt.Sprintf("🎭 *EVENTO ALEATÓRIO* 🎭\n\n")
-			message += fmt.Sprintf("%s\n\n", event.Description)
-
-			if len(event.Options) > 0 {
-				message += "Escolha sua ação:\n"
-				for i, option := range event.Options {
-					message += fmt.Sprintf("%s. %s\n", string('A'+i), option.Description)
-				}
-				message += "\nResponda com */a*, */b*, */c* ou */d* para escolher sua ação! 🎲"
-			}
-
-			es.gameManager.Logger.Info("Sending event message to player",
+			es.logger.Info("Sending event message to player",
 				zap.String("player_id", player.ID),
 				zap.String("name", player.Name),
 				zap.String("event_id", event.ID),
 				zap.String("event_description", event.Description),
 				zap.Int("options_count", len(event.Options)))
 
-			// Send message to player
-			if err := es.gameManager.SendMessage(player.ID, message); err != nil {
-				es.gameManager.Logger.Error("Failed to send event message",
+			// Format event message
+			message := formatEventMessage(event)
+
+			// Send event message using player's phone number
+			if err := es.gameManager.SendMessage(player.PhoneNumber, message); err != nil {
+				es.logger.Error("Failed to send event message",
 					zap.String("player_id", player.ID),
 					zap.String("name", player.Name),
 					zap.Error(err))
 			}
 		} else {
-			es.gameManager.Logger.Info("No event triggered for player",
+			es.logger.Info("No event triggered for player",
 				zap.String("player_id", player.ID),
 				zap.String("name", player.Name),
 				zap.Int("roll", roll),
-				zap.Int("required", es.gameManager.config.Game.RandomEventProbability))
+				zap.Int("required", required))
 		}
 	}
 
-	es.gameManager.Logger.Info("Completed event check cycle")
+	es.logger.Info("Completed event check cycle")
 }

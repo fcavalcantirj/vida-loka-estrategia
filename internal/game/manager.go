@@ -64,7 +64,13 @@ func NewGameManager(cfg config.Config) *GameManager {
 	}
 
 	// Initialize event system
-	gm.eventSys = NewEventSystem(gm, time.Duration(cfg.Game.EventInterval)*time.Minute)
+	gm.eventSys = NewEventSystem(
+		gm,
+		time.Duration(cfg.Game.EventInterval)*time.Minute,
+		gm.Logger,
+		gm.diceRoller,
+		&cfg,
+	)
 
 	return gm
 }
