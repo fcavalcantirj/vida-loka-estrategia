@@ -32,6 +32,9 @@ type GameManager struct {
 	eventSys      *EventSystem
 	clientManager *whatsapp.ClientManager
 	messageSender interfaces.MessageSender
+	mu            sync.RWMutex
+	players       map[string]*types.Player
+	events        map[string][]*types.Event
 }
 
 // Ensure GameManager satifies the interfaces.GameManager interface
@@ -61,18 +64,49 @@ func NewGameManager(cfg config.Config) *GameManager {
 		config:     cfg,
 		Logger:     zap.NewNop(), // Will be set by the server
 		diceRoller: NewDiceRoller(),
+		players:    make(map[string]*types.Player),
+		events:     make(map[string][]*types.Event),
 	}
 
-	// Initialize event system
-	gm.eventSys = NewEventSystem(
-		gm,
-		time.Duration(cfg.Game.EventInterval)*time.Minute,
-		gm.Logger,
-		gm.diceRoller,
-		&cfg,
-	)
+	// Sync players from state to runtime map
+	gm.syncPlayers()
 
 	return gm
+}
+
+// syncPlayers copies players from state to runtime map
+func (gm *GameManager) syncPlayers() {
+	gm.mu.Lock()
+	defer gm.mu.Unlock()
+
+	// Clear existing players
+	gm.players = make(map[string]*types.Player)
+
+	// Copy players from state
+	for phoneNumber, player := range gm.state.Players {
+		gm.players[phoneNumber] = player
+	}
+
+	if gm.Logger != nil {
+		gm.Logger.Info("Synced players from state",
+			zap.Int("total_players", len(gm.players)))
+	}
+}
+
+// SetLogger sets the logger for the game manager and reinitializes the event system
+func (gm *GameManager) SetLogger(logger *zap.Logger) {
+	gm.Logger = logger
+	// Initialize event system with the proper logger
+	gm.eventSys = NewEventSystem(
+		gm,
+		time.Duration(gm.config.Game.EventInterval)*time.Minute,
+		gm.Logger,
+		gm.diceRoller,
+		&gm.config,
+	)
+	gm.Logger.Info("Event system initialized with logger",
+		zap.Int("event_interval_minutes", gm.config.Game.EventInterval),
+		zap.Int("event_probability", gm.config.Game.RandomEventProbability))
 }
 
 // saveState persists the current game state
@@ -105,10 +139,46 @@ func (gm *GameManager) RegisterPlayer(phoneNumber, name string) (*types.Player, 
 		DecisionHistory: make([]types.Decision, 0),
 	}
 
-	// Add player to state
+	// Add player to both maps
 	gm.state.Players[phoneNumber] = player
+	gm.players[phoneNumber] = player
 
-	// Save state
+	// Set up WhatsApp client if client manager is available
+	if gm.clientManager != nil {
+		// Get QR channel first to ensure we have a fresh session
+		qrChan, err := gm.clientManager.GetQRChannel(phoneNumber)
+		if err != nil {
+			gm.Logger.Error("Failed to get QR channel",
+				zap.String("phone_number", phoneNumber),
+				zap.Error(err))
+		} else {
+			// Start QR code login process
+			go func() {
+				for evt := range qrChan {
+					if evt.Event == "code" {
+						// Send QR code to player
+						message := fmt.Sprintf("Please scan this QR code to connect your WhatsApp: %s", evt.Code)
+						if err := gm.SendMessage(phoneNumber, message); err != nil {
+							gm.Logger.Error("Failed to send QR code",
+								zap.String("phone_number", phoneNumber),
+								zap.Error(err))
+						}
+					} else if evt.Event == "success" {
+						gm.Logger.Info("WhatsApp client successfully authenticated",
+							zap.String("phone_number", phoneNumber))
+						// Connect the client after successful authentication
+						if err := gm.clientManager.Connect(phoneNumber); err != nil {
+							gm.Logger.Error("Failed to connect WhatsApp client",
+								zap.String("phone_number", phoneNumber),
+								zap.Error(err))
+						}
+					}
+				}
+			}()
+		}
+	}
+
+	// Save the state
 	if err := gm.saveState(); err != nil {
 		return nil, fmt.Errorf("failed to save game state: %w", err)
 	}
@@ -583,8 +653,31 @@ func (gm *GameManager) LoadEvents(events []*types.Event) {
 	gm.stateLock.Lock()
 	defer gm.stateLock.Unlock()
 
+	// Clear existing events
+	gm.events = make(map[string][]*types.Event)
+
 	for _, event := range events {
+		// Store in state
 		gm.state.Events[event.ID] = event
+
+		// Organize by zone
+		if len(event.RequiredZone) > 0 {
+			// Add to each required zone
+			for _, zoneID := range event.RequiredZone {
+				gm.events[zoneID] = append(gm.events[zoneID], event)
+			}
+		} else {
+			// If no zone is required, add to all zones
+			for zoneID := range gm.state.Zones {
+				gm.events[zoneID] = append(gm.events[zoneID], event)
+			}
+		}
+	}
+
+	if gm.Logger != nil {
+		gm.Logger.Info("Loaded and organized events",
+			zap.Int("total_events", len(events)),
+			zap.Int("zones_with_events", len(gm.events)))
 	}
 }
 
@@ -767,42 +860,67 @@ func (gm *GameManager) GetAllPlayers() []*types.Player {
 }
 
 // TriggerRandomEvent triggers a random event for a player
-func (gm *GameManager) TriggerRandomEvent(playerID string) (*types.Event, error) {
+func (gm *GameManager) TriggerRandomEvent(phoneNumber string) (*types.Event, error) {
+	// Use stateLock for all state access
 	gm.stateLock.Lock()
 	defer gm.stateLock.Unlock()
 
-	// Get player by ID
-	var player *types.Player
-	for _, p := range gm.state.Players {
-		if p.ID == playerID {
-			player = p
-			break
-		}
+	gm.Logger.Info("Triggering random event",
+		zap.String("phone_number", phoneNumber))
+
+	// Get player from state
+	player, exists := gm.state.Players[phoneNumber]
+	if !exists {
+		gm.Logger.Error("Player not found when triggering event",
+			zap.String("phone_number", phoneNumber))
+		return nil, fmt.Errorf("player not found")
 	}
 
-	if player == nil {
-		return nil, errors.New("player not found")
-	}
+	gm.Logger.Info("Found player for event",
+		zap.String("phone_number", phoneNumber),
+		zap.String("name", player.Name),
+		zap.String("current_zone", player.CurrentZone))
 
 	// Get available events for player's current zone
-	var availableEvents []*types.Event
-	for _, event := range gm.state.Events {
-		// Check if event is available in player's current zone
-		for _, zone := range event.RequiredZone {
-			if zone == player.CurrentZone {
-				availableEvents = append(availableEvents, event)
-				break
-			}
-		}
+	zoneEvents, exists := gm.events[player.CurrentZone]
+	if !exists || len(zoneEvents) == 0 {
+		gm.Logger.Error("No events available for player's zone",
+			zap.String("phone_number", phoneNumber),
+			zap.String("zone", player.CurrentZone))
+		return nil, fmt.Errorf("no events available for zone %s", player.CurrentZone)
 	}
 
-	if len(availableEvents) == 0 {
-		return nil, errors.New("no events available for current zone")
+	gm.Logger.Info("Found events for zone",
+		zap.String("phone_number", phoneNumber),
+		zap.String("zone", player.CurrentZone),
+		zap.Int("available_events", len(zoneEvents)))
+
+	// Select a random event
+	event := zoneEvents[rand.Intn(len(zoneEvents))]
+
+	gm.Logger.Info("Selected random event",
+		zap.String("phone_number", phoneNumber),
+		zap.String("event_id", event.ID),
+		zap.String("event_name", event.Name),
+		zap.Int("options_count", len(event.Options)))
+
+	// Create a copy of the event to avoid modifying the original
+	eventCopy := *event
+
+	// Clear any existing event first
+	player.CurrentEvent = nil
+
+	// Set the new event on the player
+	player.CurrentEvent = &eventCopy
+
+	// Save the state
+	if err := gm.saveState(); err != nil {
+		// If save fails, clear the event to maintain consistency
+		player.CurrentEvent = nil
+		return nil, fmt.Errorf("failed to save game state: %w", err)
 	}
 
-	// Select random event
-	event := availableEvents[gm.diceRoller.Roll(len(availableEvents))-1]
-	return event, nil
+	return &eventCopy, nil
 }
 
 // SetClientManager sets the WhatsApp client manager
@@ -824,23 +942,28 @@ func (gm *GameManager) SendMessage(playerID string, message string) error {
 	// Get player by ID first
 	var player *types.Player
 	for _, p := range gm.state.Players {
-		if p.ID == playerID {
+		if p.ID == playerID || p.PhoneNumber == playerID {
 			player = p
 			break
 		}
-	}
-
-	// If not found by ID, try phone number
-	if player == nil {
-		player, _ = gm.state.Players[playerID]
 	}
 
 	if player == nil {
 		return fmt.Errorf("player not found: %s", playerID)
 	}
 
-	// Send message through message sender
-	_, err := gm.messageSender.SendMessage(player.PhoneNumber, player.PhoneNumber, message)
+	// Get the bot's phone number from the client manager
+	if gm.clientManager == nil {
+		return fmt.Errorf("client manager not set")
+	}
+
+	botPhoneNumber, err := gm.clientManager.GetBotPhoneNumber()
+	if err != nil {
+		return fmt.Errorf("failed to get bot phone number: %w", err)
+	}
+
+	// Send message through message sender using the bot's phone number
+	_, err = gm.messageSender.SendMessage(botPhoneNumber, player.PhoneNumber, message)
 	if err != nil {
 		return fmt.Errorf("failed to send message: %w", err)
 	}

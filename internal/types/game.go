@@ -27,6 +27,7 @@ type Player struct {
 	CurrentZone      string     `json:"current_zone"`
 	CurrentSubZone   string     `json:"current_sub_zone"`
 	LastEventAt      time.Time  `json:"last_event_at"`
+	CurrentEvent     *Event     `json:"current_event"`
 	DecisionHistory  []Decision `json:"decision_history"`
 }
 

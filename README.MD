@@ -22,7 +22,7 @@
 
 Built with **Go** and the [whatsmeow](https://github.com/tulir/whatsmeow) library, this server provides a complete gaming experience through WhatsApp, allowing players to create characters, perform actions, and participate in events entirely through messaging.
 
-## 🎓 Fundamentação Sociológica
+## 🎓 Sociological Foundation
 
 The game design and narrative structure are grounded in contemporary and classical sociological thought, aiming to reflect and question real-life structures:
 
@@ -44,12 +44,6 @@ The game design and narrative structure are grounded in contemporary and classic
   <a href="#contributing">Contributing</a> •
   <a href="#license">License</a>
 </p>
-
-## About
-
-VIDA LOKA STRATEGIA is a WhatsApp-based RPG game server that simulates urban Brazilian life with strategic elements and social commentary. Players navigate the complex social landscape of Rio de Janeiro through text-based interactions, making decisions that affect their character's development and story progression.
-
-Built with Go and the whatsmeow library, this server provides a complete gaming experience through WhatsApp, allowing players to create characters, perform actions, and participate in events entirely through messaging.
 
 ## Development
 

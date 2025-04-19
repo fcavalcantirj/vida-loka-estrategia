@@ -3,6 +3,7 @@ package whatsapp
 import (
 	"context"
 	"fmt"
+	"math/rand"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -399,10 +400,24 @@ func (cm *ClientManager) SendTextMessage(phoneNumber, recipient, message string)
 		return "", fmt.Errorf("client not found for phone number: %s", phoneNumber)
 	}
 
+	// Format recipient phone number
+	// Remove any non-digit characters
+	recipient = strings.Map(func(r rune) rune {
+		if r >= '0' && r <= '9' {
+			return r
+		}
+		return -1
+	}, recipient)
+
+	// Add country code if not present
+	if !strings.HasPrefix(recipient, "55") {
+		recipient = "55" + recipient
+	}
+
 	// Parse recipient JID
 	recipientJID, err := parseJID(recipient)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("failed to parse recipient JID: %w", err)
 	}
 
 	// Create message
@@ -481,13 +496,18 @@ func (cm *ClientManager) handleIncomingMessage(message *events.Message) {
 		cm.mutex.RLock()
 		var client *whatsmeow.Client
 		for _, clientInfo := range cm.clients {
-			client = clientInfo.Client
-			break
+			if clientInfo.Client.IsLoggedIn() && clientInfo.Client.Store.ID != nil {
+				client = clientInfo.Client
+				break
+			}
 		}
 		cm.mutex.RUnlock()
 
+		// If no client is available, log the error but don't try to send a QR code
 		if client == nil {
-			cm.logger.Error("No client available to send response")
+			cm.logger.Error("No valid client available to send response",
+				zap.String("sender", message.Info.Sender.User),
+				zap.String("response", response))
 			return
 		}
 
@@ -508,44 +528,71 @@ func (cm *ClientManager) handleIncomingMessage(message *events.Message) {
 
 // processGameCommand handles game commands from players
 func (cm *ClientManager) processGameCommand(sender, command string) string {
+	// Add logging for all incoming commands
+	cm.logger.Info("Processing game command",
+		zap.String("sender", sender),
+		zap.String("command", command))
+
 	// Clean and normalize command
 	command = cleanCommand(command)
 
 	// Check if command starts with '/'
 	if !strings.HasPrefix(command, "/") {
+		cm.logger.Debug("Command doesn't start with /",
+			zap.String("command", command))
 		return "Comandos devem começar com '/'. Digite '/ajuda' para ver os comandos disponíveis."
 	}
 
 	// Remove the '/' prefix
 	command = strings.TrimPrefix(command, "/")
 
+	// Log the cleaned command
+	cm.logger.Debug("Processing cleaned command",
+		zap.String("cleaned_command", command))
+
+	// Check if this is a setup command (hidden from help)
+	if command == "setup" {
+		cm.logger.Info("Handling setup command",
+			zap.String("sender", sender))
+		return cm.handleSetupCommand(sender, command)
+	}
+
 	// Check if this is a help command
 	if command == "ajuda" || command == "help" {
+		cm.logger.Info("Handling help command")
 		return cm.handleHelpCommand()
 	}
 
 	// Check if this is a move command
 	if strings.HasPrefix(command, "mover") {
+		cm.logger.Info("Handling move command",
+			zap.String("command", command))
 		return cm.handleMoveCommand(sender, command)
 	}
 
 	// Check if this is a registration command
 	if strings.HasPrefix(command, "comecar") || strings.HasPrefix(command, "começar") || strings.HasPrefix(command, "iniciar") {
+		cm.logger.Info("Handling registration command",
+			zap.String("command", command))
 		return cm.handleRegistrationCommand(sender, command)
 	}
 
 	// Check if this is a character selection command
 	if strings.HasPrefix(command, "escolher") {
+		cm.logger.Info("Handling character selection command",
+			zap.String("command", command))
 		return cm.handleCharacterSelectionCommand(sender, command)
 	}
 
 	// Check if this is a status command
 	if command == "status" {
+		cm.logger.Info("Handling status command")
 		return cm.handleStatusCommand(sender)
 	}
 
 	// Check if this is a characters list command
 	if command == "personagens" {
+		cm.logger.Info("Handling characters list command")
 		return cm.handleCharactersListCommand()
 	}
 
@@ -560,18 +607,21 @@ func (cm *ClientManager) processGameCommand(sender, command string) string {
 		strings.HasPrefix(command, "treinar") ||
 		strings.HasPrefix(command, "empreender") ||
 		strings.HasPrefix(command, "ajudar") {
+		cm.logger.Info("Handling action command",
+			zap.String("command", command))
 		return cm.handleActionCommand(sender, command)
 	}
 
 	// Check if this is an event response
-	if strings.HasPrefix(command, "a") ||
-		strings.HasPrefix(command, "b") ||
-		strings.HasPrefix(command, "c") ||
-		strings.HasPrefix(command, "d") {
+	if command == "a" || command == "b" || command == "c" || command == "d" {
+		cm.logger.Info("Handling event response command",
+			zap.String("command", command))
 		return cm.handleEventResponseCommand(sender, command)
 	}
 
 	// Unknown command
+	cm.logger.Info("Unknown command received",
+		zap.String("command", command))
 	return "Comando não reconhecido. Digite '/ajuda' para ver os comandos disponíveis."
 }
 
@@ -585,18 +635,86 @@ func (cm *ClientManager) handleRegistrationCommand(sender, command string) strin
 
 	playerName := parts[1]
 
+	// Check if player is already registered
+	existingPlayer, _ := cm.gameManager.GetPlayer(sender)
+	if existingPlayer != nil {
+		return "Calma aí, você já está no jogo! 😅\n\n" +
+			"Digite */status* para ver sua situação atual."
+	}
+
+	// Register new player
 	player, err := cm.gameManager.RegisterPlayer(sender, playerName)
 	if err != nil {
-		if err.Error() == "player already registered" {
-			return "Calma aí, você já está no jogo! 😅\n\n" +
-				"Digite */status* para ver sua situação atual."
-		}
 		return fmt.Sprintf("Ops! Algo deu errado: %s 😱", err.Error())
 	}
 
+	// Get available characters
+	characters := cm.gameManager.GetAvailableCharacters()
+	var characterList strings.Builder
+	characterList.WriteString("🎭 *PERSONAGENS DISPONÍVEIS* 🎭\n\n")
+	for i, char := range characters {
+		characterList.WriteString(fmt.Sprintf("%d. %s %s\n", i+1, getCharacterEmoji(char.Name), char.Name))
+		characterList.WriteString(fmt.Sprintf("   %s\n\n", char.Description))
+	}
+	characterList.WriteString("Digite */escolher [número]* para escolher seu personagem.")
+
+	// Send welcome message without QR code
 	return fmt.Sprintf("E aí, %s! Bem-vindo ao *VIDA LOKA STRATEGY*! 🎮\n\n"+
-		"Agora você pode escolher seu personagem.\n\n"+
-		"Digite */personagens* para ver as opções disponíveis. ��", player.Name)
+		"Agora você pode escolher seu personagem.\n\n%s", player.Name, characterList.String())
+}
+
+// handleSetupCommand sets up the host's WhatsApp connection
+func (cm *ClientManager) handleSetupCommand(sender, command string) string {
+	// Get QR channel for WhatsApp authentication
+	qrChan, err := cm.GetQRChannel(sender)
+	if err != nil {
+		return fmt.Sprintf("❌ *Erro na Configuração* ❌\n\n"+
+			"Não consegui configurar o WhatsApp: %s", err.Error())
+	}
+
+	// Start QR code login process in a goroutine
+	go func() {
+		for evt := range qrChan {
+			if evt.Event == "code" {
+				// Format QR code message
+				message := fmt.Sprintf("📱 *CONFIGURAÇÃO DO HOST* 📱\n\n"+
+					"Para configurar o bot do jogo:\n\n"+
+					"1. Abra o WhatsApp no seu celular\n"+
+					"2. Vá em *Menu* > *WhatsApp Web*\n"+
+					"3. Escaneie este código QR:\n\n"+
+					"```\n%s\n```\n\n"+
+					"Depois de escanear, o bot estará pronto para enviar mensagens! 🤖", evt.Code)
+
+				// Send QR code to host
+				if err := cm.gameManager.SendMessage(sender, message); err != nil {
+					cm.logger.Error("Failed to send QR code to host",
+						zap.String("phone_number", sender),
+						zap.Error(err))
+				}
+			} else if evt.Event == "success" {
+				// Store the host number in config
+				cm.config.WhatsApp.HostNumber = sender
+				if err := config.SaveConfig(cm.config, "config.json"); err != nil {
+					cm.logger.Error("Failed to save host number to config",
+						zap.String("phone_number", sender),
+						zap.Error(err))
+				}
+
+				cm.logger.Info("Host WhatsApp client successfully authenticated",
+					zap.String("phone_number", sender))
+				// Connect the client after successful authentication
+				if err := cm.Connect(sender); err != nil {
+					cm.logger.Error("Failed to connect host WhatsApp client",
+						zap.String("phone_number", sender),
+						zap.Error(err))
+				}
+			}
+		}
+	}()
+
+	return "🔄 *Iniciando Configuração* 🔄\n\n" +
+		"Preparando o bot para enviar mensagens...\n" +
+		"Você receberá um código QR em breve."
 }
 
 // handleCharacterSelectionCommand processes character selection
@@ -683,47 +801,54 @@ func (cm *ClientManager) handleStatusCommand(sender string) string {
 
 // handleActionCommand processes player actions
 func (cm *ClientManager) handleActionCommand(sender, command string) string {
-	// Get available actions
-	actions, err := cm.gameManager.GetAvailableActions(sender)
+	// Get player
+	player, err := cm.gameManager.GetPlayer(sender)
 	if err != nil {
-		if err.Error() == "player not found" {
-			return "Ei, você nem começou o jogo ainda! 😅\nUse /comecar [seu nome] pra começar sua jornada!"
-		}
-		if err.Error() == "player has no character selected" {
-			return "Você ainda não escolheu um personagem! 🤔\nUse /personagens pra ver quem você pode ser!"
-		}
+		return "Ei, você nem começou o jogo ainda! 😅\n\n" +
+			"Use */comecar [seu nome]* pra começar sua jornada!"
+	}
+
+	// Check if player has a character
+	if player.CurrentCharacter == nil {
+		return "Você ainda não escolheu um personagem! 🤔\n\n" +
+			"Use */personagens* pra ver quem você pode ser!"
+	}
+
+	// Clean command
+	command = cleanCommand(command)
+	// Remove slash and convert to lowercase
+	command = strings.TrimPrefix(strings.ToLower(command), "/")
+
+	// Get available actions for current location
+	availableActions, err := cm.gameManager.GetAvailableActions(sender)
+	if err != nil {
 		return fmt.Sprintf("Ops! Algo deu errado: %s 😱", err.Error())
 	}
 
-	// Find matching action
-	var actionID string
-	for _, action := range actions {
-		if strings.HasPrefix(command, action.Name) {
-			actionID = action.ID
+	// Check if the action is available in current zone
+	isAvailable := false
+	var actionNames []string
+	for _, action := range availableActions {
+		actionNames = append(actionNames, action.Name)
+		if command == action.Name {
+			isAvailable = true
 			break
 		}
 	}
 
-	// Get player's current location
-	player, err := cm.gameManager.GetPlayer(sender)
-	if err != nil {
-		return "Você precisa começar o jogo primeiro! Use /comecar [seu nome]"
-	}
-
-	// Check if action is available in current zone
-	if actionID == "" || !isActionAvailable(player.CurrentZone, player.CurrentSubZone, actionID) {
-		// Get available actions for current location
-		availableActions := getAvailableActions(player.CurrentZone, player.CurrentSubZone)
-		actionList := strings.Join(availableActions, ", ")
+	if !isAvailable {
+		// Format the subzone name properly
+		displayName := strings.Title(strings.ReplaceAll(player.CurrentSubZone, "_", " "))
+		actionList := strings.Join(actionNames, ", ")
 
 		return fmt.Sprintf("❌ *Ação não disponível em %s!*\n\n"+
 			"*Ações disponíveis aqui:*\n%s\n\n"+
 			"Use */mover [subzona]* para ir para outro lugar! 🏃‍♂️",
-			player.CurrentSubZone, actionList)
+			displayName, actionList)
 	}
 
 	// Perform action
-	outcome, err := cm.gameManager.PerformAction(sender, actionID)
+	outcome, err := cm.gameManager.PerformAction(sender, command)
 	if err != nil {
 		return fmt.Sprintf("Ops! Não deu pra fazer isso: %s 😱", err.Error())
 	}
@@ -747,12 +872,6 @@ func (cm *ClientManager) handleActionCommand(sender, command string) string {
 		response += fmt.Sprintf("\n💥 Estresse: %+d", outcome.StressChange)
 	}
 
-	// Check if there's a follow-up event
-	if outcome.NextEventID != "" {
-		response += "\n\nAlgo interessante aconteceu! 🎭\n"
-		response += "Responda com /a, /b, /c ou /d para ver o que acontece! 🎲"
-	}
-
 	return response
 }
 
@@ -760,6 +879,12 @@ func (cm *ClientManager) handleActionCommand(sender, command string) string {
 func (cm *ClientManager) handleEventResponseCommand(sender, command string) string {
 	// Clean command
 	command = cleanCommand(command)
+	// Remove slash and convert to lowercase
+	command = strings.TrimPrefix(strings.ToLower(command), "/")
+	// Take only the first character
+	if len(command) > 0 {
+		command = string(command[0])
+	}
 
 	// Get player
 	player, err := cm.gameManager.GetPlayer(sender)
@@ -773,22 +898,73 @@ func (cm *ClientManager) handleEventResponseCommand(sender, command string) stri
 			"Use */personagens* pra ver quem você pode ser!"
 	}
 
-	// Get the last event from player's decision history
-	if len(player.DecisionHistory) == 0 {
+	// Get the current event from the player's state
+	if player.CurrentEvent == nil {
 		return "Você não tem nenhum evento pendente! 🎭\n\n" +
 			"Continue explorando o mundo para encontrar eventos!"
 	}
 
-	lastDecision := player.DecisionHistory[len(player.DecisionHistory)-1]
-	if !strings.HasPrefix(lastDecision.EventID, "event_") {
-		return "Você não tem nenhum evento pendente! 🎭\n\n" +
-			"Continue explorando o mundo para encontrar eventos!"
+	// Map command letter to option index
+	optionIndex := -1
+	switch command {
+	case "a":
+		optionIndex = 0
+	case "b":
+		optionIndex = 1
+	case "c":
+		optionIndex = 2
+	case "d":
+		optionIndex = 3
+	default:
+		return "Opção inválida! Use /a, /b, /c ou /d para responder ao evento! 🎲"
+	}
+
+	// Check if option index is valid
+	if optionIndex >= len(player.CurrentEvent.Options) {
+		return "Essa opção não está disponível para este evento! 🎲"
+	}
+
+	// Get the option ID from the current event
+	optionID := player.CurrentEvent.Options[optionIndex].ID
+
+	// Store event ID before clearing it
+	eventID := player.CurrentEvent.ID
+
+	// Clear the current event before processing to prevent double-processing
+	player.CurrentEvent = nil
+
+	// Send dice rolling message
+	diceMessage := "🎲 *ROLANDO OS DADOS...* 🎲\n\n" +
+		"O destino está sendo decidido...\n" +
+		"Os deuses do RNG estão trabalhando...\n" +
+		"*TUM TUM TUM...*"
+
+	// Get client to send dice message
+	cm.mutex.RLock()
+	var client *whatsmeow.Client
+	for _, clientInfo := range cm.clients {
+		if clientInfo.Client.IsLoggedIn() && clientInfo.Client.Store.ID != nil {
+			client = clientInfo.Client
+			break
+		}
+	}
+	cm.mutex.RUnlock()
+
+	if client != nil {
+		// Send dice message
+		msg := &waProto.Message{
+			Conversation: proto.String(diceMessage),
+		}
+		client.SendMessage(context.Background(), waTypes.NewJID(sender, "s.whatsapp.net"), msg)
+
+		// Add a small delay for dramatic effect
+		time.Sleep(2 * time.Second)
 	}
 
 	// Process event choice
-	eventID := strings.TrimPrefix(lastDecision.EventID, "event_")
-	outcome, err := cm.gameManager.ProcessEventChoice(sender, eventID, command)
+	outcome, err := cm.gameManager.ProcessEventChoice(sender, eventID, optionID)
 	if err != nil {
+		// If there's an error, we should NOT restore the event since it might be invalid
 		return fmt.Sprintf("Ops! Algo deu errado: %v 😱", err)
 	}
 
@@ -812,12 +988,6 @@ func (cm *ClientManager) handleEventResponseCommand(sender, command string) stri
 		response += fmt.Sprintf("Estresse: %+d 💥\n", outcome.StressChange)
 	}
 
-	// Check if there's a follow-up event
-	if outcome.NextEventID != "" {
-		response += "\nAlgo interessante aconteceu! 🎭\n"
-		response += "Responda com /a, /b, /c ou /d para ver o que acontece! 🎲"
-	}
-
 	return response
 }
 
@@ -826,6 +996,7 @@ func (cm *ClientManager) handleCharactersListCommand() string {
 	characters := cm.gameManager.GetAvailableCharacters()
 
 	response := "🎭 *PERSONAGENS DISPONÍVEIS* 🎭\n\n"
+	response += "Para escolher um personagem, digite: */escolher [número]* 🎯\n\n"
 
 	for i, char := range characters {
 		emoji := getCharacterEmoji(char.Name)
@@ -899,6 +1070,8 @@ func (cm *ClientManager) handleHelpCommand() string {
 
 // handleMoveCommand processes player movement between zones
 func (cm *ClientManager) handleMoveCommand(sender, command string) string {
+	// Clean up the command by removing extra spaces
+	command = strings.TrimSpace(command)
 	parts := strings.Fields(command)
 	if len(parts) < 2 {
 		return "Ei, você esqueceu pra onde vai! 🧐\n\n" +
@@ -911,7 +1084,29 @@ func (cm *ClientManager) handleMoveCommand(sender, command string) string {
 			"Exemplo: */mover ipanema*"
 	}
 
-	subZoneID := strings.ToLower(parts[1])
+	// Join all parts after "mover" to handle multi-word subzones
+	subZoneInput := strings.ToLower(strings.Join(parts[1:], " "))
+
+	// Check if the user is trying to move to a zone instead of a subzone
+	zoneNames := map[string]string{
+		"zona sul":   "zona_sul",
+		"zona norte": "zona_norte",
+		"centro":     "centro",
+		"zona oeste": "zona_oeste",
+	}
+
+	if zoneID, isZone := zoneNames[subZoneInput]; isZone {
+		return fmt.Sprintf("Ei, você precisa escolher uma subzona específica! 🗺️\n\n"+
+			"*Subzonas disponíveis em %s:*\n\n"+
+			"%s\n\n"+
+			"Use: */mover [subzona]*\n"+
+			"Exemplo: */mover ipanema*",
+			strings.Title(subZoneInput),
+			getSubzonesForZone(zoneID))
+	}
+
+	// Normalize the subzone ID
+	subZoneID := normalizeSubzoneName(subZoneInput)
 
 	zoneMap := map[string]string{
 		"copacabana":      "zona_sul",
@@ -961,8 +1156,152 @@ func (cm *ClientManager) handleMoveCommand(sender, command string) string {
 			"Tente de novo ou escolha outro lugar!", err)
 	}
 
-	return fmt.Sprintf("Você chegou em *%s* 🏃‍♂️\n\n"+
-		"Bem-vindo ao seu novo cantinho! 🏠", strings.Title(subZoneID))
+	// Get the display name without underscores
+	displayName := strings.Title(strings.ReplaceAll(subZoneID, "_", " "))
+
+	// Location-specific messages with multiple options
+	locationMessages := map[string][]string{
+		"campo_grande": {
+			"Você chegou em *Campo Grande*... que calor da porra! 🌡️🔥\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Campo Grande*... onde o ar-condicionado é artigo de luxo! ❄️💸\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Campo Grande*... terra do calor infernal e do suor eterno! 🔥💦\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Campo Grande*... onde até o ventilador pede arrego! 💨😓\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Campo Grande*... onde o sol é mais forte que sua vontade de trabalhar! ☀️😅\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Campo Grande*... onde até o termômetro desiste de medir! 🌡️🤯\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+		},
+		"lapa": {
+			"Você chegou na *Lapa*... só tem malandro e pivete aqui, fica ligado! 🎭👀\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou na *Lapa*... onde todo mundo é artista, menos os artistas! 🎨🎭\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou na *Lapa*... terra do samba, da cerveja e da ressaca! 🍺🎵\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou na *Lapa*... onde todo mundo tem uma história pra contar, mas ninguém acredita! 📖🤥\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou na *Lapa*... onde até o mendigo tem mais estilo que você! 👔🎩\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou na *Lapa*... onde a noite é mais movimentada que o dia! 🌙🎉\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+		},
+		"copacabana": {
+			"Você chegou em *Copacabana*... cuidado com os gringos e os preços! 💸🌍\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Copacabana*... onde todo mundo é turista, menos os turistas! 🧳👀\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Copacabana*... terra do biquíni fio dental e do dinheiro curto! 👙💸\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Copacabana*... onde até o picolé é importado! 🍦🌍\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Copacabana*... onde todo mundo é rico, menos você! 💰😅\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Copacabana*... onde até o mendigo fala inglês! 🗣️🌍\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+		},
+		"ipanema": {
+			"Você chegou em *Ipanema*... onde todo mundo é rico, menos você! 💰😅\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Ipanema*... onde até o cachorro tem pedigree! 🐕👑\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Ipanema*... terra do suco detox e do saldo negativo! 🥤💸\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Ipanema*... onde todo mundo é influencer, menos os influencers! 📱🎭\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Ipanema*... onde até o pão é artesanal! 🥖👨‍🍳\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Ipanema*... onde todo mundo tem iate, menos você! ⛵😅\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+		},
+		"leblon": {
+			"Você chegou no *Leblon*... tá vendo aquela mansão? Não é sua! 🏰😅\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Leblon*... onde até o lixo é gourmet! 🗑️👨‍🍳\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Leblon*... terra do suco verde e do cartão vermelho! 💳🥬\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Leblon*... onde todo mundo tem helicóptero, menos você! 🚁😅\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Leblon*... onde até o mendigo tem conta no exterior! 🌍💰\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Leblon*... onde todo mundo é VIP, menos você! 🎫😅\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+		},
+		"vidigal": {
+			"Você chegou no *Vidigal*... subiu o morro, agora aguenta! ⛰️💪\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Vidigal*... onde todo mundo é guerreiro! ⚔️🛡️\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Vidigal*... terra do funk e da vista privilegiada! 🎵🌅\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Vidigal*... onde todo mundo tem história pra contar! 📖🎭\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Vidigal*... onde até o cachorro é valente! 🐕💪\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Vidigal*... onde todo mundo é família! 👨‍👩‍👧‍👦❤️\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+		},
+		"madureira": {
+			"Você chegou em *Madureira*... terra do samba e do pagode! 🎵💃\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Madureira*... onde todo mundo é bamba! 🕺🎭\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Madureira*... terra do feijão com arroz e do samba no pé! 🍚💃\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Madureira*... onde todo mundo tem ginga! 💃🕺\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Madureira*... onde até o cachorro samba! 🐕💃\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Madureira*... onde todo mundo é bamba do samba! 🎭🎵\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+		},
+		"meier": {
+			"Você chegou no *Méier*... onde todo mundo tem um primo que conhece alguém! 🤝👥\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Méier*... terra do cafezinho e da fofoca! ☕🗣️\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Méier*... onde todo mundo é parente! 👨‍👩‍👧‍👦❤️\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Méier*... onde até o cachorro tem QI! 🧠🐕\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Méier*... onde todo mundo tem um jeitinho! 🎭🤝\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Méier*... onde até o mendigo tem networking! 🤝👔\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+		},
+		"complexo_alemao": {
+			"Você chegou no *Complexo do Alemão*... fica esperto e não vacila! 🚨👀\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Complexo do Alemão*... onde todo mundo é guerreiro! ⚔️🛡️\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Complexo do Alemão*... terra do funk e da coragem! 🎵💪\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Complexo do Alemão*... onde todo mundo tem história! 📖🎭\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Complexo do Alemão*... onde até o cachorro é chapa quente! 🐕💪\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Complexo do Alemão*... onde todo mundo é família! 👨‍👩‍👧‍👦❤️\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+		},
+		"tijuca": {
+			"Você chegou na *Tijuca*... onde todo mundo é formado e desempregado! 🎓😅\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou na *Tijuca*... terra do diploma e do Uber! 🚗🎓\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou na *Tijuca*... onde todo mundo tem currículo! 📄👔\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou na *Tijuca*... onde até o mendigo tem MBA! 🎓👨‍🎓\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou na *Tijuca*... onde todo mundo é especialista! 🧠👨‍💼\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou na *Tijuca*... onde até o cachorro tem LinkedIn! 💼🐕\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+		},
+		"saara": {
+			"Você chegou no *SAARA*... onde tudo é barato, menos o que você quer! 💰😅\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *SAARA*... terra da pechincha e do desconto! 🛍️💸\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *SAARA*... onde todo mundo é vendedor! 🏪👨‍💼\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *SAARA*... onde até o mendigo tem loja! 🏬👨‍💼\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *SAARA*... onde todo mundo tem preço! 💵💰\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *SAARA*... onde até o cachorro faz propaganda! 🐕📢\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+		},
+		"cinelandia": {
+			"Você chegou na *Cinelândia*... onde todo mundo é ator, menos os atores! 🎬🎭\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou na *Cinelândia*... terra do teatro e do desemprego! 🎭😅\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou na *Cinelândia*... onde todo mundo tem talento! 🎨🎭\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou na *Cinelândia*... onde até o mendigo tem Oscar! 🏆🎭\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou na *Cinelândia*... onde todo mundo é estrela! ⭐🎭\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou na *Cinelândia*... onde até o cachorro tem agente! 🎭🐕\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+		},
+		"porto_maravilha": {
+			"Você chegou no *Porto Maravilha*... onde tudo é novo, menos o preço! 🏗️💸\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Porto Maravilha*... terra da gentrificação e do aluguel caro! 💸🏢\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Porto Maravilha*... onde todo mundo é hipster! 🧔🎨\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Porto Maravilha*... onde até o mendigo tem bike! 🚲👨‍💼\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Porto Maravilha*... onde todo mundo é moderno! 🏢🎨\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou no *Porto Maravilha*... onde até o cachorro tem café artesanal! ☕🐕\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+		},
+		"barra_da_tijuca": {
+			"Você chegou na *Barra*... onde todo mundo tem carro, menos você! 🚗😅\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou na *Barra*... terra do trânsito e do condomínio fechado! 🏘️🚗\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou na *Barra*... onde todo mundo tem piscina! 🏊🏠\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou na *Barra*... onde até o mendigo tem carro importado! 🚘👨‍💼\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou na *Barra*... onde todo mundo é playboy! 🏄👨‍💼\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou na *Barra*... onde até o cachorro tem coleira de ouro! 🐕💰\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+		},
+		"jacarepagua": {
+			"Você chegou em *Jacarepaguá*... onde todo mundo é do Flamengo! 🔴⚫\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Jacarepaguá*... terra do samba e do futebol! ⚽🎵\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Jacarepaguá*... onde todo mundo é rubro-negro! 🔴⚫\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Jacarepaguá*... onde até o mendigo tem camisa do Flamengo! 👕🔴\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Jacarepaguá*... onde todo mundo é Mengão! 🏆🔴\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Jacarepaguá*... onde até o cachorro é flamenguista! 🐕🔴\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+		},
+		"santa_cruz": {
+			"Você chegou em *Santa Cruz*... onde todo mundo tem um tio que trabalha na fábrica! 🏭👨‍🏭\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Santa Cruz*... terra da indústria e do churrasco! 🍖🏭\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Santa Cruz*... onde todo mundo tem emprego! 💼👨‍💼\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Santa Cruz*... onde até o mendigo tem carteira assinada! 📄👨‍💼\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Santa Cruz*... onde todo mundo é operário! 👷🏭\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+			"Você chegou em *Santa Cruz*... onde até o cachorro tem crachá! 🐕👨‍💼\n\nBem-vindo ao seu novo cantinho! 🏠✨",
+		},
+	}
+
+	// Get the messages for this location, or use a default one
+	messages, exists := locationMessages[subZoneID]
+	if !exists {
+		return fmt.Sprintf("Você chegou em %s ‍♂️\n\nBem-vindo ao seu novo cantinho! 🏠", displayName)
+	}
+
+	// Select a random message
+	rand.Seed(time.Now().UnixNano())
+	message := messages[rand.Intn(len(messages))]
+
+	return message
 }
 
 // sendResponse sends a response message
@@ -994,19 +1333,22 @@ func cleanCommand(command string) string {
 	// Remove extra whitespace
 	command = strings.TrimSpace(command)
 
-	// Remove accents (simplified approach)
-	command = strings.ReplaceAll(command, "á", "a")
-	command = strings.ReplaceAll(command, "à", "a")
-	command = strings.ReplaceAll(command, "â", "a")
-	command = strings.ReplaceAll(command, "ã", "a")
-	command = strings.ReplaceAll(command, "é", "e")
-	command = strings.ReplaceAll(command, "ê", "e")
-	command = strings.ReplaceAll(command, "í", "i")
-	command = strings.ReplaceAll(command, "ó", "o")
-	command = strings.ReplaceAll(command, "ô", "o")
-	command = strings.ReplaceAll(command, "õ", "o")
-	command = strings.ReplaceAll(command, "ú", "u")
-	command = strings.ReplaceAll(command, "ç", "c")
+	// Only clean accents for non-event commands
+	if !strings.HasPrefix(command, "/") {
+		// Remove accents (simplified approach)
+		command = strings.ReplaceAll(command, "á", "a")
+		command = strings.ReplaceAll(command, "à", "a")
+		command = strings.ReplaceAll(command, "â", "a")
+		command = strings.ReplaceAll(command, "ã", "a")
+		command = strings.ReplaceAll(command, "é", "e")
+		command = strings.ReplaceAll(command, "ê", "e")
+		command = strings.ReplaceAll(command, "í", "i")
+		command = strings.ReplaceAll(command, "ó", "o")
+		command = strings.ReplaceAll(command, "ô", "o")
+		command = strings.ReplaceAll(command, "õ", "o")
+		command = strings.ReplaceAll(command, "ú", "u")
+		command = strings.ReplaceAll(command, "ç", "c")
+	}
 
 	return command
 }
@@ -1176,7 +1518,76 @@ func getAvailableActions(zoneID, subZoneID string) []string {
 	return []string{}
 }
 
+// GetBotPhoneNumber returns the phone number of the bot's WhatsApp account
+func (cm *ClientManager) GetBotPhoneNumber() (string, error) {
+	cm.mutex.RLock()
+	defer cm.mutex.RUnlock()
+
+	// Get the first connected client
+	for phoneNumber, clientInfo := range cm.clients {
+		if clientInfo.Client.IsConnected() && clientInfo.Client.IsLoggedIn() {
+			return phoneNumber, nil
+		}
+	}
+
+	return "", fmt.Errorf("no connected bot client found")
+}
+
 // SendMessage implements the game.MessageSender interface
 func (cm *ClientManager) SendMessage(phoneNumber, recipient, message string) (string, error) {
 	return cm.SendTextMessage(phoneNumber, recipient, message)
+}
+
+// Helper function to get subzones for a zone
+func getSubzonesForZone(zoneID string) string {
+	switch zoneID {
+	case "zona_sul":
+		return "• Copacabana 🌊\n• Ipanema 🌊\n• Leblon 🌊\n• Vidigal 🌊"
+	case "zona_norte":
+		return "• Madureira 🏙️\n• Méier 🏙️\n• Complexo do Alemão 🏙️\n• Tijuca 🏙️"
+	case "centro":
+		return "• Lapa 🎭\n• SAARA 🎭\n• Cinelândia 🎭\n• Porto Maravilha 🎭"
+	case "zona_oeste":
+		return "• Barra da Tijuca 🌅\n• Jacarepaguá 🌅\n• Campo Grande 🌅\n• Santa Cruz 🌅"
+	default:
+		return ""
+	}
+}
+
+// Helper function to normalize subzone names
+func normalizeSubzoneName(name string) string {
+	// Convert to lowercase
+	name = strings.ToLower(name)
+
+	// Replace spaces with underscores
+	name = strings.ReplaceAll(name, " ", "_")
+
+	// Remove accents and special characters
+	replacements := map[string]string{
+		"á": "a", "à": "a", "â": "a", "ã": "a",
+		"é": "e", "è": "e", "ê": "e",
+		"í": "i", "ì": "i", "î": "i",
+		"ó": "o", "ò": "o", "ô": "o", "õ": "o",
+		"ú": "u", "ù": "u", "û": "u",
+		"ç":  "c",
+		"do": "do", // Keep "do" as is
+		"da": "da", // Keep "da" as is
+	}
+
+	for old, new := range replacements {
+		name = strings.ReplaceAll(name, old, new)
+	}
+
+	// Special cases for specific subzones
+	specialCases := map[string]string{
+		"complexo_do_alemao": "complexo_alemao",
+		"barra_da_tijuca":    "barra_da_tijuca",
+		"porto_maravilha":    "porto_maravilha",
+	}
+
+	if normalized, exists := specialCases[name]; exists {
+		return normalized
+	}
+
+	return name
 }

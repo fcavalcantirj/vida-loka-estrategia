@@ -1,16 +1,550 @@
 {
   "players": {
-    "557791401494": {
-      "id": "cfdc5bf4-ed06-4784-a1fa-3dd38993e671",
-      "phone_number": "",
-      "name": "rone",
-      "created_at": "0001-01-01T00:00:00Z",
-      "last_active_at": "2025-04-19T01:21:47.590088-03:00",
-      "xp": 152,
-      "money": 599,
-      "influence": 44,
+    "5521970662055": {
+      "id": "5e3f70d9-e0ec-486b-bd4e-dc8c107c43c6",
+      "phone_number": "5521970662055",
+      "name": "sami",
+      "created_at": "2025-04-19T12:42:14.601451-03:00",
+      "last_active_at": "2025-04-19T13:18:25.641244-03:00",
+      "xp": 42,
+      "money": 208,
+      "influence": 7,
       "status": "active",
-      "stress": 70,
+      "stress": 20,
+      "current_character": {
+        "id": "dono_boca",
+        "name": "Dono da Boca",
+        "type": "Criminoso",
+        "description": "Cresceu na comunidade e subiu na hierarquia. Controla o tráfico local com mão de ferro, mas tem código de honra com os moradores.",
+        "created_at": "2025-04-18T00:00:00Z",
+        "updated_at": "2025-04-18T00:00:00Z",
+        "carisma": 4,
+        "proficiencia": 3,
+        "rede": 5,
+        "moralidade": 1,
+        "resiliencia": 5,
+        "favorite_actions": [
+          "trabalhar",
+          "relaxar"
+        ],
+        "natural_predators": [
+          "policial_militar",
+          "miliciano"
+        ],
+        "evolution_paths": [
+          "empresario",
+          "politico",
+          "presidiario"
+        ]
+      },
+      "current_zone": "zona_sul",
+      "current_sub_zone": "ipanema",
+      "last_event_at": "0001-01-01T00:00:00Z",
+      "current_event": {
+        "id": "evento_005",
+        "name": "",
+        "description": "Você descobre um curso gratuito que pode melhorar suas habilidades profissionais, mas exigirá tempo e dedicação.",
+        "min_xp": 15,
+        "min_money": 0,
+        "min_influence": 0,
+        "required_zone": [
+          "centro",
+          "zona_sul",
+          "zona_norte"
+        ],
+        "options": [
+          {
+            "id": "opt_005_a",
+            "description": "Matricular-se e dedicar-se integralmente",
+            "required_attribute": "proficiencia",
+            "difficulty_level": 7,
+            "success_outcome": {
+              "description": "Você completa o curso com excelência e adquire habilidades valiosas que abrem novas oportunidades.",
+              "xp_change": 30,
+              "money_change": -20,
+              "influence_change": 5,
+              "stress_change": 10,
+              "next_event_id": "evento_006"
+            },
+            "failure_outcome": {
+              "description": "O curso é mais difícil do que esperava. Você se esforça, mas não consegue acompanhar o ritmo e abandona.",
+              "xp_change": 8,
+              "money_change": -20,
+              "influence_change": 0,
+              "stress_change": 20
+            }
+          },
+          {
+            "id": "opt_005_b",
+            "description": "Fazer o curso parcialmente, conciliando com outras atividades",
+            "required_attribute": "resiliencia",
+            "difficulty_level": 8,
+            "success_outcome": {
+              "description": "Com disciplina, você consegue equilibrar o curso com suas outras responsabilidades e aprende o essencial.",
+              "xp_change": 20,
+              "money_change": -10,
+              "influence_change": 3,
+              "stress_change": 15
+            },
+            "failure_outcome": {
+              "description": "A sobrecarga de atividades te esgota. Você acaba não aproveitando bem o curso e prejudicando outras áreas da vida.",
+              "xp_change": 5,
+              "money_change": -10,
+              "influence_change": 0,
+              "stress_change": 25
+            }
+          },
+          {
+            "id": "opt_005_c",
+            "description": "Convidar amigos para fazerem o curso juntos",
+            "required_attribute": "rede",
+            "difficulty_level": 6,
+            "success_outcome": {
+              "description": "Seus amigos topam a ideia. Juntos, vocês se motivam mutuamente e formam um grupo de estudos produtivo.",
+              "xp_change": 25,
+              "money_change": -15,
+              "influence_change": 8,
+              "stress_change": 5
+            },
+            "failure_outcome": {
+              "description": "Seus amigos começam animados, mas logo desistem. Você acaba se desmotivando também e abandona o curso.",
+              "xp_change": 3,
+              "money_change": -15,
+              "influence_change": -2,
+              "stress_change": 10
+            }
+          },
+          {
+            "id": "opt_005_d",
+            "description": "Ignorar a oportunidade e focar em ganhar dinheiro",
+            "required_attribute": "carisma",
+            "difficulty_level": 7,
+            "success_outcome": {
+              "description": "Você consegue um trabalho temporário que paga bem e compensa a falta do curso.",
+              "xp_change": 5,
+              "money_change": 150,
+              "influence_change": 2,
+              "stress_change": 15
+            },
+            "failure_outcome": {
+              "description": "Você não consegue o trabalho esperado e ainda perde a oportunidade do curso gratuito.",
+              "xp_change": 0,
+              "money_change": 20,
+              "influence_change": -1,
+              "stress_change": 20
+            }
+          }
+        ]
+      },
+      "decision_history": [
+        {
+          "id": "92222e8a-0cca-49f4-85d3-20e5c443bab8",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T12:45:00.22931-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 12,
+          "money_change": 128,
+          "influence_change": 2,
+          "stress_change": 10
+        },
+        {
+          "id": "5029b780-14b2-44fb-a233-6d3bbebc8111",
+          "event_id": "evento_005",
+          "choice": "opt_005_a",
+          "timestamp": "2025-04-19T13:18:25.641256-03:00",
+          "outcome": "Roll: 13, Required: 7, Success: true",
+          "xp_change": 30,
+          "money_change": -20,
+          "influence_change": 5,
+          "stress_change": 10
+        }
+      ]
+    },
+    "5521989292091": {
+      "id": "f649a99f-6291-4b40-b4d6-ec2119857570",
+      "phone_number": "5521989292091",
+      "name": "nipper",
+      "created_at": "2025-04-19T11:24:40.123665-03:00",
+      "last_active_at": "2025-04-19T11:24:40.123665-03:00",
+      "xp": 0,
+      "money": 100,
+      "influence": 0,
+      "status": "active",
+      "stress": 0,
+      "current_character": null,
+      "current_zone": "",
+      "current_sub_zone": "",
+      "last_event_at": "0001-01-01T00:00:00Z",
+      "current_event": null,
+      "decision_history": []
+    },
+    "556182443409": {
+      "id": "fa7c7fcd-b17b-479a-8c9c-b610273b091d",
+      "phone_number": "556182443409",
+      "name": "rafa",
+      "created_at": "2025-04-19T10:10:46.472666-03:00",
+      "last_active_at": "2025-04-19T10:12:16.895647-03:00",
+      "xp": 0,
+      "money": 100,
+      "influence": 0,
+      "status": "active",
+      "stress": 0,
+      "current_character": {
+        "id": "dono_boca",
+        "name": "Dono da Boca",
+        "type": "Criminoso",
+        "description": "Cresceu na comunidade e subiu na hierarquia. Controla o tráfico local com mão de ferro, mas tem código de honra com os moradores.",
+        "created_at": "2025-04-18T00:00:00Z",
+        "updated_at": "2025-04-18T00:00:00Z",
+        "carisma": 4,
+        "proficiencia": 3,
+        "rede": 5,
+        "moralidade": 1,
+        "resiliencia": 5,
+        "favorite_actions": [
+          "trabalhar",
+          "relaxar"
+        ],
+        "natural_predators": [
+          "policial_militar",
+          "miliciano"
+        ],
+        "evolution_paths": [
+          "empresario",
+          "politico",
+          "presidiario"
+        ]
+      },
+      "current_zone": "centro",
+      "current_sub_zone": "lapa",
+      "last_event_at": "0001-01-01T00:00:00Z",
+      "current_event": {
+        "id": "evento_random_001",
+        "name": "",
+        "description": "Uma tempestade repentina atinge a cidade, causando alagamentos e transtornos.",
+        "min_xp": 0,
+        "min_money": 0,
+        "min_influence": 0,
+        "required_zone": [],
+        "options": [
+          {
+            "id": "opt_random_001_a",
+            "description": "Esperar a chuva passar em um local seguro",
+            "required_attribute": "resiliencia",
+            "difficulty_level": 5,
+            "success_outcome": {
+              "description": "Você encontra um café aconchegante e aproveita o tempo para ler e relaxar enquanto a tempestade passa.",
+              "xp_change": 3,
+              "money_change": -15,
+              "influence_change": 0,
+              "stress_change": -10
+            },
+            "failure_outcome": {
+              "description": "O único abrigo que você encontra está lotado e desconfortável. Você passa horas em pé esperando a chuva diminuir.",
+              "xp_change": 1,
+              "money_change": -5,
+              "influence_change": 0,
+              "stress_change": 15
+            }
+          },
+          {
+            "id": "opt_random_001_b",
+            "description": "Enfrentar a chuva e seguir seu caminho",
+            "required_attribute": "resiliencia",
+            "difficulty_level": 8,
+            "success_outcome": {
+              "description": "Você se molha, mas consegue chegar ao seu destino a tempo para um compromisso importante.",
+              "xp_change": 5,
+              "money_change": 0,
+              "influence_change": 2,
+              "stress_change": 5
+            },
+            "failure_outcome": {
+              "description": "Você fica encharcado e acaba pegando um resfriado. Seus planos para os próximos dias são prejudicados.",
+              "xp_change": 2,
+              "money_change": -30,
+              "influence_change": -1,
+              "stress_change": 20
+            }
+          },
+          {
+            "id": "opt_random_001_c",
+            "description": "Pedir um transporte por aplicativo",
+            "required_attribute": "proficiencia",
+            "difficulty_level": 6,
+            "success_outcome": {
+              "description": "Você consegue um carro rapidamente por um preço razoável e chega seco ao seu destino.",
+              "xp_change": 2,
+              "money_change": -25,
+              "influence_change": 0,
+              "stress_change": -5
+            },
+            "failure_outcome": {
+              "description": "Os preços estão absurdamente altos devido à chuva. Você paga caro ou acaba desistindo e se molhando mesmo.",
+              "xp_change": 1,
+              "money_change": -50,
+              "influence_change": 0,
+              "stress_change": 10
+            }
+          },
+          {
+            "id": "opt_random_001_d",
+            "description": "Ligar para um amigo pedindo carona",
+            "required_attribute": "rede",
+            "difficulty_level": 7,
+            "success_outcome": {
+              "description": "Seu amigo está por perto e te busca. Vocês aproveitam o encontro inesperado para colocar o papo em dia.",
+              "xp_change": 4,
+              "money_change": 0,
+              "influence_change": 3,
+              "stress_change": -10
+            },
+            "failure_outcome": {
+              "description": "Nenhum dos seus amigos pode te ajudar no momento. Você precisa encontrar outra solução.",
+              "xp_change": 1,
+              "money_change": 0,
+              "influence_change": 0,
+              "stress_change": 5
+            }
+          }
+        ]
+      },
+      "decision_history": []
+    },
+    "557199716578": {
+      "id": "14275716-0028-4f65-8bb0-c8789400a200",
+      "phone_number": "557199716578",
+      "name": "russo",
+      "created_at": "2025-04-19T12:14:17.394856-03:00",
+      "last_active_at": "2025-04-19T12:22:10.344016-03:00",
+      "xp": 87,
+      "money": 214,
+      "influence": 31,
+      "status": "active",
+      "stress": 0,
+      "current_character": {
+        "id": "dono_boca",
+        "name": "Dono da Boca",
+        "type": "Criminoso",
+        "description": "Cresceu na comunidade e subiu na hierarquia. Controla o tráfico local com mão de ferro, mas tem código de honra com os moradores.",
+        "created_at": "2025-04-18T00:00:00Z",
+        "updated_at": "2025-04-18T00:00:00Z",
+        "carisma": 4,
+        "proficiencia": 3,
+        "rede": 5,
+        "moralidade": 1,
+        "resiliencia": 5,
+        "favorite_actions": [
+          "trabalhar",
+          "relaxar"
+        ],
+        "natural_predators": [
+          "policial_militar",
+          "miliciano"
+        ],
+        "evolution_paths": [
+          "empresario",
+          "politico",
+          "presidiario"
+        ]
+      },
+      "current_zone": "zona_norte",
+      "current_sub_zone": "complexo_alemao",
+      "last_event_at": "0001-01-01T00:00:00Z",
+      "current_event": {
+        "id": "evento_random_002",
+        "name": "",
+        "description": "Você percebe que seu celular não está mais com você. Pode ter sido perdido ou roubado.",
+        "min_xp": 10,
+        "min_money": 50,
+        "min_influence": 0,
+        "required_zone": [],
+        "options": [
+          {
+            "id": "opt_random_002_a",
+            "description": "Refazer seus passos metodicamente",
+            "required_attribute": "proficiencia",
+            "difficulty_level": 8,
+            "success_outcome": {
+              "description": "Com calma e método, você retraça seu caminho e encontra o celular caído em um local discreto.",
+              "xp_change": 5,
+              "money_change": 0,
+              "influence_change": 0,
+              "stress_change": -10
+            },
+            "failure_outcome": {
+              "description": "Apesar da busca cuidadosa, você não encontra o celular. Terá que arcar com o prejuízo.",
+              "xp_change": 3,
+              "money_change": -300,
+              "influence_change": 0,
+              "stress_change": 25
+            }
+          },
+          {
+            "id": "opt_random_002_b",
+            "description": "Pedir ajuda às pessoas ao redor",
+            "required_attribute": "carisma",
+            "difficulty_level": 7,
+            "success_outcome": {
+              "description": "Sua simpatia conquista as pessoas, que se mobilizam para ajudar. Um segurança encontrou seu celular e o guardou.",
+              "xp_change": 8,
+              "money_change": -20,
+              "influence_change": 5,
+              "stress_change": -5
+            },
+            "failure_outcome": {
+              "description": "As pessoas parecem desconfiadas do seu pedido de ajuda. Ninguém se dispõe a colaborar de verdade.",
+              "xp_change": 2,
+              "money_change": -300,
+              "influence_change": -2,
+              "stress_change": 20
+            }
+          },
+          {
+            "id": "opt_random_002_c",
+            "description": "Usar aplicativos de rastreamento",
+            "required_attribute": "proficiencia",
+            "difficulty_level": 9,
+            "success_outcome": {
+              "description": "Você acessa o rastreador pelo computador e localiza seu celular. Consegue recuperá-lo rapidamente.",
+              "xp_change": 10,
+              "money_change": -10,
+              "influence_change": 2,
+              "stress_change": 0
+            },
+            "failure_outcome": {
+              "description": "O rastreador mostra que o celular está em movimento. Provavelmente foi roubado e já está longe.",
+              "xp_change": 5,
+              "money_change": -300,
+              "influence_change": 0,
+              "stress_change": 30
+            }
+          },
+          {
+            "id": "opt_random_002_d",
+            "description": "Aceitar a perda e comprar outro",
+            "required_attribute": "resiliencia",
+            "difficulty_level": 6,
+            "success_outcome": {
+              "description": "Você aceita o prejuízo com maturidade e encontra uma boa promoção para um celular novo e melhor.",
+              "xp_change": 3,
+              "money_change": -250,
+              "influence_change": 0,
+              "stress_change": 5
+            },
+            "failure_outcome": {
+              "description": "A perda do celular te afeta mais do que esperava. Além do prejuízo financeiro, você perde contatos importantes.",
+              "xp_change": 2,
+              "money_change": -350,
+              "influence_change": -5,
+              "stress_change": 25
+            }
+          }
+        ]
+      },
+      "decision_history": [
+        {
+          "id": "6bb04555-a08c-465d-a79f-144ef3630676",
+          "event_id": "action_curtir",
+          "choice": "curtir",
+          "timestamp": "2025-04-19T12:18:43.179784-03:00",
+          "outcome": "curtir",
+          "xp_change": 6,
+          "money_change": -65,
+          "influence_change": 6,
+          "stress_change": -10
+        },
+        {
+          "id": "4d630dd4-06d9-4aed-9eda-c2c4f7888145",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T12:20:03.032713-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 16,
+          "money_change": 170,
+          "influence_change": 2,
+          "stress_change": 10
+        },
+        {
+          "id": "5e2684e4-613b-4973-a420-4abc9685f402",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T12:20:12.652602-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 16,
+          "money_change": 170,
+          "influence_change": 2,
+          "stress_change": 10
+        },
+        {
+          "id": "ac116fc1-0492-4fff-b906-ca8a4a80e60b",
+          "event_id": "action_networking",
+          "choice": "networking",
+          "timestamp": "2025-04-19T12:20:45.176393-03:00",
+          "outcome": "networking",
+          "xp_change": 14,
+          "money_change": -58,
+          "influence_change": 14,
+          "stress_change": 5
+        },
+        {
+          "id": "7e3c0cef-bfc2-4eee-bf16-ab8dc1d2b31f",
+          "event_id": "action_empreender",
+          "choice": "empreender",
+          "timestamp": "2025-04-19T12:21:28.148001-03:00",
+          "outcome": "empreender",
+          "xp_change": 22,
+          "money_change": -56,
+          "influence_change": 5,
+          "stress_change": 15
+        },
+        {
+          "id": "4d1a8765-b634-4d7e-9f5c-b1b9f440ff4e",
+          "event_id": "action_relaxar",
+          "choice": "relaxar",
+          "timestamp": "2025-04-19T12:21:36.267351-03:00",
+          "outcome": "relaxar",
+          "xp_change": 0,
+          "money_change": -33,
+          "influence_change": 0,
+          "stress_change": -20
+        },
+        {
+          "id": "c2bcee46-72c8-4fe9-a733-bcb50466e501",
+          "event_id": "action_meditar",
+          "choice": "meditar",
+          "timestamp": "2025-04-19T12:21:45.056002-03:00",
+          "outcome": "meditar",
+          "xp_change": 5,
+          "money_change": 0,
+          "influence_change": 0,
+          "stress_change": -25
+        },
+        {
+          "id": "b00fd026-c793-4456-97f6-dbed2d779a58",
+          "event_id": "action_treinar",
+          "choice": "treinar",
+          "timestamp": "2025-04-19T12:22:10.344021-03:00",
+          "outcome": "treinar",
+          "xp_change": 8,
+          "money_change": -14,
+          "influence_change": 2,
+          "stress_change": -15
+        }
+      ]
+    },
+    "557791401494": {
+      "id": "e41bb381-c6d8-4466-926a-133991b69d37",
+      "phone_number": "557791401494",
+      "name": "rone",
+      "created_at": "2025-04-19T02:36:24.781594-03:00",
+      "last_active_at": "2025-04-19T13:20:08.34163-03:00",
+      "xp": 130,
+      "money": 1786,
+      "influence": 43,
+      "status": "active",
+      "stress": 10,
       "current_character": {
         "id": "hacker",
         "name": "Nerd Hacker",
@@ -38,15 +572,16 @@
           "ativista"
         ]
       },
-      "current_zone": "centro",
-      "current_sub_zone": "lapa",
+      "current_zone": "zona_norte",
+      "current_sub_zone": "complexo_alemao",
       "last_event_at": "0001-01-01T00:00:00Z",
+      "current_event": null,
       "decision_history": [
         {
-          "id": "047f579e-9999-4f1a-bc36-698e9db51bca",
+          "id": "f195eaf7-0fba-4039-8cb8-cfb488210ae8",
           "event_id": "action_trabalhar",
           "choice": "trabalhar",
-          "timestamp": "2025-04-19T00:56:49.185399-03:00",
+          "timestamp": "2025-04-19T02:36:34.58847-03:00",
           "outcome": "trabalhar",
           "xp_change": 12,
           "money_change": 130,
@@ -54,158 +589,147 @@
           "stress_change": 10
         },
         {
-          "id": "ee62c6d4-9682-498c-8644-97ff827d8efe",
-          "event_id": "action_curtir",
-          "choice": "curtir",
-          "timestamp": "2025-04-19T00:58:23.784439-03:00",
-          "outcome": "curtir",
-          "xp_change": 6,
-          "money_change": -63,
-          "influence_change": 6,
+          "id": "676524b0-7b31-4c23-ac3a-fc966e22c11b",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T02:38:41.766616-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 12,
+          "money_change": 130,
+          "influence_change": 2,
+          "stress_change": 10
+        },
+        {
+          "id": "93f74f01-08e1-4dd9-94ec-eb876eb4dfc6",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T02:40:52.886642-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 12,
+          "money_change": 130,
+          "influence_change": 2,
+          "stress_change": 10
+        },
+        {
+          "id": "37185bc8-4ce0-4486-bbe9-d3c8025ff0e7",
+          "event_id": "evento_008",
+          "choice": "opt_008_d",
+          "timestamp": "2025-04-19T11:41:18.560741-03:00",
+          "outcome": "Roll: 5, Required: 7, Success: false",
+          "xp_change": 15,
+          "money_change": 500,
+          "influence_change": 10,
+          "stress_change": 15
+        },
+        {
+          "id": "05766f95-e2ed-4f05-9025-567ab965dd1d",
+          "event_id": "evento_008",
+          "choice": "opt_008_d",
+          "timestamp": "2025-04-19T11:43:23.063367-03:00",
+          "outcome": "Roll: 10, Required: 7, Success: true",
+          "xp_change": 25,
+          "money_change": 500,
+          "influence_change": 15,
+          "stress_change": 0
+        },
+        {
+          "id": "ad08a6fb-aee7-420a-bdd7-7e36c8a25198",
+          "event_id": "action_dormir",
+          "choice": "dormir",
+          "timestamp": "2025-04-19T11:44:42.112997-03:00",
+          "outcome": "dormir",
+          "xp_change": 0,
+          "money_change": 0,
+          "influence_change": 0,
+          "stress_change": -30
+        },
+        {
+          "id": "be62d079-7483-4b90-8db1-2ae74a36ab18",
+          "event_id": "evento_003",
+          "choice": "opt_003_d",
+          "timestamp": "2025-04-19T11:45:28.469149-03:00",
+          "outcome": "Roll: 6, Required: 6, Success: true",
+          "xp_change": 5,
+          "money_change": 0,
+          "influence_change": 0,
+          "stress_change": -5
+        },
+        {
+          "id": "b803aaf1-0805-48af-9f2b-294cbc0ec46f",
+          "event_id": "evento_006",
+          "choice": "opt_006_d",
+          "timestamp": "2025-04-19T11:48:15.795209-03:00",
+          "outcome": "Roll: 5, Required: 5, Success: true",
+          "xp_change": 10,
+          "money_change": -10,
+          "influence_change": 5,
+          "stress_change": 0
+        },
+        {
+          "id": "9c7900fa-97b2-4895-9113-4bd2247853c3",
+          "event_id": "action_treinar",
+          "choice": "treinar",
+          "timestamp": "2025-04-19T12:13:11.086876-03:00",
+          "outcome": "treinar",
+          "xp_change": 5,
+          "money_change": -9,
+          "influence_change": 1,
+          "stress_change": -15
+        },
+        {
+          "id": "f9ef9440-a58f-405d-8365-9fd0ea03436b",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T12:36:46.937949-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 9,
+          "money_change": 105,
+          "influence_change": 1,
+          "stress_change": 10
+        },
+        {
+          "id": "18e8abc9-4410-4db2-8cc7-915e48433e4b",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T13:02:25.201715-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 9,
+          "money_change": 105,
+          "influence_change": 1,
+          "stress_change": 10
+        },
+        {
+          "id": "18d8f8de-706d-47b3-969e-5dbb6f66ac78",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T13:16:58.826089-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 9,
+          "money_change": 105,
+          "influence_change": 1,
+          "stress_change": 10
+        },
+        {
+          "id": "b80fd48f-ec87-4f13-8db1-72b48290e1aa",
+          "event_id": "evento_random_001",
+          "choice": "opt_random_001_d",
+          "timestamp": "2025-04-19T13:17:27.401709-03:00",
+          "outcome": "Roll: 15, Required: 7, Success: true",
+          "xp_change": 4,
+          "money_change": 0,
+          "influence_change": 3,
           "stress_change": -10
         },
         {
-          "id": "cf7d30ce-3c7e-4d91-b131-53aadd1b45e8",
-          "event_id": "action_dormir",
-          "choice": "dormir",
-          "timestamp": "2025-04-19T00:58:27.592191-03:00",
-          "outcome": "dormir",
-          "xp_change": 0,
+          "id": "19aba44e-cfe7-4480-b5bf-73ab11aee0ab",
+          "event_id": "evento_004",
+          "choice": "opt_004_d",
+          "timestamp": "2025-04-19T13:20:08.341692-03:00",
+          "outcome": "Roll: 15, Required: 5, Success: true",
+          "xp_change": 3,
           "money_change": 0,
           "influence_change": 0,
-          "stress_change": -30
-        },
-        {
-          "id": "2656704f-0584-4b89-9615-2c061b3ff06e",
-          "event_id": "action_dormir",
-          "choice": "dormir",
-          "timestamp": "2025-04-19T01:16:44.913291-03:00",
-          "outcome": "dormir",
-          "xp_change": 0,
-          "money_change": 0,
-          "influence_change": 0,
-          "stress_change": -30
-        },
-        {
-          "id": "9c12d102-855f-4bd0-8e8b-f45ba5e13e87",
-          "event_id": "action_trabalhar",
-          "choice": "trabalhar",
-          "timestamp": "2025-04-19T01:16:49.182669-03:00",
-          "outcome": "trabalhar",
-          "xp_change": 12,
-          "money_change": 130,
-          "influence_change": 2,
-          "stress_change": 10
-        },
-        {
-          "id": "63b477a5-df2b-4bf2-9fa7-a041ac12d9b2",
-          "event_id": "action_trabalhar",
-          "choice": "trabalhar",
-          "timestamp": "2025-04-19T01:18:15.317563-03:00",
-          "outcome": "trabalhar",
-          "xp_change": 12,
-          "money_change": 130,
-          "influence_change": 2,
-          "stress_change": 10
-        },
-        {
-          "id": "6f207f21-1362-4dbc-8d4a-c47b9912bf9e",
-          "event_id": "action_trabalhar",
-          "choice": "trabalhar",
-          "timestamp": "2025-04-19T01:18:18.286271-03:00",
-          "outcome": "trabalhar",
-          "xp_change": 12,
-          "money_change": 130,
-          "influence_change": 2,
-          "stress_change": 10
-        },
-        {
-          "id": "7b5274ca-9cb6-4ea8-8786-462320dbafec",
-          "event_id": "action_trabalhar",
-          "choice": "trabalhar",
-          "timestamp": "2025-04-19T01:18:26.729286-03:00",
-          "outcome": "trabalhar",
-          "xp_change": 12,
-          "money_change": 130,
-          "influence_change": 2,
-          "stress_change": 10
-        },
-        {
-          "id": "324b3fa2-bd3c-4107-b21f-e6bfc6418d6f",
-          "event_id": "action_trabalhar",
-          "choice": "trabalhar",
-          "timestamp": "2025-04-19T01:18:28.023591-03:00",
-          "outcome": "trabalhar",
-          "xp_change": 12,
-          "money_change": 130,
-          "influence_change": 2,
-          "stress_change": 10
-        },
-        {
-          "id": "f17cb1c9-0832-41b5-b65e-2e1b6d69c9fc",
-          "event_id": "action_networking",
-          "choice": "networking",
-          "timestamp": "2025-04-19T01:19:23.105043-03:00",
-          "outcome": "networking",
-          "xp_change": 10,
-          "money_change": -42,
-          "influence_change": 10,
-          "stress_change": 5
-        },
-        {
-          "id": "c08ed82f-6536-4e2a-9f6d-1308d703a9fc",
-          "event_id": "action_empreender",
-          "choice": "empreender",
-          "timestamp": "2025-04-19T01:19:26.856379-03:00",
-          "outcome": "empreender",
-          "xp_change": 16,
-          "money_change": -44,
-          "influence_change": 4,
-          "stress_change": 15
-        },
-        {
-          "id": "d42b14f8-3b5c-4de2-a9e6-9e64b6d289e7",
-          "event_id": "action_empreender",
-          "choice": "empreender",
-          "timestamp": "2025-04-19T01:21:29.377882-03:00",
-          "outcome": "empreender",
-          "xp_change": 16,
-          "money_change": -44,
-          "influence_change": 4,
-          "stress_change": 15
-        },
-        {
-          "id": "e9e05748-f805-4b8c-84e1-801ec462737c",
-          "event_id": "action_empreender",
-          "choice": "empreender",
-          "timestamp": "2025-04-19T01:21:30.471995-03:00",
-          "outcome": "empreender",
-          "xp_change": 16,
-          "money_change": -44,
-          "influence_change": 4,
-          "stress_change": 15
-        },
-        {
-          "id": "add63f17-9072-4956-8c66-4889f3d662b3",
-          "event_id": "action_empreender",
-          "choice": "empreender",
-          "timestamp": "2025-04-19T01:21:31.478443-03:00",
-          "outcome": "empreender",
-          "xp_change": 16,
-          "money_change": -44,
-          "influence_change": 4,
-          "stress_change": 15
-        },
-        {
-          "id": "cf0a42ad-b1dd-48d5-8786-4ba0ef727603",
-          "event_id": "action_dormir",
-          "choice": "dormir",
-          "timestamp": "2025-04-19T01:21:47.590092-03:00",
-          "outcome": "dormir",
-          "xp_change": 0,
-          "money_change": 0,
-          "influence_change": 0,
-          "stress_change": -30
+          "stress_change": -10
         }
       ]
     }
@@ -1810,6 +2334,7 @@
             "relaxar",
             "dormir",
             "ajudar",
+            "treinar",
             "empreender"
           ]
         },

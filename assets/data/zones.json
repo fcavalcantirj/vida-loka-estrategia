@@ -152,7 +152,7 @@
         "description": "Bairro populoso com forte comércio local e áreas residenciais.",
         "risk_level": 6,
         "reward_multiplier": 80,
-        "available_actions": ["trabalhar", "estudar", "relaxar", "dormir", "ajudar", "empreender"]
+        "available_actions": ["trabalhar", "estudar", "relaxar", "dormir", "ajudar", "treinar", "empreender"]
       },
       {
         "id": "santa_cruz",

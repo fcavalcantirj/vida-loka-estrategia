@@ -12,8 +12,8 @@
     "default_xp": 0,
     "default_money": 100,
     "default_influence": 0,
-    "event_interval": 1,
-    "random_event_probability": 20
+    "event_interval": 60,
+    "random_event_probability": 25
   },
   "server": {
     "port": "8080",

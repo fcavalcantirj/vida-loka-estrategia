@@ -31,6 +31,9 @@ type WhatsAppConfig struct {
 
 	// Auto-reply timeout in seconds
 	AutoReplyTimeout int `json:"auto_reply_timeout"`
+
+	// Host's phone number (with country code, no special characters)
+	HostNumber string `json:"host_number"`
 }
 
 // DatabaseConfig holds database specific configuration
@@ -85,6 +88,7 @@ func DefaultConfig() Config {
 			StoreDir:         "./whatsapp-store",
 			ClientName:       "VIDA LOKA STRATEGY",
 			AutoReplyTimeout: 300,
+			HostNumber:       "", // Must be set in config file
 		},
 		Database: DatabaseConfig{
 			Driver: "sqlite3",

@@ -83,6 +83,41 @@ func (qm *QRCodeManager) GenerateQRCode(sessionID, phoneNumber string) (string, 
 				zap.String("path", qrPath))
 
 			return evt.Code, nil
+		} else if evt.Event == "success" {
+			// Store the host number in config
+			qm.config.WhatsApp.HostNumber = phoneNumber
+			if err := config.SaveConfig(qm.config, "config.json"); err != nil {
+				qm.logger.Error("Failed to save host number to config",
+					zap.String("phone_number", phoneNumber),
+					zap.Error(err))
+			}
+
+			qm.logger.Info("WhatsApp client successfully authenticated",
+				zap.String("phone_number", phoneNumber))
+
+			// Reconnect the client
+			if err := client.Connect(); err != nil {
+				qm.logger.Error("Failed to reconnect client after authentication",
+					zap.String("phone_number", phoneNumber),
+					zap.Error(err))
+				return "", fmt.Errorf("failed to reconnect after authentication: %w", err)
+			}
+
+			// Wait for device JID to be set
+			for i := 0; i < 5; i++ {
+				if client.Store.ID != nil {
+					break
+				}
+				time.Sleep(1 * time.Second)
+			}
+
+			if client.Store.ID == nil {
+				return "", fmt.Errorf("device JID not set after authentication")
+			}
+
+			qm.logger.Info("Device JID set successfully",
+				zap.String("phone_number", phoneNumber),
+				zap.String("jid", client.Store.ID.String()))
 		}
 		return "", fmt.Errorf("unexpected QR event: %s", evt.Event)
 	case <-time.After(60 * time.Second):

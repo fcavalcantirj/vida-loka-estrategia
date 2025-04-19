@@ -140,12 +140,18 @@ func NewEventSystem(gameManager *GameManager, eventInterval time.Duration, logge
 
 // Start begins the event scheduling system
 func (es *EventSystem) Start() {
+	es.logger.Info("Starting event system",
+		zap.Int("event_interval_minutes", es.config.Game.EventInterval),
+		zap.Int("event_probability", es.config.Game.RandomEventProbability))
+
 	go func() {
 		for {
 			select {
 			case <-es.ticker.C:
+				es.logger.Debug("Event system tick received")
 				es.triggerEvents()
 			case <-es.stopChan:
+				es.logger.Info("Event system received stop signal")
 				es.ticker.Stop()
 				return
 			}
@@ -155,6 +161,7 @@ func (es *EventSystem) Start() {
 
 // Stop halts the event scheduling system
 func (es *EventSystem) Stop() {
+	es.logger.Info("Stopping event system")
 	close(es.stopChan)
 }
 
@@ -186,7 +193,7 @@ func (es *EventSystem) triggerEvents() {
 		// Skip inactive players
 		if player.Status != "active" {
 			es.logger.Info("Skipping inactive player",
-				zap.String("player_id", player.ID),
+				zap.String("phone_number", player.PhoneNumber),
 				zap.String("name", player.Name),
 				zap.String("status", player.Status),
 				zap.String("location", fmt.Sprintf("%s, %s", player.CurrentZone, player.CurrentSubZone)))
@@ -194,7 +201,7 @@ func (es *EventSystem) triggerEvents() {
 		}
 
 		es.logger.Info("Checking event for player",
-			zap.String("player_id", player.ID),
+			zap.String("phone_number", player.PhoneNumber),
 			zap.String("name", player.Name),
 			zap.String("location", fmt.Sprintf("%s, %s", player.CurrentZone, player.CurrentSubZone)),
 			zap.Int("xp", player.XP),
@@ -208,7 +215,7 @@ func (es *EventSystem) triggerEvents() {
 		eventTriggered := roll <= required
 
 		es.logger.Info("Event roll result",
-			zap.String("player_id", player.ID),
+			zap.String("phone_number", player.PhoneNumber),
 			zap.String("name", player.Name),
 			zap.Int("roll", roll),
 			zap.Int("required", required),
@@ -216,21 +223,21 @@ func (es *EventSystem) triggerEvents() {
 
 		if eventTriggered {
 			es.logger.Info("Event triggered for player",
-				zap.String("player_id", player.ID),
+				zap.String("phone_number", player.PhoneNumber),
 				zap.String("name", player.Name))
 
 			// Generate event
-			event, err := es.gameManager.TriggerRandomEvent(player.ID)
+			event, err := es.gameManager.TriggerRandomEvent(player.PhoneNumber)
 			if err != nil {
 				es.logger.Error("Failed to trigger event",
-					zap.String("player_id", player.ID),
+					zap.String("phone_number", player.PhoneNumber),
 					zap.String("name", player.Name),
 					zap.Error(err))
 				continue
 			}
 
 			es.logger.Info("Sending event message to player",
-				zap.String("player_id", player.ID),
+				zap.String("phone_number", player.PhoneNumber),
 				zap.String("name", player.Name),
 				zap.String("event_id", event.ID),
 				zap.String("event_description", event.Description),
@@ -242,13 +249,13 @@ func (es *EventSystem) triggerEvents() {
 			// Send event message using player's phone number
 			if err := es.gameManager.SendMessage(player.PhoneNumber, message); err != nil {
 				es.logger.Error("Failed to send event message",
-					zap.String("player_id", player.ID),
+					zap.String("phone_number", player.PhoneNumber),
 					zap.String("name", player.Name),
 					zap.Error(err))
 			}
 		} else {
 			es.logger.Info("No event triggered for player",
-				zap.String("player_id", player.ID),
+				zap.String("phone_number", player.PhoneNumber),
 				zap.String("name", player.Name),
 				zap.Int("roll", roll),
 				zap.Int("required", required))

@@ -38,7 +38,7 @@ func main() {
 
 	// Initialize game manager
 	gameManager := game.NewGameManager(cfg)
-	gameManager.Logger = logger // Set the logger
+	gameManager.SetLogger(logger) // Use SetLogger to properly initialize the event system
 
 	// Load game data
 	if err := loadGameData(gameManager, logger); err != nil {
@@ -50,6 +50,7 @@ func main() {
 
 	// Connect GameManager with ClientManager using the MessageSender interface
 	gameManager.SetMessageSender(clientManager)
+	gameManager.SetClientManager(clientManager)
 
 	// Initialize QR code manager
 	qrManager := whatsapp.NewQRCodeManager(clientManager, cfg, logger)
