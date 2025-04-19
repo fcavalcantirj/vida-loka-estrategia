@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 	"time"
 
@@ -272,6 +273,69 @@ func setupHTTPServer(cfg config.Config, clientManager *whatsapp.ClientManager, q
 		}
 
 		w.WriteHeader(http.StatusOK)
+	})
+
+	// Add stats endpoint
+	router.HandleFunc("/stats", func(w http.ResponseWriter, r *http.Request) {
+		// Get all players
+		players := gameManager.GetAllPlayers()
+
+		// Initialize stats
+		stats := map[string]interface{}{
+			"totalPlayers": len(players),
+			"zones":        make(map[string]int),
+			"characters":   make(map[string]int),
+		}
+
+		// Count players per zone and character
+		for _, player := range players {
+			// Count players in each zone
+			if player.CurrentZone != "" {
+				stats["zones"].(map[string]int)[player.CurrentZone]++
+			}
+
+			// Count players per character
+			if player.CurrentCharacter != nil {
+				characterName := strings.ReplaceAll(player.CurrentCharacter.Name, " ", "_")
+				stats["characters"].(map[string]int)[characterName]++
+			}
+		}
+
+		// Add subzone stats
+		stats["subzones"] = make(map[string]int)
+		for _, player := range players {
+			if player.CurrentSubZone != "" {
+				stats["subzones"].(map[string]int)[player.CurrentSubZone]++
+			}
+		}
+
+		// Add average stats
+		totalXP := 0
+		totalMoney := 0
+		totalInfluence := 0
+		totalStress := 0
+		for _, player := range players {
+			totalXP += player.XP
+			totalMoney += player.Money
+			totalInfluence += player.Influence
+			totalStress += player.Stress
+		}
+
+		if len(players) > 0 {
+			stats["averageStats"] = map[string]float64{
+				"xp":        float64(totalXP) / float64(len(players)),
+				"money":     float64(totalMoney) / float64(len(players)),
+				"influence": float64(totalInfluence) / float64(len(players)),
+				"stress":    float64(totalStress) / float64(len(players)),
+			}
+		}
+
+		// Set response headers
+		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+
+		// Encode and send response
+		json.NewEncoder(w).Encode(stats)
 	})
 
 	// Create HTTP server

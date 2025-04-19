@@ -86,7 +86,7 @@ func DefaultConfig() Config {
 	return Config{
 		WhatsApp: WhatsAppConfig{
 			StoreDir:         "./whatsapp-store",
-			ClientName:       "VIDA LOKA STRATEGY",
+			ClientName:       "VIDA LOKA STRATEGIA",
 			AutoReplyTimeout: 300,
 			HostNumber:       "", // Must be set in config file
 		},

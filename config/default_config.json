@@ -1,7 +1,7 @@
 {
   "whatsapp": {
     "store_dir": "./whatsapp-store",
-    "client_name": "VIDA LOKA STRATEGY",
+    "client_name": "VIDA LOKA STRATEGIA",
     "auto_reply_timeout": 300
   },
   "database": {

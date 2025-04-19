@@ -145,42 +145,12 @@ func (gm *GameManager) RegisterPlayer(phoneNumber, name string) (*types.Player, 
 
 	// Set up WhatsApp client if client manager is available
 	if gm.clientManager != nil {
-		// Get QR channel first to ensure we have a fresh session
-		qrChan, err := gm.clientManager.GetQRChannel(phoneNumber)
-		if err != nil {
-			gm.Logger.Error("Failed to get QR channel",
-				zap.String("phone_number", phoneNumber),
-				zap.Error(err))
-		} else {
-			// Start QR code login process
-			go func() {
-				for evt := range qrChan {
-					if evt.Event == "code" {
-						// Send QR code to player
-						message := fmt.Sprintf("Please scan this QR code to connect your WhatsApp: %s", evt.Code)
-						if err := gm.SendMessage(phoneNumber, message); err != nil {
-							gm.Logger.Error("Failed to send QR code",
-								zap.String("phone_number", phoneNumber),
-								zap.Error(err))
-						}
-					} else if evt.Event == "success" {
-						gm.Logger.Info("WhatsApp client successfully authenticated",
-							zap.String("phone_number", phoneNumber))
-						// Connect the client after successful authentication
-						if err := gm.clientManager.Connect(phoneNumber); err != nil {
-							gm.Logger.Error("Failed to connect WhatsApp client",
-								zap.String("phone_number", phoneNumber),
-								zap.Error(err))
-						}
-					}
-				}
-			}()
-		}
+		//TODO: do something
 	}
 
 	// Save the state
 	if err := gm.saveState(); err != nil {
-		return nil, fmt.Errorf("failed to save game state: %w", err)
+		return nil, fmt.Errorf("falha ao salvar o estado do jogo: %w", err)
 	}
 
 	return player, nil
@@ -193,7 +163,7 @@ func (gm *GameManager) GetPlayer(phoneNumber string) (*types.Player, error) {
 
 	player, exists := gm.state.Players[phoneNumber]
 	if !exists {
-		return nil, errors.New("player not found")
+		return nil, errors.New("jogador não encontrado")
 	}
 
 	return player, nil
@@ -207,13 +177,13 @@ func (gm *GameManager) SelectCharacter(phoneNumber, characterID string) error {
 	// Get player
 	player, exists := gm.state.Players[phoneNumber]
 	if !exists {
-		return errors.New("player not found")
+		return errors.New("jogador não encontrado")
 	}
 
 	// Get character
 	character, exists := gm.state.Characters[characterID]
 	if !exists {
-		return errors.New("character not found")
+		return errors.New("personagem não encontrado")
 	}
 
 	// Assign character to player
@@ -244,7 +214,7 @@ func (gm *GameManager) SelectCharacter(phoneNumber, characterID string) error {
 
 	// Save state
 	if err := gm.saveState(); err != nil {
-		return fmt.Errorf("failed to save game state: %w", err)
+		return fmt.Errorf("falha ao salvar o estado do jogo: %w", err)
 	}
 
 	return nil
@@ -258,24 +228,24 @@ func (gm *GameManager) PerformAction(phoneNumber, actionID string) (*types.Outco
 	// Get player
 	player, exists := gm.state.Players[phoneNumber]
 	if !exists {
-		return nil, errors.New("player not found")
+		return nil, errors.New("jogador não encontrado")
 	}
 
 	// Check if player has a character
 	if player.CurrentCharacter == nil {
-		return nil, errors.New("player has no character selected")
+		return nil, errors.New("jogador não selecionou um personagem")
 	}
 
 	// Get action
 	action, exists := gm.state.Actions[actionID]
 	if !exists {
-		return nil, errors.New("action not found")
+		return nil, errors.New("ação não encontrada")
 	}
 
 	// Get zone
 	zone, exists := gm.state.Zones[player.CurrentZone]
 	if !exists {
-		return nil, errors.New("invalid player zone")
+		return nil, errors.New("zona inválida")
 	}
 
 	// Find current subzone
@@ -288,7 +258,7 @@ func (gm *GameManager) PerformAction(phoneNumber, actionID string) (*types.Outco
 	}
 
 	if currentSubZone == nil {
-		return nil, errors.New("invalid player subzone")
+		return nil, errors.New("subzona inválida")
 	}
 
 	// Check if action is available in current subzone
@@ -301,7 +271,7 @@ func (gm *GameManager) PerformAction(phoneNumber, actionID string) (*types.Outco
 	}
 
 	if !actionAvailable {
-		return nil, errors.New("action not available in current location")
+		return nil, errors.New("ação não disponível na localização atual")
 	}
 
 	// Get attribute value for bonus
@@ -380,7 +350,7 @@ func (gm *GameManager) PerformAction(phoneNumber, actionID string) (*types.Outco
 
 	// Save state
 	if err := gm.saveState(); err != nil {
-		return nil, fmt.Errorf("failed to save game state: %w", err)
+		return nil, fmt.Errorf("falha ao salvar o estado do jogo: %w", err)
 	}
 
 	return &outcome, nil
@@ -394,12 +364,12 @@ func (gm *GameManager) GenerateEvent(phoneNumber string) (*types.Event, error) {
 	// Get player
 	player, exists := gm.state.Players[phoneNumber]
 	if !exists {
-		return nil, errors.New("player not found")
+		return nil, errors.New("jogador não encontrado")
 	}
 
 	// Check if player has a character
 	if player.CurrentCharacter == nil {
-		return nil, errors.New("player has no character selected")
+		return nil, errors.New("jogador não selecionou um personagem")
 	}
 
 	// Get all events that match player's current state
@@ -429,7 +399,7 @@ func (gm *GameManager) GenerateEvent(phoneNumber string) (*types.Event, error) {
 
 	// If no eligible events, return error
 	if len(eligibleEvents) == 0 {
-		return nil, errors.New("no eligible events found for player")
+		return nil, errors.New("nenhum evento encontrado para o jogador")
 	}
 
 	// Select random event
@@ -440,7 +410,7 @@ func (gm *GameManager) GenerateEvent(phoneNumber string) (*types.Event, error) {
 
 	// Save state
 	if err := gm.saveState(); err != nil {
-		return nil, fmt.Errorf("failed to save game state: %w", err)
+		return nil, fmt.Errorf("falha ao salvar o estado do jogo: %w", err)
 	}
 
 	return selectedEvent, nil
@@ -454,18 +424,18 @@ func (gm *GameManager) ProcessEventChoice(phoneNumber, eventID, optionID string)
 	// Get player
 	player, exists := gm.state.Players[phoneNumber]
 	if !exists {
-		return nil, errors.New("player not found")
+		return nil, errors.New("jogador não encontrado")
 	}
 
 	// Check if player has a character
 	if player.CurrentCharacter == nil {
-		return nil, errors.New("player has no character selected")
+		return nil, errors.New("jogador não selecionou um personagem")
 	}
 
 	// Get event
 	event, exists := gm.state.Events[eventID]
 	if !exists {
-		return nil, errors.New("event not found")
+		return nil, errors.New("evento não encontrado")
 	}
 
 	// Find option
@@ -478,7 +448,7 @@ func (gm *GameManager) ProcessEventChoice(phoneNumber, eventID, optionID string)
 	}
 
 	if selectedOption == nil {
-		return nil, errors.New("option not found")
+		return nil, errors.New("opção não encontrada")
 	}
 
 	// Determine attribute value for check
@@ -550,7 +520,7 @@ func (gm *GameManager) ProcessEventChoice(phoneNumber, eventID, optionID string)
 
 	// Save state
 	if err := gm.saveState(); err != nil {
-		return nil, fmt.Errorf("failed to save game state: %w", err)
+		return nil, fmt.Errorf("falha ao salvar o estado do jogo: %w", err)
 	}
 
 	return &outcome, nil
@@ -564,12 +534,12 @@ func (gm *GameManager) SetPlayerStatus(phoneNumber, status string) error {
 	// Get player
 	player, exists := gm.state.Players[phoneNumber]
 	if !exists {
-		return errors.New("player not found")
+		return errors.New("jogador não encontrado")
 	}
 
 	// Validate status
 	if status != "active" && status != "sleeping" && status != "autopilot" {
-		return errors.New("invalid status")
+		return errors.New("status inválido")
 	}
 
 	// Update status
@@ -578,7 +548,7 @@ func (gm *GameManager) SetPlayerStatus(phoneNumber, status string) error {
 
 	// Save state
 	if err := gm.saveState(); err != nil {
-		return fmt.Errorf("failed to save game state: %w", err)
+		return fmt.Errorf("falha ao salvar o estado do jogo: %w", err)
 	}
 
 	return nil
@@ -592,18 +562,18 @@ func (gm *GameManager) GetPlayerStatus(phoneNumber string) (map[string]interface
 	// Get player
 	player, exists := gm.state.Players[phoneNumber]
 	if !exists {
-		return nil, errors.New("player not found")
+		return nil, errors.New("jogador não encontrado")
 	}
 
 	// Check if player has a character
 	if player.CurrentCharacter == nil {
-		return nil, errors.New("player has no character selected")
+		return nil, errors.New("jogador não selecionou um personagem")
 	}
 
 	// Get zone info
 	zone, exists := gm.state.Zones[player.CurrentZone]
 	if !exists {
-		return nil, errors.New("invalid player zone")
+		return nil, errors.New("zona inválida")
 	}
 
 	// Find current subzone
@@ -726,7 +696,7 @@ func (gm *GameManager) LoadZones(zones []*types.Zone) {
 
 	// Save the updated state
 	if err := gm.saveState(); err != nil {
-		gm.Logger.Error("Failed to save game state after loading zones", zap.Error(err))
+		gm.Logger.Error("failed to save game state after loading zones", zap.Error(err))
 	}
 }
 
@@ -761,18 +731,18 @@ func (gm *GameManager) GetAvailableActions(phoneNumber string) ([]*types.Action,
 	// Get player
 	player, exists := gm.state.Players[phoneNumber]
 	if !exists {
-		return nil, errors.New("player not found")
+		return nil, errors.New("jogador não encontrado")
 	}
 
 	// Check if player has a character
 	if player.CurrentCharacter == nil {
-		return nil, errors.New("player has no character selected")
+		return nil, errors.New("jogador não selecionou um personagem")
 	}
 
 	// Get zone
 	zone, exists := gm.state.Zones[player.CurrentZone]
 	if !exists {
-		return nil, errors.New("invalid player zone")
+		return nil, errors.New("zona inválida")
 	}
 
 	// Find current subzone
@@ -785,7 +755,7 @@ func (gm *GameManager) GetAvailableActions(phoneNumber string) ([]*types.Action,
 	}
 
 	if currentSubZone == nil {
-		return nil, errors.New("invalid player subzone")
+		return nil, errors.New("subzona inválida")
 	}
 
 	// Get available actions
@@ -808,7 +778,7 @@ func (gm *GameManager) MovePlayer(playerID, zoneID, subZoneID string) error {
 
 	zone, exists := gm.state.Zones[zoneID]
 	if !exists {
-		return fmt.Errorf("zone not found: %s", zoneID)
+		return fmt.Errorf("zona não encontrada: %s", zoneID)
 	}
 
 	var subZone *types.SubZone
@@ -820,7 +790,7 @@ func (gm *GameManager) MovePlayer(playerID, zoneID, subZoneID string) error {
 	}
 
 	if subZone == nil {
-		return fmt.Errorf("subzone not found: %s", subZoneID)
+		return fmt.Errorf("subzona não encontrada: %s", subZoneID)
 	}
 
 	player.CurrentZone = zoneID
@@ -828,7 +798,7 @@ func (gm *GameManager) MovePlayer(playerID, zoneID, subZoneID string) error {
 
 	// Save state
 	if err := gm.saveState(); err != nil {
-		return fmt.Errorf("failed to save game state: %w", err)
+		return fmt.Errorf("falha ao salvar o estado do jogo: %w", err)
 	}
 
 	return nil
@@ -841,7 +811,7 @@ func (gm *GameManager) GetZone(zoneID string) (*types.Zone, error) {
 
 	zone, exists := gm.state.Zones[zoneID]
 	if !exists {
-		return nil, fmt.Errorf("zone not found: %s", zoneID)
+		return nil, fmt.Errorf("zona não encontrada: %s", zoneID)
 	}
 
 	return zone, nil
@@ -871,9 +841,9 @@ func (gm *GameManager) TriggerRandomEvent(phoneNumber string) (*types.Event, err
 	// Get player from state
 	player, exists := gm.state.Players[phoneNumber]
 	if !exists {
-		gm.Logger.Error("Player not found when triggering event",
+		gm.Logger.Error("jogador não when triggering event",
 			zap.String("phone_number", phoneNumber))
-		return nil, fmt.Errorf("player not found")
+		return nil, fmt.Errorf("jogador não encontrado")
 	}
 
 	gm.Logger.Info("Found player for event",
@@ -917,7 +887,7 @@ func (gm *GameManager) TriggerRandomEvent(phoneNumber string) (*types.Event, err
 	if err := gm.saveState(); err != nil {
 		// If save fails, clear the event to maintain consistency
 		player.CurrentEvent = nil
-		return nil, fmt.Errorf("failed to save game state: %w", err)
+		return nil, fmt.Errorf("falha ao salvar o estado do jogo: %w", err)
 	}
 
 	return &eventCopy, nil
@@ -949,7 +919,7 @@ func (gm *GameManager) SendMessage(playerID string, message string) error {
 	}
 
 	if player == nil {
-		return fmt.Errorf("player not found: %s", playerID)
+		return fmt.Errorf("jogador não encontrado: %s", playerID)
 	}
 
 	// Get the bot's phone number from the client manager

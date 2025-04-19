@@ -1,8 +1,8 @@
-# VIDA LOKA STRATEGY - Manual do Usuário
+# VIDA LOKA STRATEGIA - Manual do Usuário
 
-## 📱 O que é VIDA LOKA STRATEGY?
+## 📱 O que é VIDA LOKA STRATEGIA?
 
-VIDA LOKA STRATEGY é um jogo de estratégia e evolução de personagem jogado inteiramente via **WhatsApp**, onde você encarna um perfil da sociedade urbana brasileira — de estudante da UERJ a dono da boca, de coach motivacional a surfista de Ipanema.
+VIDA LOKA STRATEGIA é um jogo de estratégia e evolução de personagem jogado inteiramente via **WhatsApp**, onde você encarna um perfil da sociedade urbana brasileira — de estudante da UERJ a dono da boca, de coach motivacional a surfista de Ipanema.
 
 É um simulador de vida ambientado no Rio de Janeiro, com decisões morais, eventos caóticos, rolagem de dados, e evolução baseada em XP, dinheiro e influência. O jogo mistura RPG leve, crítica social e humor ácido.
 

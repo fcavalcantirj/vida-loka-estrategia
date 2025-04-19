@@ -1,8 +1,8 @@
-# VIDA LOKA STRATEGY - Documentação para Desenvolvedores
+# VIDA LOKA STRATEGIA - Documentação para Desenvolvedores
 
 ## 📋 Visão Geral do Sistema
 
-VIDA LOKA STRATEGY é um jogo de RPG baseado em texto jogado via WhatsApp, implementado em Go. O sistema é composto por vários componentes principais:
+VIDA LOKA STRATEGIA é um jogo de RPG baseado em texto jogado via WhatsApp, implementado em Go. O sistema é composto por vários componentes principais:
 
 1. **Core Game Engine**: Gerencia a lógica do jogo, personagens, eventos e estado
 2. **WhatsApp Integration**: Lida com a comunicação via WhatsApp usando a biblioteca whatsmeow
@@ -12,7 +12,7 @@ VIDA LOKA STRATEGY é um jogo de RPG baseado em texto jogado via WhatsApp, imple
 ## 🏗️ Arquitetura do Sistema
 
 ```
-vida-loka-strategy/
+vida-loka-strategia/
 ├── cmd/                    # Pontos de entrada da aplicação
 │   └── server/             # Servidor principal
 ├── internal/               # Código interno da aplicação
@@ -202,7 +202,7 @@ As configurações são definidas em `config/config.json`:
 {
   "whatsapp": {
     "store_dir": "./whatsapp-store",
-    "client_name": "VIDA LOKA STRATEGY",
+    "client_name": "VIDA LOKA STRATEGIA",
     "auto_reply_timeout": 300
   },
   "database": {

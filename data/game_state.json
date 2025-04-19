@@ -161,6 +161,94 @@
         }
       ]
     },
+    "5521980414004": {
+      "id": "2d788c71-3f1a-4751-8123-000ec53632bf",
+      "phone_number": "5521980414004",
+      "name": "fabao",
+      "created_at": "2025-04-19T17:13:32.966738-03:00",
+      "last_active_at": "2025-04-19T18:11:21.969415-03:00",
+      "xp": 43,
+      "money": 73,
+      "influence": 28,
+      "status": "active",
+      "stress": 0,
+      "current_character": {
+        "id": "fogueteiro",
+        "name": "Fogueteiro",
+        "type": "Olheiro",
+        "description": "Jovem da comunidade que trabalha como sentinela, avisando sobre movimentações suspeitas. Conhece cada beco e cada morador.",
+        "created_at": "2025-04-18T00:00:00Z",
+        "updated_at": "2025-04-18T00:00:00Z",
+        "carisma": 2,
+        "proficiencia": 3,
+        "rede": 4,
+        "moralidade": 2,
+        "resiliencia": 5,
+        "favorite_actions": [
+          "trabalhar",
+          "relaxar"
+        ],
+        "natural_predators": [
+          "policial_militar",
+          "miliciano"
+        ],
+        "evolution_paths": [
+          "vapor",
+          "soldado",
+          "x9"
+        ]
+      },
+      "current_zone": "centro",
+      "current_sub_zone": "porto_maravilha",
+      "last_event_at": "0001-01-01T00:00:00Z",
+      "current_event": null,
+      "decision_history": [
+        {
+          "id": "b537b576-fc53-42b4-b83e-93e067995797",
+          "event_id": "action_curtir",
+          "choice": "curtir",
+          "timestamp": "2025-04-19T17:17:03.510142-03:00",
+          "outcome": "curtir",
+          "xp_change": 6,
+          "money_change": -63,
+          "influence_change": 6,
+          "stress_change": -10
+        },
+        {
+          "id": "0c65e964-afe3-4531-b243-ad44b978564e",
+          "event_id": "action_networking",
+          "choice": "networking",
+          "timestamp": "2025-04-19T17:17:32.103216-03:00",
+          "outcome": "networking",
+          "xp_change": 10,
+          "money_change": -42,
+          "influence_change": 10,
+          "stress_change": 5
+        },
+        {
+          "id": "161352de-7d77-4d3a-ae75-ad966a0c2b76",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T17:19:29.184288-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 12,
+          "money_change": 128,
+          "influence_change": 2,
+          "stress_change": 10
+        },
+        {
+          "id": "6392430b-6e18-4a45-b1b8-7450c394780e",
+          "event_id": "evento_006",
+          "choice": "opt_006_c",
+          "timestamp": "2025-04-19T18:11:21.969467-03:00",
+          "outcome": "Roll: 21, Required: 6, Success: true",
+          "xp_change": 15,
+          "money_change": -50,
+          "influence_change": 10,
+          "stress_change": -15
+        }
+      ]
+    },
     "5521989292091": {
       "id": "f649a99f-6291-4b40-b4d6-ec2119857570",
       "phone_number": "5521989292091",
@@ -180,16 +268,126 @@
       "decision_history": []
     },
     "556182443409": {
-      "id": "fa7c7fcd-b17b-479a-8c9c-b610273b091d",
+      "id": "ec8fd98e-e8f0-47a4-be13-4e5903e289b9",
       "phone_number": "556182443409",
       "name": "rafa",
-      "created_at": "2025-04-19T10:10:46.472666-03:00",
-      "last_active_at": "2025-04-19T10:12:16.895647-03:00",
-      "xp": 0,
-      "money": 100,
-      "influence": 0,
+      "created_at": "2025-04-19T19:03:11.518617-03:00",
+      "last_active_at": "2025-04-19T19:07:09.837808-03:00",
+      "xp": 49,
+      "money": 263,
+      "influence": 22,
       "status": "active",
-      "stress": 0,
+      "stress": 10,
+      "current_character": {
+        "id": "fogueteiro",
+        "name": "Fogueteiro",
+        "type": "Olheiro",
+        "description": "Jovem da comunidade que trabalha como sentinela, avisando sobre movimentações suspeitas. Conhece cada beco e cada morador.",
+        "created_at": "2025-04-18T00:00:00Z",
+        "updated_at": "2025-04-18T00:00:00Z",
+        "carisma": 2,
+        "proficiencia": 3,
+        "rede": 4,
+        "moralidade": 2,
+        "resiliencia": 5,
+        "favorite_actions": [
+          "trabalhar",
+          "relaxar"
+        ],
+        "natural_predators": [
+          "policial_militar",
+          "miliciano"
+        ],
+        "evolution_paths": [
+          "vapor",
+          "soldado",
+          "x9"
+        ]
+      },
+      "current_zone": "zona_sul",
+      "current_sub_zone": "ipanema",
+      "last_event_at": "0001-01-01T00:00:00Z",
+      "current_event": null,
+      "decision_history": [
+        {
+          "id": "ca09ab27-02f3-438e-ad76-2d36bcd394a8",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T19:04:57.621759-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 12,
+          "money_change": 128,
+          "influence_change": 2,
+          "stress_change": 10
+        },
+        {
+          "id": "22f3d2dc-efb4-492b-abc8-0a1f2e3c47d5",
+          "event_id": "action_networking",
+          "choice": "networking",
+          "timestamp": "2025-04-19T19:05:29.337053-03:00",
+          "outcome": "networking",
+          "xp_change": 10,
+          "money_change": -42,
+          "influence_change": 10,
+          "stress_change": 5
+        },
+        {
+          "id": "34bb670c-f54a-481b-aeb4-b0d1a1650b57",
+          "event_id": "action_curtir",
+          "choice": "curtir",
+          "timestamp": "2025-04-19T19:05:48.119341-03:00",
+          "outcome": "curtir",
+          "xp_change": 6,
+          "money_change": -63,
+          "influence_change": 6,
+          "stress_change": -10
+        },
+        {
+          "id": "d742fede-31b8-4d2c-bd75-71b9c6a39dfc",
+          "event_id": "action_dormir",
+          "choice": "dormir",
+          "timestamp": "2025-04-19T19:06:04.415496-03:00",
+          "outcome": "dormir",
+          "xp_change": 0,
+          "money_change": 0,
+          "influence_change": 0,
+          "stress_change": -30
+        },
+        {
+          "id": "e9ab98dc-3b0a-4254-a6e8-a3e369eb3595",
+          "event_id": "action_treinar",
+          "choice": "treinar",
+          "timestamp": "2025-04-19T19:06:57.694606-03:00",
+          "outcome": "treinar",
+          "xp_change": 7,
+          "money_change": -12,
+          "influence_change": 2,
+          "stress_change": -15
+        },
+        {
+          "id": "10197e35-8ea2-4cf9-a90c-c212ba80fc7c",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T19:07:09.837814-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 14,
+          "money_change": 152,
+          "influence_change": 2,
+          "stress_change": 10
+        }
+      ]
+    },
+    "556198293019": {
+      "id": "4b0b0a3a-1f3c-4e85-b634-5b9019605b07",
+      "phone_number": "556198293019",
+      "name": "raphael",
+      "created_at": "2025-04-19T19:33:58.206342-03:00",
+      "last_active_at": "2025-04-19T19:51:51.296263-03:00",
+      "xp": 285,
+      "money": 1410,
+      "influence": 69,
+      "status": "active",
+      "stress": 15,
       "current_character": {
         "id": "dono_boca",
         "name": "Dono da Boca",
@@ -216,101 +414,298 @@
           "presidiario"
         ]
       },
-      "current_zone": "centro",
-      "current_sub_zone": "lapa",
+      "current_zone": "zona_norte",
+      "current_sub_zone": "tijuca",
       "last_event_at": "0001-01-01T00:00:00Z",
-      "current_event": {
-        "id": "evento_random_001",
-        "name": "",
-        "description": "Uma tempestade repentina atinge a cidade, causando alagamentos e transtornos.",
-        "min_xp": 0,
-        "min_money": 0,
-        "min_influence": 0,
-        "required_zone": [],
-        "options": [
-          {
-            "id": "opt_random_001_a",
-            "description": "Esperar a chuva passar em um local seguro",
-            "required_attribute": "resiliencia",
-            "difficulty_level": 5,
-            "success_outcome": {
-              "description": "Você encontra um café aconchegante e aproveita o tempo para ler e relaxar enquanto a tempestade passa.",
-              "xp_change": 3,
-              "money_change": -15,
-              "influence_change": 0,
-              "stress_change": -10
-            },
-            "failure_outcome": {
-              "description": "O único abrigo que você encontra está lotado e desconfortável. Você passa horas em pé esperando a chuva diminuir.",
-              "xp_change": 1,
-              "money_change": -5,
-              "influence_change": 0,
-              "stress_change": 15
-            }
-          },
-          {
-            "id": "opt_random_001_b",
-            "description": "Enfrentar a chuva e seguir seu caminho",
-            "required_attribute": "resiliencia",
-            "difficulty_level": 8,
-            "success_outcome": {
-              "description": "Você se molha, mas consegue chegar ao seu destino a tempo para um compromisso importante.",
-              "xp_change": 5,
-              "money_change": 0,
-              "influence_change": 2,
-              "stress_change": 5
-            },
-            "failure_outcome": {
-              "description": "Você fica encharcado e acaba pegando um resfriado. Seus planos para os próximos dias são prejudicados.",
-              "xp_change": 2,
-              "money_change": -30,
-              "influence_change": -1,
-              "stress_change": 20
-            }
-          },
-          {
-            "id": "opt_random_001_c",
-            "description": "Pedir um transporte por aplicativo",
-            "required_attribute": "proficiencia",
-            "difficulty_level": 6,
-            "success_outcome": {
-              "description": "Você consegue um carro rapidamente por um preço razoável e chega seco ao seu destino.",
-              "xp_change": 2,
-              "money_change": -25,
-              "influence_change": 0,
-              "stress_change": -5
-            },
-            "failure_outcome": {
-              "description": "Os preços estão absurdamente altos devido à chuva. Você paga caro ou acaba desistindo e se molhando mesmo.",
-              "xp_change": 1,
-              "money_change": -50,
-              "influence_change": 0,
-              "stress_change": 10
-            }
-          },
-          {
-            "id": "opt_random_001_d",
-            "description": "Ligar para um amigo pedindo carona",
-            "required_attribute": "rede",
-            "difficulty_level": 7,
-            "success_outcome": {
-              "description": "Seu amigo está por perto e te busca. Vocês aproveitam o encontro inesperado para colocar o papo em dia.",
-              "xp_change": 4,
-              "money_change": 0,
-              "influence_change": 3,
-              "stress_change": -10
-            },
-            "failure_outcome": {
-              "description": "Nenhum dos seus amigos pode te ajudar no momento. Você precisa encontrar outra solução.",
-              "xp_change": 1,
-              "money_change": 0,
-              "influence_change": 0,
-              "stress_change": 5
-            }
-          }
-        ]
-      },
-      "decision_history": []
+      "current_event": null,
+      "decision_history": [
+        {
+          "id": "0a0add90-20d7-48a1-8894-1a168ef8bbb3",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T19:37:32.850366-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 12,
+          "money_change": 128,
+          "influence_change": 2,
+          "stress_change": 10
+        },
+        {
+          "id": "ce6bbfed-860b-48e9-b0e3-9a2f5375b1de",
+          "event_id": "action_networking",
+          "choice": "networking",
+          "timestamp": "2025-04-19T19:37:51.356744-03:00",
+          "outcome": "networking",
+          "xp_change": 10,
+          "money_change": -44,
+          "influence_change": 10,
+          "stress_change": 5
+        },
+        {
+          "id": "8b5ff3b0-da5d-4810-b3a7-8ec982d0dc54",
+          "event_id": "action_curtir",
+          "choice": "curtir",
+          "timestamp": "2025-04-19T19:38:05.933585-03:00",
+          "outcome": "curtir",
+          "xp_change": 6,
+          "money_change": -65,
+          "influence_change": 6,
+          "stress_change": -10
+        },
+        {
+          "id": "b1bf11dc-0196-4dcd-bfce-e17d82b33e51",
+          "event_id": "action_dormir",
+          "choice": "dormir",
+          "timestamp": "2025-04-19T19:38:18.713693-03:00",
+          "outcome": "dormir",
+          "xp_change": 0,
+          "money_change": 0,
+          "influence_change": 0,
+          "stress_change": -30
+        },
+        {
+          "id": "0d0c36de-6859-41d1-acda-902793fd9296",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T19:38:26.474005-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 12,
+          "money_change": 128,
+          "influence_change": 2,
+          "stress_change": 10
+        },
+        {
+          "id": "a4bd21b6-9f52-4c1b-9581-34894c8e6928",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T19:39:02.860045-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 12,
+          "money_change": 128,
+          "influence_change": 2,
+          "stress_change": 10
+        },
+        {
+          "id": "37ecd31a-c09f-4db7-a514-e6738153b0f0",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T19:39:55.649842-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 14,
+          "money_change": 152,
+          "influence_change": 2,
+          "stress_change": 10
+        },
+        {
+          "id": "55cedfa8-f8ac-4947-bcf6-a7efcaeb97df",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T19:41:24.64792-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 14,
+          "money_change": 152,
+          "influence_change": 2,
+          "stress_change": 10
+        },
+        {
+          "id": "f85e6823-29a6-4520-82dd-fe4f3b0af258",
+          "event_id": "action_networking",
+          "choice": "networking",
+          "timestamp": "2025-04-19T19:41:41.559931-03:00",
+          "outcome": "networking",
+          "xp_change": 12,
+          "money_change": -52,
+          "influence_change": 12,
+          "stress_change": 5
+        },
+        {
+          "id": "93fccfe2-66c0-481e-9ea0-3299b141cb62",
+          "event_id": "action_curtir",
+          "choice": "curtir",
+          "timestamp": "2025-04-19T19:41:57.877003-03:00",
+          "outcome": "curtir",
+          "xp_change": 7,
+          "money_change": -77,
+          "influence_change": 7,
+          "stress_change": -10
+        },
+        {
+          "id": "1769a426-657f-48e7-92bc-2f13f939a862",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T19:42:05.541925-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 14,
+          "money_change": 152,
+          "influence_change": 2,
+          "stress_change": 10
+        },
+        {
+          "id": "6ea29776-6101-4a85-9bb6-41f1c7ee5864",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T19:42:32.789093-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 14,
+          "money_change": 152,
+          "influence_change": 2,
+          "stress_change": 10
+        },
+        {
+          "id": "e5ecfb2d-7dea-4786-b972-13d7b320dbb9",
+          "event_id": "action_dormir",
+          "choice": "dormir",
+          "timestamp": "2025-04-19T19:42:39.56675-03:00",
+          "outcome": "dormir",
+          "xp_change": 0,
+          "money_change": 0,
+          "influence_change": 0,
+          "stress_change": -30
+        },
+        {
+          "id": "ef218a7d-5608-4dba-a575-2540ce3858d9",
+          "event_id": "action_estudar",
+          "choice": "estudar",
+          "timestamp": "2025-04-19T19:47:38.472253-03:00",
+          "outcome": "estudar",
+          "xp_change": 21,
+          "money_change": -10,
+          "influence_change": 0,
+          "stress_change": 5
+        },
+        {
+          "id": "5417852a-111e-430a-8601-c9c48a4a6433",
+          "event_id": "action_estudar",
+          "choice": "estudar",
+          "timestamp": "2025-04-19T19:47:46.749832-03:00",
+          "outcome": "estudar",
+          "xp_change": 21,
+          "money_change": -10,
+          "influence_change": 0,
+          "stress_change": 5
+        },
+        {
+          "id": "4701c79b-f5d1-4120-bd3f-c5be316e5a38",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T19:48:01.129153-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 12,
+          "money_change": 128,
+          "influence_change": 2,
+          "stress_change": 10
+        },
+        {
+          "id": "12c9002d-d46a-47a5-9967-5a6013b24c73",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T19:48:08.041938-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 12,
+          "money_change": 128,
+          "influence_change": 2,
+          "stress_change": 10
+        },
+        {
+          "id": "45ee02c7-0f56-48e0-90ca-5c4c98241044",
+          "event_id": "action_dormir",
+          "choice": "dormir",
+          "timestamp": "2025-04-19T19:49:29.365587-03:00",
+          "outcome": "dormir",
+          "xp_change": 0,
+          "money_change": 0,
+          "influence_change": 0,
+          "stress_change": -30
+        },
+        {
+          "id": "78002f62-62ed-4332-8344-8ff9d03c6152",
+          "event_id": "action_estudar",
+          "choice": "estudar",
+          "timestamp": "2025-04-19T19:49:34.786274-03:00",
+          "outcome": "estudar",
+          "xp_change": 21,
+          "money_change": -10,
+          "influence_change": 0,
+          "stress_change": 5
+        },
+        {
+          "id": "7b444922-4cb2-4d63-ac88-9de8db780c68",
+          "event_id": "action_estudar",
+          "choice": "estudar",
+          "timestamp": "2025-04-19T19:49:39.207138-03:00",
+          "outcome": "estudar",
+          "xp_change": 21,
+          "money_change": -10,
+          "influence_change": 0,
+          "stress_change": 5
+        },
+        {
+          "id": "dd1839ec-fd21-43d9-866e-6d6f2a21a3f4",
+          "event_id": "action_networking",
+          "choice": "networking",
+          "timestamp": "2025-04-19T19:50:01.694994-03:00",
+          "outcome": "networking",
+          "xp_change": 10,
+          "money_change": -44,
+          "influence_change": 10,
+          "stress_change": 5
+        },
+        {
+          "id": "8272f52a-fd95-4a1b-8507-9f9578e06363",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T19:50:10.066847-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 12,
+          "money_change": 128,
+          "influence_change": 2,
+          "stress_change": 10
+        },
+        {
+          "id": "00709351-a945-4d74-803c-9bbf4b201204",
+          "event_id": "action_dormir",
+          "choice": "dormir",
+          "timestamp": "2025-04-19T19:50:13.33077-03:00",
+          "outcome": "dormir",
+          "xp_change": 0,
+          "money_change": 0,
+          "influence_change": 0,
+          "stress_change": -30
+        },
+        {
+          "id": "96d452ff-7da7-423d-96da-ae8663db6773",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T19:50:46.957831-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 12,
+          "money_change": 128,
+          "influence_change": 2,
+          "stress_change": 10
+        },
+        {
+          "id": "34775787-0a97-4727-a7d3-c195f665a813",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T19:50:53.589348-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 12,
+          "money_change": 128,
+          "influence_change": 2,
+          "stress_change": 10
+        },
+        {
+          "id": "5f2f09bf-c46f-4171-b5b4-0af4010ce275",
+          "event_id": "action_meditar",
+          "choice": "meditar",
+          "timestamp": "2025-04-19T19:51:51.296281-03:00",
+          "outcome": "meditar",
+          "xp_change": 4,
+          "money_change": 0,
+          "influence_change": 0,
+          "stress_change": -25
+        }
+      ]
     },
     "557199716578": {
       "id": "14275716-0028-4f65-8bb0-c8789400a200",
@@ -535,16 +930,16 @@
       ]
     },
     "557791401494": {
-      "id": "e41bb381-c6d8-4466-926a-133991b69d37",
+      "id": "306b2a03-cd34-47d7-8eaa-60ee97d7f835",
       "phone_number": "557791401494",
-      "name": "rone",
-      "created_at": "2025-04-19T02:36:24.781594-03:00",
-      "last_active_at": "2025-04-19T13:20:08.34163-03:00",
-      "xp": 130,
-      "money": 1786,
-      "influence": 43,
+      "name": "ronesnautå",
+      "created_at": "2025-04-19T19:18:04.528797-03:00",
+      "last_active_at": "2025-04-19T19:18:44.261885-03:00",
+      "xp": 0,
+      "money": 100,
+      "influence": 0,
       "status": "active",
-      "stress": 10,
+      "stress": 0,
       "current_character": {
         "id": "hacker",
         "name": "Nerd Hacker",
@@ -572,166 +967,11 @@
           "ativista"
         ]
       },
-      "current_zone": "zona_norte",
-      "current_sub_zone": "complexo_alemao",
+      "current_zone": "centro",
+      "current_sub_zone": "lapa",
       "last_event_at": "0001-01-01T00:00:00Z",
       "current_event": null,
-      "decision_history": [
-        {
-          "id": "f195eaf7-0fba-4039-8cb8-cfb488210ae8",
-          "event_id": "action_trabalhar",
-          "choice": "trabalhar",
-          "timestamp": "2025-04-19T02:36:34.58847-03:00",
-          "outcome": "trabalhar",
-          "xp_change": 12,
-          "money_change": 130,
-          "influence_change": 2,
-          "stress_change": 10
-        },
-        {
-          "id": "676524b0-7b31-4c23-ac3a-fc966e22c11b",
-          "event_id": "action_trabalhar",
-          "choice": "trabalhar",
-          "timestamp": "2025-04-19T02:38:41.766616-03:00",
-          "outcome": "trabalhar",
-          "xp_change": 12,
-          "money_change": 130,
-          "influence_change": 2,
-          "stress_change": 10
-        },
-        {
-          "id": "93f74f01-08e1-4dd9-94ec-eb876eb4dfc6",
-          "event_id": "action_trabalhar",
-          "choice": "trabalhar",
-          "timestamp": "2025-04-19T02:40:52.886642-03:00",
-          "outcome": "trabalhar",
-          "xp_change": 12,
-          "money_change": 130,
-          "influence_change": 2,
-          "stress_change": 10
-        },
-        {
-          "id": "37185bc8-4ce0-4486-bbe9-d3c8025ff0e7",
-          "event_id": "evento_008",
-          "choice": "opt_008_d",
-          "timestamp": "2025-04-19T11:41:18.560741-03:00",
-          "outcome": "Roll: 5, Required: 7, Success: false",
-          "xp_change": 15,
-          "money_change": 500,
-          "influence_change": 10,
-          "stress_change": 15
-        },
-        {
-          "id": "05766f95-e2ed-4f05-9025-567ab965dd1d",
-          "event_id": "evento_008",
-          "choice": "opt_008_d",
-          "timestamp": "2025-04-19T11:43:23.063367-03:00",
-          "outcome": "Roll: 10, Required: 7, Success: true",
-          "xp_change": 25,
-          "money_change": 500,
-          "influence_change": 15,
-          "stress_change": 0
-        },
-        {
-          "id": "ad08a6fb-aee7-420a-bdd7-7e36c8a25198",
-          "event_id": "action_dormir",
-          "choice": "dormir",
-          "timestamp": "2025-04-19T11:44:42.112997-03:00",
-          "outcome": "dormir",
-          "xp_change": 0,
-          "money_change": 0,
-          "influence_change": 0,
-          "stress_change": -30
-        },
-        {
-          "id": "be62d079-7483-4b90-8db1-2ae74a36ab18",
-          "event_id": "evento_003",
-          "choice": "opt_003_d",
-          "timestamp": "2025-04-19T11:45:28.469149-03:00",
-          "outcome": "Roll: 6, Required: 6, Success: true",
-          "xp_change": 5,
-          "money_change": 0,
-          "influence_change": 0,
-          "stress_change": -5
-        },
-        {
-          "id": "b803aaf1-0805-48af-9f2b-294cbc0ec46f",
-          "event_id": "evento_006",
-          "choice": "opt_006_d",
-          "timestamp": "2025-04-19T11:48:15.795209-03:00",
-          "outcome": "Roll: 5, Required: 5, Success: true",
-          "xp_change": 10,
-          "money_change": -10,
-          "influence_change": 5,
-          "stress_change": 0
-        },
-        {
-          "id": "9c7900fa-97b2-4895-9113-4bd2247853c3",
-          "event_id": "action_treinar",
-          "choice": "treinar",
-          "timestamp": "2025-04-19T12:13:11.086876-03:00",
-          "outcome": "treinar",
-          "xp_change": 5,
-          "money_change": -9,
-          "influence_change": 1,
-          "stress_change": -15
-        },
-        {
-          "id": "f9ef9440-a58f-405d-8365-9fd0ea03436b",
-          "event_id": "action_trabalhar",
-          "choice": "trabalhar",
-          "timestamp": "2025-04-19T12:36:46.937949-03:00",
-          "outcome": "trabalhar",
-          "xp_change": 9,
-          "money_change": 105,
-          "influence_change": 1,
-          "stress_change": 10
-        },
-        {
-          "id": "18e8abc9-4410-4db2-8cc7-915e48433e4b",
-          "event_id": "action_trabalhar",
-          "choice": "trabalhar",
-          "timestamp": "2025-04-19T13:02:25.201715-03:00",
-          "outcome": "trabalhar",
-          "xp_change": 9,
-          "money_change": 105,
-          "influence_change": 1,
-          "stress_change": 10
-        },
-        {
-          "id": "18d8f8de-706d-47b3-969e-5dbb6f66ac78",
-          "event_id": "action_trabalhar",
-          "choice": "trabalhar",
-          "timestamp": "2025-04-19T13:16:58.826089-03:00",
-          "outcome": "trabalhar",
-          "xp_change": 9,
-          "money_change": 105,
-          "influence_change": 1,
-          "stress_change": 10
-        },
-        {
-          "id": "b80fd48f-ec87-4f13-8db1-72b48290e1aa",
-          "event_id": "evento_random_001",
-          "choice": "opt_random_001_d",
-          "timestamp": "2025-04-19T13:17:27.401709-03:00",
-          "outcome": "Roll: 15, Required: 7, Success: true",
-          "xp_change": 4,
-          "money_change": 0,
-          "influence_change": 3,
-          "stress_change": -10
-        },
-        {
-          "id": "19aba44e-cfe7-4480-b5bf-73ab11aee0ab",
-          "event_id": "evento_004",
-          "choice": "opt_004_d",
-          "timestamp": "2025-04-19T13:20:08.341692-03:00",
-          "outcome": "Roll: 15, Required: 5, Success: true",
-          "xp_change": 3,
-          "money_change": 0,
-          "influence_change": 0,
-          "stress_change": -10
-        }
-      ]
+      "decision_history": []
     }
   },
   "characters": {

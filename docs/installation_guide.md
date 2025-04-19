@@ -1,6 +1,6 @@
-# VIDA LOKA STRATEGY - Guia de Instalação
+# VIDA LOKA STRATEGIA - Guia de Instalação
 
-Este guia fornece instruções passo a passo para instalar e executar o VIDA LOKA STRATEGY, um jogo de RPG baseado em WhatsApp.
+Este guia fornece instruções passo a passo para instalar e executar o VIDA LOKA STRATEGIA, um jogo de RPG baseado em WhatsApp.
 
 ## Requisitos do Sistema
 
@@ -14,8 +14,8 @@ Este guia fornece instruções passo a passo para instalar e executar o VIDA LOK
 ### 1. Clonar o Repositório
 
 ```bash
-git clone https://github.com/user/vida-loka-strategy.git
-cd vida-loka-strategy
+git clone https://github.com/user/vida-loka-strategia.git
+cd vida-loka-strategia
 ```
 
 ### 2. Instalar Dependências
@@ -73,7 +73,7 @@ Para personalizar a integração com WhatsApp, edite a seção `whatsapp` no arq
 ```json
 "whatsapp": {
   "store_dir": "./whatsapp-store",
-  "client_name": "VIDA LOKA STRATEGY",
+  "client_name": "VIDA LOKA STRATEGIA",
   "auto_reply_timeout": 300
 }
 ```
@@ -158,13 +158,13 @@ Adicione o seguinte conteúdo:
 
 ```
 [Unit]
-Description=VIDA LOKA STRATEGY WhatsApp Game Server
+Description=VIDA LOKA STRATEGIA WhatsApp Game Server
 After=network.target
 
 [Service]
 User=ubuntu
-WorkingDirectory=/path/to/vida-loka-strategy
-ExecStart=/path/to/vida-loka-strategy/vida-loka-server --config=/path/to/vida-loka-strategy/config/config.json
+WorkingDirectory=/path/to/vida-loka-strategia
+ExecStart=/path/to/vida-loka-strategia/vida-loka-server --config=/path/to/vida-loka-strategy/config/config.json
 Restart=on-failure
 RestartSec=5
 StandardOutput=journal

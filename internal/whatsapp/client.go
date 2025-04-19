@@ -6,7 +6,6 @@ import (
 	"math/rand"
 	"os"
 	"path/filepath"
-	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -622,7 +621,7 @@ func (cm *ClientManager) processGameCommand(sender, command string) string {
 	// Unknown command
 	cm.logger.Info("Unknown command received",
 		zap.String("command", command))
-	return "Comando não reconhecido. Digite '/ajuda' para ver os comandos disponíveis."
+	return "Comando não reconhecido. Digite */ajuda* para ver os comandos disponíveis."
 }
 
 // handleRegistrationCommand processes player registration
@@ -652,6 +651,7 @@ func (cm *ClientManager) handleRegistrationCommand(sender, command string) strin
 	characters := cm.gameManager.GetAvailableCharacters()
 	var characterList strings.Builder
 	characterList.WriteString("🎭 *PERSONAGENS DISPONÍVEIS* 🎭\n\n")
+	characterList.WriteString("Para escolher um personagem, digite: */escolher [número]* 🎯\n\n")
 	for i, char := range characters {
 		characterList.WriteString(fmt.Sprintf("%d. %s %s\n", i+1, getCharacterEmoji(char.Name), char.Name))
 		characterList.WriteString(fmt.Sprintf("   %s\n\n", char.Description))
@@ -659,7 +659,7 @@ func (cm *ClientManager) handleRegistrationCommand(sender, command string) strin
 	characterList.WriteString("Digite */escolher [número]* para escolher seu personagem.")
 
 	// Send welcome message without QR code
-	return fmt.Sprintf("E aí, %s! Bem-vindo ao *VIDA LOKA STRATEGY*! 🎮\n\n"+
+	return fmt.Sprintf("E aí, *%s*! Bem-vindo ao *VIDA LOKA STRATEGIA*! 🎮\n\n"+
 		"Agora você pode escolher seu personagem.\n\n%s", player.Name, characterList.String())
 }
 
@@ -739,10 +739,19 @@ func (cm *ClientManager) handleCharacterSelectionCommand(sender, command string)
 	selectedCharacter := characters[characterIndex-1]
 	err = cm.gameManager.SelectCharacter(sender, selectedCharacter.ID)
 	if err != nil {
-		if err.Error() == "player already has character selected" {
-			return "Você já escolheu um personagem. Digite 'status' para ver sua situação atual."
+		if err.Error() == "player already has character" {
+			return "🎭 *IDENTIDADE JÁ EM USO*\n\n" +
+				"Ei, você já escolheu um personagem! 😅\n" +
+				"Se quiser mudar, vai ter que começar de novo!\n\n" +
+				"*Dica:* Digite */status* para ver sua situação atual."
 		}
-		return fmt.Sprintf("Erro ao selecionar personagem: %s", err.Error())
+		// Get random phrase
+		randomPhrase := characterErrorPhrases[rand.Intn(len(characterErrorPhrases))]
+		return fmt.Sprintf("🎭 *ERRO DE IDENTIDADE*\n\n"+
+			"*Problema:* %s\n\n"+
+			"%s\n\n"+
+			"*Dica:* Digite */comecar [seu nome]* para começar sua jornada.",
+			err.Error(), randomPhrase)
 	}
 
 	// Send character selection confirmation
@@ -770,31 +779,31 @@ func (cm *ClientManager) handleStatusCommand(sender string) string {
 	// Get player status
 	status, err := cm.gameManager.GetPlayerStatus(sender)
 	if err != nil {
-		if err.Error() == "player not found" {
-			return "Ei, você nem começou o jogo ainda! 😅\nDigite 'comecar [seu nome]' para começar."
+		if err.Error() == "jogador não encontrado" {
+			return "Caramba, você ainda nem começou essa vida torta! \n\n😵‍💫 Digita */comecar [seu nome]* e bora pro caos."
 		}
-		if err.Error() == "player has no character selected" {
-			return "Você ainda não escolheu um personagem! 🤔\nUse 'escolher [número]' para selecionar."
+		if err.Error() == "jogador não selecionou um personagem" {
+			return "🕯️Você ainda não escolheu um personagem ainda... 🤔\nDigite *'/escolher [número]'* para parar com essa crise de identidade."
 		}
 		return fmt.Sprintf("Ops! Algo deu errado: %s 😱", err.Error())
 	}
 
 	// Build response
-	response := fmt.Sprintf("📊 STATUS DE %s 📊\n\n", status["name"])
-	response += fmt.Sprintf("Personagem: %s (%s) 🎭\n", status["character"], status["character_type"])
-	response += fmt.Sprintf("XP: %d ⭐\n", status["xp"])
-	response += fmt.Sprintf("Dinheiro: R$ %d,00 💵\n", status["money"])
-	response += fmt.Sprintf("Influência: %d 🎭\n", status["influence"])
-	response += fmt.Sprintf("Estresse: %d/100 💥\n", status["stress"])
-	response += fmt.Sprintf("Localização: %s 🗺️\n\n", status["location"])
+	response := fmt.Sprintf("📊 STATUS DE *%s* 📊\n\n", status["name"])
+	response += fmt.Sprintf("*Personagem*: %s (%s) 🎭\n", status["character"], status["character_type"])
+	response += fmt.Sprintf("*XP*: %d ⭐\n", status["xp"])
+	response += fmt.Sprintf("*Dinheiro*: R$ %d,00 💵\n", status["money"])
+	response += fmt.Sprintf("*Influência*: %d 🎭\n", status["influence"])
+	response += fmt.Sprintf("*Estresse*: %d/100 💥\n", status["stress"])
+	response += fmt.Sprintf("*Localização*: %s 🗺️\n\n", status["location"])
 
-	response += "ATRIBUTOS:\n"
+	response += "*ATRIBUTOS*:\n"
 	attributes := status["attributes"].(map[string]int)
-	response += fmt.Sprintf("Carisma: %d 🎭\n", attributes["carisma"])
-	response += fmt.Sprintf("Proficiência: %d 🧠\n", attributes["proficiencia"])
-	response += fmt.Sprintf("Rede: %d 🤝\n", attributes["rede"])
-	response += fmt.Sprintf("Moralidade: %d 👼\n", attributes["moralidade"])
-	response += fmt.Sprintf("Resiliência: %d 🥊\n", attributes["resiliencia"])
+	response += fmt.Sprintf("*Carisma*: %d 🎭\n", attributes["carisma"])
+	response += fmt.Sprintf("*Proficiência*: %d 🧠\n", attributes["proficiencia"])
+	response += fmt.Sprintf("*Rede*: %d 🤝\n", attributes["rede"])
+	response += fmt.Sprintf("*Moralidade*: %d 👼\n", attributes["moralidade"])
+	response += fmt.Sprintf("*Resiliência*: %d 🥊\n", attributes["resiliencia"])
 
 	return response
 }
@@ -936,7 +945,7 @@ func (cm *ClientManager) handleEventResponseCommand(sender, command string) stri
 	// Send dice rolling message
 	diceMessage := "🎲 *ROLANDO OS DADOS...* 🎲\n\n" +
 		"O destino está sendo decidido...\n" +
-		"Os deuses do RNG estão trabalhando...\n" +
+		"Os deuses do RPG estão trabalhando...\n" +
 		"*TUM TUM TUM...*"
 
 	// Get client to send dice message
@@ -1016,7 +1025,7 @@ func (cm *ClientManager) handleCharactersListCommand() string {
 
 // handleHelpCommand returns help information
 func (cm *ClientManager) handleHelpCommand() string {
-	response := "🎮 *VIDA LOKA STRATEGY* - SEU GUIA DE SOBREVIVÊNCIA 🎮\n\n"
+	response := "🎮 *VIDA LOKA STRATEGIA* - SEU GUIA DE SOBREVIVÊNCIA 🎮\n\n"
 
 	response += "🎯 *BÁSICOS* (PRA NÃO FICAR PERDIDO):\n"
 	response += "*/comecar [nome]* - Começa sua jornada de sucesso (ou fracasso) 🚀\n"
@@ -1042,10 +1051,10 @@ func (cm *ClientManager) handleHelpCommand() string {
 
 	response += "🏃‍♂️ *ZONAS E LOCOMOÇÃO* (PRA NÃO FICAR PARADO):\n"
 	response += "*/mover [subzona]* - Mude de lugar (antes que te peguem) 🏃‍♂️\n"
-	response += "Zona Sul: Copacabana, Ipanema, Leblon, Vidigal 🌊\n"
-	response += "Zona Norte: Madureira, Méier, Complexo do Alemão, Tijuca 🏙️\n"
-	response += "Centro: Lapa, SAARA, Cinelândia, Porto Maravilha 🎭\n"
-	response += "Zona Oeste: Barra da Tijuca, Jacarepaguá, Campo Grande, Santa Cruz 🌅\n\n"
+	response += "*Zona Sul*: Copacabana, Ipanema, Leblon, Vidigal 🌊\n"
+	response += "*Zona Norte*: Madureira, Méier, Complexo do Alemão, Tijuca 🏙️\n"
+	response += "*Centro*: Lapa, SAARA, Cinelândia, Porto Maravilha 🎭\n"
+	response += "*Zona Oeste*: Barra da Tijuca, Jacarepaguá, Campo Grande, Santa Cruz 🌅\n\n"
 
 	response += "🎲 *ATRIBUTOS* (PRA FICAR MAIS INTELIGENTE):\n"
 	response += "Carisma: Habilidade de convencer até pedra 🎭\n"
@@ -1363,27 +1372,6 @@ func parseJID(jidString string) (waTypes.JID, error) {
 	return waTypes.ParseJID(jidString)
 }
 
-func (cm *ClientManager) handleCharactersCommand() string {
-	characters := cm.gameManager.GetAvailableCharacters()
-
-	response := "🎭 *PERSONAGENS DISPONÍVEIS* 🎭\n\n"
-
-	for i, char := range characters {
-		emoji := getCharacterEmoji(char.Name)
-
-		response += fmt.Sprintf("%d. *%s* %s\n", i+1, char.Name, emoji)
-		response += fmt.Sprintf("   Carisma: %d 🎭\n", char.Carisma)
-		response += fmt.Sprintf("   Proficiência: %d 🧠\n", char.Proficiencia)
-		response += fmt.Sprintf("   Rede: %d 🤝\n", char.Rede)
-		response += fmt.Sprintf("   Moralidade: %d 👼\n", char.Moralidade)
-		response += fmt.Sprintf("   Resiliência: %d 🥊\n\n", char.Resiliencia)
-	}
-
-	response += "Para escolher um personagem, digite: */escolher [número]* 🎯"
-
-	return response
-}
-
 // Helper function to get character-specific emoji
 func getCharacterEmoji(name string) string {
 	switch name {
@@ -1414,65 +1402,6 @@ func getCharacterEmoji(name string) string {
 	default:
 		return "🎭"
 	}
-}
-
-func (cm *ClientManager) handleChooseCommand(sender, command string) string {
-	parts := strings.Fields(command)
-	if len(parts) < 2 {
-		return "Ei, você esqueceu de escolher um número! 🤔\n\n" +
-			"Use: */escolher [número]*"
-	}
-
-	index, err := strconv.Atoi(parts[1])
-	if err != nil {
-		return "Ei, isso não é um número válido! 🧐\n\n" +
-			"Use um número da lista de personagens!"
-	}
-
-	characters := cm.gameManager.GetAvailableCharacters()
-	if index < 1 || index > len(characters) {
-		return fmt.Sprintf("Ei, esse número não existe! 😅\n\n"+
-			"Escolha entre *1* e *%d*!", len(characters))
-	}
-
-	character := characters[index-1]
-	err = cm.gameManager.SelectCharacter(sender, character.ID)
-	if err != nil {
-		if err.Error() == "player already has character" {
-			return "Ei, você já escolheu um personagem! 😅\n\n" +
-				"Se quiser mudar, vai ter que começar de novo!"
-		}
-		return fmt.Sprintf("Ops! Algo deu errado: %s 😱", err.Error())
-	}
-
-	emoji := getCharacterEmoji(character.Name)
-
-	return fmt.Sprintf("🎉 *PARABÉNS!* Você agora é *%s* %s\n\n"+
-		"*Seus atributos:*\n"+
-		"Carisma: %d 🎭\n"+
-		"Proficiência: %d 🧠\n"+
-		"Rede: %d 🤝\n"+
-		"Moralidade: %d 👼\n"+
-		"Resiliência: %d 🥊\n\n"+
-		"Você acorda em *Copacabana* 🌊 com R$ 100,00 💰 e 0 XP ⭐\n\n"+
-		"Digite */ajuda* para ver os comandos disponíveis! 🎮",
-		character.Name, emoji,
-		character.Carisma, character.Proficiencia, character.Rede,
-		character.Moralidade, character.Resiliencia)
-}
-
-// Helper function to check if an action is available in a zone
-func isActionAvailable(zoneID, subZoneID, actionID string) bool {
-	// Get available actions for the sub-zone
-	availableActions := getAvailableActions(zoneID, subZoneID)
-
-	// Check if the action is in the list
-	for _, action := range availableActions {
-		if action == actionID {
-			return true
-		}
-	}
-	return false
 }
 
 // Helper function to get available actions for a zone
@@ -1590,4 +1519,20 @@ func normalizeSubzoneName(name string) string {
 	}
 
 	return name
+}
+
+// Random phrases for character selection errors
+var characterErrorPhrases = []string{
+	"Tá querendo ser fantasma antes da hora, parceiro?",
+	"Calma aí, zumbi! Nem começou o jogo ainda!",
+	"Que isso, morto-vivo? Vai começar do começo!",
+	"Tá achando que é o Batman pra ter múltiplas identidades?",
+	"Parece que alguém tá querendo trapacear na vida...",
+	"Tá achando que isso aqui é o multiverso, brother?",
+	"Que isso, clone? Só um personagem por jogador!",
+	"Tá querendo ser o Thanos da vida real?",
+	"Calma aí, Dr. Estranho! Só uma realidade por vez!",
+	"Tá achando que isso aqui é o Matrix?",
+	"Que isso, viajante do tempo? Uma identidade só!",
+	"Tá querendo ser o Loki da vida? Só um disfarce por vez!",
 }

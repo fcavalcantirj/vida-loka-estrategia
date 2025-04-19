@@ -1,8 +1,8 @@
-# 🧠 SUPER PROMPT — VIDA LOKA STRATEGY (JOGO VIA WHATSAPP)
+# 🧠 SUPER PROMPT — VIDA LOKA STRATEGIA (JOGO VIA WHATSAPP)
 
 ## 🎮 O que é?
 
-VIDA LOKA STRATEGY é um jogo de **estratégia e evolução de personagem**, jogável inteiramente via **WhatsApp**, onde o jogador encarna um perfil da sociedade urbana brasileira — de estudante da UERJ a dono da boca, de coach motivacional a surfista de Ipanema.
+VIDA LOKA STRATEGIA é um jogo de **estratégia e evolução de personagem**, jogável inteiramente via **WhatsApp**, onde o jogador encarna um perfil da sociedade urbana brasileira — de estudante da UERJ a dono da boca, de coach motivacional a surfista de Ipanema.
 
 É um simulador de vida, com **decisões morais, eventos caóticos, rolagem de dados, e evolução baseada em XP, dinheiro e influência**. Mistura **RPG leve**, **crítica social** e **humor ácido**.
 

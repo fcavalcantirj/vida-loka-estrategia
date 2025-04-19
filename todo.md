@@ -1,4 +1,4 @@
-# VIDA LOKA STRATEGY Implementation Todo List
+# VIDA LOKA STRATEGIA Implementation Todo List
 
 ## Setup Development Environment
 - [x] Create project directory structure
