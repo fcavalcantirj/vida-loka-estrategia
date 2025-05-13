@@ -161,6 +161,139 @@
         }
       ]
     },
+    "5521971113242": {
+      "id": "012a6ac0-5ed1-4dc3-9309-c7de7a129a3c",
+      "phone_number": "5521971113242",
+      "name": "marcelo",
+      "created_at": "2025-04-19T21:59:53.740005-03:00",
+      "last_active_at": "2025-04-19T22:02:00.891648-03:00",
+      "xp": 0,
+      "money": 100,
+      "influence": 0,
+      "status": "active",
+      "stress": 0,
+      "current_character": {
+        "id": "surfista",
+        "name": "Surfista Carioca",
+        "type": "Zona Sul",
+        "description": "Nascido e criado em Ipanema, vive do mar e para o mar. Conhece todos os points da zona sul e tem conexões com gringos.",
+        "created_at": "2025-04-18T00:00:00Z",
+        "updated_at": "2025-04-18T00:00:00Z",
+        "carisma": 4,
+        "proficiencia": 3,
+        "rede": 3,
+        "moralidade": 4,
+        "resiliencia": 3,
+        "favorite_actions": [
+          "relaxar",
+          "curtir",
+          "trabalhar"
+        ],
+        "natural_predators": [
+          "policial_militar",
+          "empresario"
+        ],
+        "evolution_paths": [
+          "atleta_profissional",
+          "instrutor",
+          "empresario"
+        ]
+      },
+      "current_zone": "centro",
+      "current_sub_zone": "lapa",
+      "last_event_at": "0001-01-01T00:00:00Z",
+      "current_event": null,
+      "decision_history": []
+    },
+    "5521971178770": {
+      "id": "b01d7354-4e07-4f40-9b0f-18b7dee9f9e5",
+      "phone_number": "5521971178770",
+      "name": "pedro",
+      "created_at": "2025-04-19T21:28:53.960623-03:00",
+      "last_active_at": "2025-04-19T21:36:40.592799-03:00",
+      "xp": 39,
+      "money": 349,
+      "influence": 10,
+      "status": "active",
+      "stress": 20,
+      "current_character": {
+        "id": "hacker",
+        "name": "Nerd Hacker",
+        "type": "Digital",
+        "description": "Programador autodidata que transita entre o mundo legal e ilegal da tecnologia. Prefere o anonimato e trabalha remotamente.",
+        "created_at": "2025-04-18T00:00:00Z",
+        "updated_at": "2025-04-18T00:00:00Z",
+        "carisma": 1,
+        "proficiencia": 5,
+        "rede": 3,
+        "moralidade": 3,
+        "resiliencia": 4,
+        "favorite_actions": [
+          "estudar",
+          "trabalhar",
+          "relaxar"
+        ],
+        "natural_predators": [
+          "policial_federal",
+          "empresario"
+        ],
+        "evolution_paths": [
+          "cibercriminoso",
+          "empreendedor_tech",
+          "ativista"
+        ]
+      },
+      "current_zone": "centro",
+      "current_sub_zone": "cinelandia",
+      "last_event_at": "0001-01-01T00:00:00Z",
+      "current_event": null,
+      "decision_history": [
+        {
+          "id": "d84676eb-1179-4492-9a66-007923cb087b",
+          "event_id": "action_curtir",
+          "choice": "curtir",
+          "timestamp": "2025-04-19T21:31:34.922963-03:00",
+          "outcome": "curtir",
+          "xp_change": 6,
+          "money_change": -63,
+          "influence_change": 6,
+          "stress_change": -10
+        },
+        {
+          "id": "d70fd17c-77d8-4ef4-8938-9df21d83a6bd",
+          "event_id": "action_meditar",
+          "choice": "meditar",
+          "timestamp": "2025-04-19T21:36:22.62378-03:00",
+          "outcome": "meditar",
+          "xp_change": 5,
+          "money_change": 0,
+          "influence_change": 0,
+          "stress_change": -25
+        },
+        {
+          "id": "5ae21d72-31f8-4631-ab24-108f6b0b553e",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T21:36:32.635094-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 14,
+          "money_change": 156,
+          "influence_change": 2,
+          "stress_change": 10
+        },
+        {
+          "id": "792318f2-2f43-4fa4-b866-f13ca0165754",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T21:36:40.59281-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 14,
+          "money_change": 156,
+          "influence_change": 2,
+          "stress_change": 10
+        }
+      ]
+    },
     "5521980414004": {
       "id": "2d788c71-3f1a-4751-8123-000ec53632bf",
       "phone_number": "5521980414004",
@@ -249,6 +382,105 @@
         }
       ]
     },
+    "5521981128833": {
+      "id": "df916a17-3a63-4536-aa98-48fdca2b6756",
+      "phone_number": "5521981128833",
+      "name": "paulo",
+      "created_at": "2025-04-19T21:30:16.752121-03:00",
+      "last_active_at": "2025-04-19T21:42:29.66299-03:00",
+      "xp": 62,
+      "money": 156,
+      "influence": 21,
+      "status": "active",
+      "stress": 5,
+      "current_character": {
+        "id": "dono_boca",
+        "name": "Dono da Boca",
+        "type": "Criminoso",
+        "description": "Cresceu na comunidade e subiu na hierarquia. Controla o tráfico local com mão de ferro, mas tem código de honra com os moradores.",
+        "created_at": "2025-04-18T00:00:00Z",
+        "updated_at": "2025-04-18T00:00:00Z",
+        "carisma": 4,
+        "proficiencia": 3,
+        "rede": 5,
+        "moralidade": 1,
+        "resiliencia": 5,
+        "favorite_actions": [
+          "trabalhar",
+          "relaxar"
+        ],
+        "natural_predators": [
+          "policial_militar",
+          "miliciano"
+        ],
+        "evolution_paths": [
+          "empresario",
+          "politico",
+          "presidiario"
+        ]
+      },
+      "current_zone": "zona_sul",
+      "current_sub_zone": "leblon",
+      "last_event_at": "0001-01-01T00:00:00Z",
+      "current_event": null,
+      "decision_history": [
+        {
+          "id": "e52f7af2-8e41-44f3-8ff0-9958fbb4e83d",
+          "event_id": "action_meditar",
+          "choice": "meditar",
+          "timestamp": "2025-04-19T21:37:01.408712-03:00",
+          "outcome": "meditar",
+          "xp_change": 5,
+          "money_change": 0,
+          "influence_change": 0,
+          "stress_change": -25
+        },
+        {
+          "id": "5915e4ab-773d-4861-97bc-a7c7471f4cdf",
+          "event_id": "action_empreender",
+          "choice": "empreender",
+          "timestamp": "2025-04-19T21:37:15.119982-03:00",
+          "outcome": "empreender",
+          "xp_change": 22,
+          "money_change": -56,
+          "influence_change": 5,
+          "stress_change": 15
+        },
+        {
+          "id": "b4e06c75-aa1b-45ed-bb2a-4be4b76fe759",
+          "event_id": "action_networking",
+          "choice": "networking",
+          "timestamp": "2025-04-19T21:39:19.763915-03:00",
+          "outcome": "networking",
+          "xp_change": 14,
+          "money_change": -58,
+          "influence_change": 14,
+          "stress_change": 5
+        },
+        {
+          "id": "939bd465-573f-45a4-99a6-e869b48cf4a4",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T21:39:47.059944-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 16,
+          "money_change": 170,
+          "influence_change": 2,
+          "stress_change": 10
+        },
+        {
+          "id": "b63750c7-92a8-4c47-bd37-546292adc28b",
+          "event_id": "action_meditar",
+          "choice": "meditar",
+          "timestamp": "2025-04-19T21:42:29.663-03:00",
+          "outcome": "meditar",
+          "xp_change": 5,
+          "money_change": 0,
+          "influence_change": 0,
+          "stress_change": -25
+        }
+      ]
+    },
     "5521989292091": {
       "id": "f649a99f-6291-4b40-b4d6-ec2119857570",
       "phone_number": "5521989292091",
@@ -307,7 +539,102 @@
       "current_zone": "zona_sul",
       "current_sub_zone": "ipanema",
       "last_event_at": "0001-01-01T00:00:00Z",
-      "current_event": null,
+      "current_event": {
+        "id": "evento_005",
+        "name": "",
+        "description": "Você descobre um curso gratuito que pode melhorar suas habilidades profissionais, mas exigirá tempo e dedicação.",
+        "min_xp": 15,
+        "min_money": 0,
+        "min_influence": 0,
+        "required_zone": [
+          "centro",
+          "zona_sul",
+          "zona_norte"
+        ],
+        "options": [
+          {
+            "id": "opt_005_a",
+            "description": "Matricular-se e dedicar-se integralmente",
+            "required_attribute": "proficiencia",
+            "difficulty_level": 7,
+            "success_outcome": {
+              "description": "Você completa o curso com excelência e adquire habilidades valiosas que abrem novas oportunidades.",
+              "xp_change": 30,
+              "money_change": -20,
+              "influence_change": 5,
+              "stress_change": 10,
+              "next_event_id": "evento_006"
+            },
+            "failure_outcome": {
+              "description": "O curso é mais difícil do que esperava. Você se esforça, mas não consegue acompanhar o ritmo e abandona.",
+              "xp_change": 8,
+              "money_change": -20,
+              "influence_change": 0,
+              "stress_change": 20
+            }
+          },
+          {
+            "id": "opt_005_b",
+            "description": "Fazer o curso parcialmente, conciliando com outras atividades",
+            "required_attribute": "resiliencia",
+            "difficulty_level": 8,
+            "success_outcome": {
+              "description": "Com disciplina, você consegue equilibrar o curso com suas outras responsabilidades e aprende o essencial.",
+              "xp_change": 20,
+              "money_change": -10,
+              "influence_change": 3,
+              "stress_change": 15
+            },
+            "failure_outcome": {
+              "description": "A sobrecarga de atividades te esgota. Você acaba não aproveitando bem o curso e prejudicando outras áreas da vida.",
+              "xp_change": 5,
+              "money_change": -10,
+              "influence_change": 0,
+              "stress_change": 25
+            }
+          },
+          {
+            "id": "opt_005_c",
+            "description": "Convidar amigos para fazerem o curso juntos",
+            "required_attribute": "rede",
+            "difficulty_level": 6,
+            "success_outcome": {
+              "description": "Seus amigos topam a ideia. Juntos, vocês se motivam mutuamente e formam um grupo de estudos produtivo.",
+              "xp_change": 25,
+              "money_change": -15,
+              "influence_change": 8,
+              "stress_change": 5
+            },
+            "failure_outcome": {
+              "description": "Seus amigos começam animados, mas logo desistem. Você acaba se desmotivando também e abandona o curso.",
+              "xp_change": 3,
+              "money_change": -15,
+              "influence_change": -2,
+              "stress_change": 10
+            }
+          },
+          {
+            "id": "opt_005_d",
+            "description": "Ignorar a oportunidade e focar em ganhar dinheiro",
+            "required_attribute": "carisma",
+            "difficulty_level": 7,
+            "success_outcome": {
+              "description": "Você consegue um trabalho temporário que paga bem e compensa a falta do curso.",
+              "xp_change": 5,
+              "money_change": 150,
+              "influence_change": 2,
+              "stress_change": 15
+            },
+            "failure_outcome": {
+              "description": "Você não consegue o trabalho esperado e ainda perde a oportunidade do curso gratuito.",
+              "xp_change": 0,
+              "money_change": 20,
+              "influence_change": -1,
+              "stress_change": 20
+            }
+          }
+        ]
+      },
       "decision_history": [
         {
           "id": "ca09ab27-02f3-438e-ad76-2d36bcd394a8",
@@ -382,12 +709,12 @@
       "phone_number": "556198293019",
       "name": "raphael",
       "created_at": "2025-04-19T19:33:58.206342-03:00",
-      "last_active_at": "2025-04-19T19:51:51.296263-03:00",
-      "xp": 285,
-      "money": 1410,
-      "influence": 69,
+      "last_active_at": "2025-04-19T21:28:20.373761-03:00",
+      "xp": 297,
+      "money": 1538,
+      "influence": 71,
       "status": "active",
-      "stress": 15,
+      "stress": 25,
       "current_character": {
         "id": "dono_boca",
         "name": "Dono da Boca",
@@ -704,6 +1031,17 @@
           "money_change": 0,
           "influence_change": 0,
           "stress_change": -25
+        },
+        {
+          "id": "cfe5c03a-0d7d-4ada-946b-d124fdbdf889",
+          "event_id": "action_trabalhar",
+          "choice": "trabalhar",
+          "timestamp": "2025-04-19T21:28:20.37377-03:00",
+          "outcome": "trabalhar",
+          "xp_change": 12,
+          "money_change": 128,
+          "influence_change": 2,
+          "stress_change": 10
         }
       ]
     },
@@ -934,10 +1272,10 @@
       "phone_number": "557791401494",
       "name": "ronesnautå",
       "created_at": "2025-04-19T19:18:04.528797-03:00",
-      "last_active_at": "2025-04-19T19:18:44.261885-03:00",
-      "xp": 0,
-      "money": 100,
-      "influence": 0,
+      "last_active_at": "2025-04-19T22:35:03.232314-03:00",
+      "xp": 25,
+      "money": 600,
+      "influence": 15,
       "status": "active",
       "stress": 0,
       "current_character": {
@@ -971,7 +1309,19 @@
       "current_sub_zone": "lapa",
       "last_event_at": "0001-01-01T00:00:00Z",
       "current_event": null,
-      "decision_history": []
+      "decision_history": [
+        {
+          "id": "5bf58ff6-b6dc-4751-ba1d-59365db17840",
+          "event_id": "evento_008",
+          "choice": "opt_008_d",
+          "timestamp": "2025-04-19T22:35:03.23236-03:00",
+          "outcome": "Roll: 23, Required: 7, Success: true",
+          "xp_change": 25,
+          "money_change": 500,
+          "influence_change": 15,
+          "stress_change": 0
+        }
+      ]
     }
   },
   "characters": {
